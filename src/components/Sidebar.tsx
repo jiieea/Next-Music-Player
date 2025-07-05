@@ -4,29 +4,54 @@ import { usePathname } from 'next/navigation';
 import React, { useMemo } from 'react'
 import { BiSearch } from 'react-icons/bi';
 import { HiHome } from 'react-icons/hi';
+import Box from './Box';
+import SideBarItems from './SideBarItems';
+import Library from './Library';
 interface SidebarProps {
     children: React.ReactNode;
 }
 
-export const Sidebar : React.FC<SidebarProps> = ({
+export const Sidebar: React.FC<SidebarProps> = ({
     children
 }) => {
     const pathname = usePathname();
     const routes = useMemo(() => [
         {
-            icon : HiHome,
-            label : "Home",
-            active : pathname !== '/search',
-            href : "/"
+            icon: HiHome,
+            label: "Home",
+            active: pathname !== '/search',
+            href: "/"
         }, {
-            icon : BiSearch,
-            label : "Search",
-            active : pathname === "/search"
+            icon: BiSearch,
+            label: "Search",
+            active: pathname === "/search",
+            href: "/search"
         }
-    ] , [pathname])
-  return (
-    <div className='flex flex-col  h-screen m-5 font-bold text-green-500 text-2xl'>
-        { children }
-    </div>
-  )
+    ], [pathname])
+    return (
+        <div className='flex h-full'>
+            <div className="
+        hidden
+        md:flex
+        flex-col
+        h-full
+        gap-y-2
+        bg-black
+        w-[300px]
+        p-2
+        ">
+                <Box>
+                    {
+                        routes.map((item) => (
+                            <SideBarItems key={item.label} {...item} />
+                        ))
+                    }
+                </Box>
+                <Box className='overflow-y-auto h-full'>
+                    <Library/>
+                </Box>
+            </div>
+            <main className='p-2'>{children}</main>
+        </div>
+    )
 }
