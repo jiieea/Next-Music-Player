@@ -48,10 +48,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     }
                 </Box>
                 <Box className='overflow-y-auto h-full'>
-                    <Library/>
+                    <Library />
                 </Box>
             </div>
-            <main className='p-2'>{children}</main>
+            <main className='p-2 w-full h-full'>{children}</main>
         </div>
     )
 }

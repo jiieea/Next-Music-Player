@@ -11,6 +11,9 @@ const figtree = Figtree({
 export const metadata: Metadata = {
   title: "Spotify Clone",
   description: "Spotify Clone built with Next.js and Tailwind CSS",
+  icons: {
+    icon: 'spotify.png'
+  }
 };
 
 export default function RootLayout({
@@ -20,11 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="./spotify.png" />
       <body
         className={`${figtree.variable} antialiased`}
       >
         <Sidebar>
-        {children}
+          {children}
         </Sidebar>
       </body>
     </html>
