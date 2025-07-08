@@ -11,9 +11,11 @@ import { Button } from "@/components/ui/button"
 
 interface HeaderProps {
     className?: string
+    children: React.ReactNode
 }
 const Header: React.FC<HeaderProps> = ({
     className
+    , children
 }) => {
     const router = useRouter();
     return (
@@ -39,19 +41,20 @@ const Header: React.FC<HeaderProps> = ({
                         <BiSearch size={20} className='text-black' />
                     </Button>
                 </div>
-                <div className='flex justify-between items-center gap-x-2'>
+                <div className='flex justify-between items-center gap-x-4'>
                     <>
-                        <div className='flex gap-x-0.5'>
+                        <div className='flex gap-x-6'>
                             <Btn className=' bg-transparent text-neutral-400 font-medium'>
                                 SignUp
                             </Btn>
-                            <Btn className=' bg-transparent text-neutral-400 font-medium'>
-                                SignUp
+                            <Btn className=' bg-white text-black px-4 py-1 font-medium'>
+                                SignIn
                             </Btn>
                         </div>
                     </>
                 </div>
             </div>
+            {children}
         </div >
     )
 }

@@ -20,6 +20,7 @@ const Library = () => {
                  hover:text-white transition' onClick={addToPlaylist}
                     size={20} />
             </div>
+            <p className='text-white font-semibold px-5 pt-2'>List of songs!</p>
         </div>
     )
 }
