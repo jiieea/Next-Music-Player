@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   }
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -23,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="icon" href="./spotify.png" />
+      <link rel="icon" href="/spotify.png" />
       <body
         className={`${figtree.variable} antialiased`}
       >
