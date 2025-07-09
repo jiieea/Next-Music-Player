@@ -21,6 +21,9 @@ export default function Home() {
           </div>
         </div>
       </Header>
+      <div className="mt-4 mb-5 px-6">
+          <p className="text-white font-semibold text-2xl">Newest Song</p>
+      </div>
     </div>
   );
 }
