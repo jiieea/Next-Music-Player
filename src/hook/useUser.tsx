@@ -19,7 +19,7 @@ export interface    Props {
     [propName : string ] : any;
 }
 
-export const MyUserContextProvide = (props : Props) => {
+export const MyUserContextProvider = (props : Props) => {
     const { 
         session,
         isLoading :  isLoadingUser ,
@@ -64,7 +64,7 @@ export const MyUserContextProvide = (props : Props) => {
         }
     }, [user ,isLoadingUser]);
 
-    const value = {
+const value = {
         accessToken,
         user , 
         userDetails,
