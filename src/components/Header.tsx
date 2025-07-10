@@ -8,6 +8,10 @@ import Btn from "./Button";
 import { BiSearch } from 'react-icons/bi'
 import { HiHome } from 'react-icons/hi'
 import { Button } from "@/components/ui/button"
+import useAuthModal from '@/hook/useAuthModal'
+import { useSupabaseClient } from '@supabase/auth-helpers-react'
+import { useUsers } from '@/hook/useUser'
+import { FaUserAlt } from 'react-icons/fa'
 
 interface HeaderProps {
     className?: string
@@ -18,6 +22,17 @@ const Header: React.FC<HeaderProps> = ({
     , children
 }) => {
     const router = useRouter();
+    const authModal = useAuthModal();
+    const supabaseClient = useSupabaseClient()
+    const { user } = useUsers();
+    const handleLogout = async () => {
+        const { error } = await supabaseClient.auth.signOut();
+        router.refresh();
+
+        if (error) {
+            console.log(error);
+        }
+    }
     return (
         <div className={twMerge(`
                 bg-gradient-to-b from-emerald-800 h-fit p-6
@@ -42,16 +57,29 @@ const Header: React.FC<HeaderProps> = ({
                     </Button>
                 </div>
                 <div className='flex justify-between items-center gap-x-4'>
-                    <>
-                        <div className='flex gap-x-6'>
-                            <Btn className=' bg-transparent text-neutral-400 font-medium'>
-                                SignUp
-                            </Btn>
-                            <Btn className=' bg-white text-black px-4 py-1 font-medium'>
-                                SignIn
-                            </Btn>
-                        </div>
-                    </>
+                    {
+                        user ? (
+                            <div className='items-center flex gap-x-3'>
+                                <Btn className='bg-white px-6 py-2' onClick={handleLogout}>
+                                    Logout
+                                </Btn>
+                                <Btn className='bg-white rounded-full p-3' onClick={() => router.push('/account')}>
+                                    <FaUserAlt />
+                                </Btn>
+                            </div>
+                        ) : (
+                            <>
+                                <div className='flex gap-x-6'>
+                                    <Btn className=' bg-transparent text-neutral-400 font-medium' onClick={authModal.onOpen}>
+                                        SignUp
+                                    </Btn>
+                                    <Btn className=' bg-white text-black px-4 py-1 font-medium' onClick={authModal.onOpen}>
+                                        SignIn
+                                    </Btn>
+                                </div>
+                            </>
+                        )
+                    }
                 </div>
             </div>
             {children}
