@@ -8,12 +8,33 @@ import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import useAuthModal from '@/hook/useAuthModal'
 
+/**
+ * AuthModal Component
+ *
+ * This component renders an authentication modal using Radix UI's Dialog primitive
+ * wrapped by a custom `Modal` component. It integrates with Supabase for user
+ * authentication, allowing users to log in or sign up.
+ *
+ * The modal automatically closes and refreshes the page upon successful authentication.
+ */
 const AuthModal = () => {
+    // Initialize Supabase client for interacting with your Supabase project.
     const supabaseClient = useSupabaseClient();
+    // Initialize Next.js router for client-side navigation.
     const router = useRouter();
+    // Get the current session context from Supabase, including the active session.
     const { session } = useSessionContext();
+    // Destructure the `isOpen` state and `onClose` function from the custom auth modal hook.
     const { isOpen, onClose } = useAuthModal();
 
+    /**
+   * useEffect Hook for Session Management
+   *
+   * This effect runs whenever the `session`, `router`, or `onClose` dependencies change.
+   * It checks if a user session exists. If it does, it means the user has successfully
+   * logged in or signed up. In this case, it refreshes the router to update the page
+   * content (e.g., show authenticated UI) and closes the authentication modal.
+   */
     useEffect(() => {
         if (session) {
             router.refresh();
@@ -21,6 +42,7 @@ const AuthModal = () => {
         }
     }, [session, router, onClose])
 
+    /*onChange handler for modal state */
     const onChange = (open: boolean) => {
         if (!open) {
             onClose();
