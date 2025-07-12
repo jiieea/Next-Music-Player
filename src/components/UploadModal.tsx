@@ -2,8 +2,12 @@
 
 import useUploadModal from "@/hook/useUploadModal";
 import Modal from "./Modal";
-
-
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { Input } from "./ui/input";
+import { useState } from "react";
+import Button from "./Button";
+import { toast } from "sonner";
+import { useUsers } from "@/hook/useUser";
 /**
  * UploadModal component for handling song uploads.
  * This component utilizes a custom hook `useUploadModal` to manage its open/close state.
@@ -12,10 +16,24 @@ import Modal from "./Modal";
  */
 
 const UploadModal = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const { user } = useUsers();
     //     * Initializes the upload modal state manager from the `useUploadModal` hook.
     //    * This hook provides access to `isOpen` (boolean indicating if the modal is open)
     //    * and `onClose` (function to close the modal).
     const uploadModal = useUploadModal();
+    const {
+        reset,
+        handleSubmit,
+        register
+    } = useForm<FieldValues>({
+        defaultValues: {
+            author: "",
+            title: "",
+            song: null,
+            image: null
+        }
+    })
 
     //     **
     //    * Handles the change event of the Modal component.
@@ -25,19 +43,84 @@ const UploadModal = () => {
     //    *
     const showUploadModal = (open: boolean) => {
         if (!open) {
+            reset();
             uploadModal.onClose();
         }
+    }
 
+    //function to upload songs to supabase
+    const handleUploadSong: SubmitHandler<FieldValues> = async (values) => {
+        // upload to supbase
+        try {
+            setIsLoading(true);
+            const imageFile = values.image?.[0];
+            const songFile = values.song?.[0];
+
+            if (!imageFile || !songFile || !user) {
+                toast.error("Missing FIelds")
+            }
+        } catch (e: unknown) {
+            toast.error(e instanceof Error ? e.message : 'Something went wrong')
+        } finally {
+            setIsLoading(false);
+        }
     }
     return (
         <>
             <Modal
-                title="Upload The Song"
-                description="Testing upload songs modal"
+                title="Add a song "
+                description="Upload an mp3 file"
                 isOpen={uploadModal.isOpen}
                 onChange={showUploadModal}
             >
-                Upload Content
+                <form action="" onSubmit={handleSubmit(handleUploadSong)} className="flex flex-col gap-y-3">
+                    <Input
+                        id="title"
+                        type="text"
+                        disabled={isLoading}
+                        placeholder="Enter the title"
+                        className="mt-4 py-3 px-4  rounded-md bg-neutral-700 border-transparent
+                        disable:cursor-not-allowed disabled:opacity-50 focus:outline-none"
+                        {...register('song', { required: true })}
+                    />
+
+                    <Input
+                        id="author"
+                        type="text"
+                        disabled={isLoading}
+                        placeholder="Song author"
+                        className="mt-4 py-3 px-4  rounded-md bg-neutral-700 border-transparent
+                        disable:cursor-not-allowed disabled:opacity-50 focus:outline-none"
+                        {...register('author', { required: true })}
+                    />
+
+                    <div className="gap-y-2 flex flex-col">
+                        <div className="mb-2">
+                            Select song file
+
+                        </div>
+                        <Input
+                            id="song"
+                            type="file"
+                            disabled={isLoading}
+                            accept=".mp3"
+                            {...register('song', { required: true })}
+                        />
+
+                        <div className="mb-2">
+                            Select Image Song
+
+                        </div>
+                        <Input
+                            id="song"
+                            type="file"
+                            disabled={isLoading}
+                            accept="images/*"
+                            {...register('song', { required: true })}
+                        />
+                        <Button className="py-2 mt-2 ">Create</Button>
+                    </div>
+                </form>
             </Modal>
         </>
     )
