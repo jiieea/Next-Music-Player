@@ -8,6 +8,9 @@ import { useState } from "react";
 import Button from "./Button";
 import { toast } from "sonner";
 import { useUsers } from "@/hook/useUser";
+import uniqid from 'uniqid'
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/navigation";
 /**
  * UploadModal component for handling song uploads.
  * This component utilizes a custom hook `useUploadModal` to manage its open/close state.
@@ -17,6 +20,8 @@ import { useUsers } from "@/hook/useUser";
 
 const UploadModal = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter()
+    const supabaseClient = useSupabaseClient()
     const { user } = useUsers();
     //     * Initializes the upload modal state manager from the `useUploadModal` hook.
     //    * This hook provides access to `isOpen` (boolean indicating if the modal is open)
@@ -29,7 +34,7 @@ const UploadModal = () => {
     } = useForm<FieldValues>({
         defaultValues: {
             author: "",
-            title: "",
+            tittle: "",
             song: null,
             image: null
         }
@@ -59,6 +64,56 @@ const UploadModal = () => {
             if (!imageFile || !songFile || !user) {
                 toast.error("Missing FIelds")
             }
+
+            const uniqueID = uniqid();
+
+            // get data from supabase's bucket
+            // upload song
+            const { data: songData,
+                error: songError
+            } = await supabaseClient.storage.from('songs').upload(`song-${values.tittle}-${uniqueID}`, songFile, {
+                cacheControl: '3600',
+                upsert: false
+            });
+
+            // upload images song
+            const {
+                data: imagesData,
+                error: imagesError
+            } = await supabaseClient.storage.from('images').upload(`image-${imageFile.name}-${uniqueID}`, imageFile, {
+                cacheControl: '3600',
+                upsert: false
+            })
+
+            // check if there's an error while uploading song or image
+            if (imagesError) {
+                setIsLoading(false);
+                return toast.error('failed image upload')
+            }
+
+            if (songError) {
+                setIsLoading(false);
+                return toast.error("failed song upload")
+            }
+
+            const { error : supabaseError } = await supabaseClient.from('songs').insert({
+                user_id: user?.id,
+                tittle: values.tittle,
+                author: values.author,
+                image_path: imagesData.path,
+                song_path: songData.path
+            })
+
+            if(supabaseError) {
+                setIsLoading(false);
+                return toast.error(supabaseError.message)
+            }
+
+            router.refresh();
+            setIsLoading(false);
+            toast.success("Song Created")
+            uploadModal.onClose();
+            reset();
         } catch (e: unknown) {
             toast.error(e instanceof Error ? e.message : 'Something went wrong')
         } finally {
@@ -75,13 +130,13 @@ const UploadModal = () => {
             >
                 <form action="" onSubmit={handleSubmit(handleUploadSong)} className="flex flex-col gap-y-3">
                     <Input
-                        id="title"
+                        id="tittle"
                         type="text"
                         disabled={isLoading}
-                        placeholder="Enter the title"
+                        placeholder="Enter the tittle"
                         className="mt-4 py-3 px-4  rounded-md bg-neutral-700 border-transparent
                         disable:cursor-not-allowed disabled:opacity-50 focus:outline-none"
-                        {...register('song', { required: true })}
+                        {...register('tittle', { required: true })}
                     />
 
                     <Input
@@ -112,13 +167,13 @@ const UploadModal = () => {
 
                         </div>
                         <Input
-                            id="song"
+                            id="image"
                             type="file"
                             disabled={isLoading}
                             accept="images/*"
-                            {...register('song', { required: true })}
+                            {...register('image', { required: true })}
                         />
-                        <Button className="py-2 mt-2 ">Create</Button>
+                        <Button className="py-2 mt-2 " type="submit">Create</Button>
                     </div>
                 </form>
             </Modal>
