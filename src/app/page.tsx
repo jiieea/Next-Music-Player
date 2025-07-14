@@ -1,6 +1,6 @@
 import Header from "@/components/Header";
 import { ListItem } from "@/components/ListItem";
-
+import MySong from "@/components/MySong";
 export default function Home() {
   return (
     <div className="bg-neutral-900 w-full h-full rounded-lg overflow-y-auto text-white overflow-hidden">
@@ -22,7 +22,10 @@ export default function Home() {
         </div>
       </Header>
       <div className="mt-4 mb-5 px-6">
-          <p className="text-white font-semibold text-2xl">Newest Song</p>
+          <p className="text-white font-semibold text-2xl">Your Song</p>
+          <div className="flex flex-col justify-evenly items-center gap-y-4 md:grid md:grid-cols-3 md:gap-3 lg:grid lg:grid-cols-4 lg:gap-4 h-[250px] ">
+            {/* <MySong />     */}
+          </div>
       </div>
     </div>
   );

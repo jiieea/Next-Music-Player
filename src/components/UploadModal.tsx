@@ -34,7 +34,7 @@ const UploadModal = () => {
     } = useForm<FieldValues>({
         defaultValues: {
             author: "",
-            tittle: "",
+            title: "",
             song: null,
             image: null
         }
@@ -71,7 +71,7 @@ const UploadModal = () => {
             // upload song
             const { data: songData,
                 error: songError
-            } = await supabaseClient.storage.from('songs').upload(`song-${values.tittle}-${uniqueID}`, songFile, {
+            } = await supabaseClient.storage.from('songs').upload(`song-${values.title}-${uniqueID}`, songFile, {
                 cacheControl: '3600',
                 upsert: false
             });
@@ -98,7 +98,7 @@ const UploadModal = () => {
 
             const { error : supabaseError } = await supabaseClient.from('songs').insert({
                 user_id: user?.id,
-                tittle: values.tittle,
+                title: values.tittle,
                 author: values.author,
                 image_path: imagesData.path,
                 song_path: songData.path
@@ -136,7 +136,7 @@ const UploadModal = () => {
                         placeholder="Enter the tittle"
                         className="mt-4 py-3 px-4  rounded-md bg-neutral-700 border-transparent
                         disable:cursor-not-allowed disabled:opacity-50 focus:outline-none"
-                        {...register('tittle', { required: true })}
+                        {...register('title', { required: true })}
                     />
 
                     <Input
@@ -181,6 +181,5 @@ const UploadModal = () => {
     )
 
 }
-
 
 export default UploadModal;
