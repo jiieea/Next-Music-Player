@@ -1,7 +1,11 @@
+import getSong from "@/action/getSong";
 import Header from "@/components/Header";
 import { ListItem } from "@/components/ListItem";
 import MySong from "@/components/MySong";
-export default function Home() {
+
+export const revalidate = 0;
+export default async  function Home() {
+  const songs =  await getSong();
   return (
     <div className="bg-neutral-900 w-full h-full rounded-lg overflow-y-auto text-white overflow-hidden">
       <Header >
@@ -21,11 +25,11 @@ export default function Home() {
           </div>
         </div>
       </Header>
-      <div className="mt-4 mb-5 px-6">
-          <p className="text-white font-semibold text-2xl">Your Song</p>
-          <div className="flex flex-col justify-evenly items-center gap-y-4 md:grid md:grid-cols-3 md:gap-3 lg:grid lg:grid-cols-4 lg:gap-4 h-[250px] ">
-            {/* <MySong />     */}
-          </div>
+      <div className="mt-2 mb-7 px-6">
+        <h1 className="text-white text-2xl font-semibold">Newest Song</h1>
+        <div className="">
+         <MySong  songs={songs}/>
+        </div>
       </div>
     </div>
   );
