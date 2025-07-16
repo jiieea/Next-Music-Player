@@ -5,6 +5,9 @@ import { Sidebar } from "@/components/Sidebar";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
+import getSongById from "@/action/getSongsById";
+
+
 const figtree = Figtree({
   variable: "--font-figtree",
   subsets: ["latin"],
@@ -18,12 +21,13 @@ export const metadata: Metadata = {
   }
 };
 
-
-export default function RootLayout({
+const revalidate = 0;
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const userSongs = await getSongById();
   return (
     <html lang="en">
       <link rel="icon" href="/spotify.png" />
@@ -33,7 +37,7 @@ export default function RootLayout({
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider />
-            <Sidebar>
+            <Sidebar songs={ userSongs }>
               {children}
             </Sidebar>
           </UserProvider>
