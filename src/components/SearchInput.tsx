@@ -9,6 +9,7 @@ export const SearchInput = () => {
     const router = useRouter();
     const [value, setValue] = useState<string>("");
     const debounceValue = useDebounce<string>(value, 500);
+    
 
     useEffect(() => {
         const query = {

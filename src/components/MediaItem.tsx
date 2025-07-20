@@ -1,3 +1,4 @@
+"use client"
 import React from 'react'
 import { Song } from '../../types'
 import useLoadImage from '@/hook/useLoadImage'
@@ -25,7 +26,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
             <div className='relative min-h-[49px] min-w-[49px] overflow-hidden  rounded-md'>
                 <Image alt='' src={imagePath || 'images/liked/png'} fill className='object-cover hover:brightness-30 transition ease-in-out' />
                 <div className='absolute left-4 top-4  '>
-                    <FaPlay className='opacity-0 hover:opacity-100 text-white'/>
+                    <FaPlay className='opacity-0 hover:opacity-100 text-white' />
 
                 </div>
             </div>

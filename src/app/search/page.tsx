@@ -4,6 +4,7 @@ import SearchContent from '@/components/SearchContent'
 import { SearchInput } from '@/components/SearchInput'
 import React from 'react'
 
+
 interface SearchProps {
     searchParams: {
         title: string
