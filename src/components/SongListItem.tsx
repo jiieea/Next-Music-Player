@@ -22,7 +22,7 @@ const SongListItem: React.FC<SongListItemProps> = ({
     bg-neutral-400/5 hover:bg-neutral-400/10
     cursor-pointer transition p-3">
             <div className="relative aspect-square w-full h-full rounded-md">
-                <Image src={imagePath || "/images/liked.png"} alt="" className="object-cover"
+                <Image src={imagePath || "/images/liked.png"} alt="song cover" className="object-cover"
                     fill />
             </div>
             <div className="flex flex-col  items-start w-full p-3 gap-y-3

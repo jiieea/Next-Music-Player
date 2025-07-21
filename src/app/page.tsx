@@ -4,8 +4,8 @@ import { ListItem } from "@/components/ListItem";
 import MySong from "@/components/MySong";
 
 export const revalidate = 0;
-export default async  function Home() {
-  const songs =  await getSong();
+export default async function Home() {
+  const songs = await getSong();
   return (
     <div className="bg-neutral-900 w-full h-full rounded-lg overflow-y-auto text-white overflow-hidden">
       <Header >
@@ -28,7 +28,7 @@ export default async  function Home() {
       <div className="mt-2 mb-7 px-6">
         <h1 className="text-white text-2xl font-semibold">Newest Song</h1>
         <div className="">
-         <MySong  songs={songs}/>
+          <MySong songs={songs} />
         </div>
       </div>
     </div>

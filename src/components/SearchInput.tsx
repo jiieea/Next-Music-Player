@@ -29,7 +29,7 @@ export const SearchInput = () => {
             value={value}
             onChange={(e) => setValue(e.target.value)}
             className="mt-4 py-3 px-4  rounded-md bg-neutral-700 border-transparent
-    disable:cursor-not-allowed disabled:opacity-50 focus:outline-none"
+    disable:cursor-not-allowed disabled:opacity-50 focus:outline-none "
             placeholder='Enter the song you want listen to' />
     )
 }

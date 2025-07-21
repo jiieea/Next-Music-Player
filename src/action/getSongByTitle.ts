@@ -5,7 +5,7 @@ import getSong from "./getSong";
 
 
 const getSongByTitle = async (title: string): Promise<Song[]> => {
-    const supabase = createServerComponentClient({
+    const supabase = await createServerComponentClient({
         cookies: cookies
     });
 
@@ -23,7 +23,7 @@ const getSongByTitle = async (title: string): Promise<Song[]> => {
         console.log(dataError);
     }
 
-    return (songs as any) || [];
+    return (songs as Song[]) || [];
 }
 
 

@@ -34,6 +34,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
             }
           </div>
         </>
+        
     )
 }
 

@@ -8,21 +8,21 @@ const getSongById = async (): Promise<Song[]> => {
         cookies: cookies
     });
 
-    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    const { data: sessionData, error: sessionError } = await supabase.auth.getUser();
 
     if (sessionError) {
         console.log(sessionError) 
         return [];
     }
 
-const { data , error} = await supabase.from('songs').select('*').eq('user_id' , sessionData.session?.user.id);
+const { data , error} = await supabase.from('songs').select('*').eq('user_id' , sessionData.user?.id);
 
 if(error) {
     console.log(error.message);
 }
 
 
-return (data as any) || [];
+return (data as Song[]) || [];
 }
 
 
