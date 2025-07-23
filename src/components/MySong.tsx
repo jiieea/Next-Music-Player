@@ -1,4 +1,5 @@
 "use client"
+import useOnplay from '@/hook/useOnPlay'
 import { Song } from '../../types'
 import SongListItem from './SongListItem'
 interface MySongProps {
@@ -9,6 +10,7 @@ interface MySongProps {
 const MySong: React.FC<MySongProps> = ({
     songs
 }) => {
+    const onPlay = useOnplay(songs);
     if (songs.length == 0) {
         return (
             <div className='mt-4 text-neutral-400'>
@@ -23,7 +25,7 @@ const MySong: React.FC<MySongProps> = ({
         2xl:grid-cols-8 gap-4 mt-4'>
             {
                 songs.map((song) => (
-                    <SongListItem key={song.id} data={song} onClick={() => { }} />
+                    <SongListItem key={song.id} data={song} onClick={(id : string) => onPlay(id)} />
                 ))
             }
         </div>

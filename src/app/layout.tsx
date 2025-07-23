@@ -6,6 +6,7 @@ import SupabaseProvider from "@/providers/SupabaseProvider";
 import UserProvider from "@/providers/UserProvider";
 import ModalProvider from "@/providers/ModalProvider";
 import getSongById from "@/action/getSongsById";
+import { Player } from "@/components/Player";
 
 
 const figtree = Figtree({
@@ -40,6 +41,7 @@ export default async function RootLayout({
             <Sidebar songs={ userSongs }>
               {children}
             </Sidebar>
+            <Player />
           </UserProvider>
         </SupabaseProvider>
       </body>

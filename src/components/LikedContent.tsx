@@ -5,7 +5,7 @@ import { Song } from "../../types"
 import { useRouter } from "next/navigation";
 import { useUsers } from "@/hook/useUser";
 import MediaItem from "./MediaItem";
-
+import LikedButton from "./LikedButton";
 interface LikedContentProps {
     songs: Song[];
 }
@@ -39,6 +39,7 @@ const LikedContent: React.FC<LikedContentProps> = ({
                                 <MediaItem  data ={song}  
                                 onClick={() => {}}
                             />
+                            <LikedButton  songId={ song.id }/>
                             </div>
                         </div>
                     </div>
