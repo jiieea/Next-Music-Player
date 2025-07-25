@@ -13,7 +13,6 @@ const MediaItem: React.FC<MediaItemProps> = ({
     onClick
 }) => {
     const imagePath = useLoadImage(data);
-
     const handleClick = () => {
         if (onClick) {
             return onClick(data.id)
@@ -31,7 +30,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
             </div>
             <div>
                 <p className='text-white font-semibold'>{data.title}</p>
-                <p className='text-neutral-500 font-semibold text-[12px ]'>{data.author}</p>
+                <p className='text-neutral-500 font-semibold text-[12px ] truncate'>{data.author}</p>
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Song } from '../../types'
 import MediaItem from './MediaItem'
 import LikedButton from './LikedButton'
@@ -7,6 +7,7 @@ import { AiFillStepBackward, AiFillStepForward } from 'react-icons/ai'
 import { FaVolumeLow, FaVolumeXmark } from "react-icons/fa6";
 import SliderVolume from './Slider'
 import usePlayerSong from '@/hook/usePlayerSong'
+import useSound from 'use-sound'
 
 interface PlayerContentProps {
     song: Song,
@@ -21,6 +22,8 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
     const [isPlaying, setIsPlaying] = useState(false);
     const Icon = isPlaying ? BsPauseFill : BsPlayFill;
     const VolumeIcon = volume === 0 ? FaVolumeXmark : FaVolumeLow;
+
+
 
 
     // function to play next song
@@ -57,6 +60,45 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
 
         player.setId(prevSong)
     }
+
+
+    const [play, { sound, pause }] = useSound(
+        songUrl, {
+        volume: volume,
+        onplay: () => setIsPlaying(true),
+        onend: () => {
+            setIsPlaying(false)
+            onPlayNext();
+        },
+        onpause: () => setIsPlaying(false),
+        format: ['mp3']
+    }
+    )
+
+    useEffect(() => {
+        sound?.play();
+        return () => {
+            sound?.unload()
+        }
+    }, [sound])
+
+
+    const handlePlayingMusic = () => {
+        if (!isPlaying) {
+            play()
+        } else {
+            pause()
+        }
+    }
+
+
+    const handleSetVolume = () => {
+        if (volume === 0) {
+            setVolume(1)
+        } else {
+            setVolume(0);
+        }
+    }
     return (
         <div className="grid grid-cols-2 md:grid-cols-3 h-full">
             <div className="flex w-full justify-start">
@@ -67,7 +109,7 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
             </div>
             <div className='flex md:hidden col-auto w-full justify-end items-center'>
                 <div
-                    onClick={() => { }}
+                    onClick={handlePlayingMusic}
                     className='h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer'
                 >
                     <Icon className='text-black ' size={30} />
@@ -78,7 +120,7 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
                  h-full max-w-[722px] gap-x-6'>
                 <AiFillStepBackward onClick={onPlayPrevious}
                     className='text-neutral-400 cursor-pointer hover:text-white transition' size={30} />
-                <div onClick={() => { }} className='flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer'>
+                <div onClick={handlePlayingMusic} className='flex items-center justify-center h-10 w-10 rounded-full bg-white p-1 cursor-pointer'>
                     <Icon size={30} className='text-black ' />
                 </div>
                 <AiFillStepForward size={30} className='text-neutral-400 cursor-pointer hover:text-white transition'
@@ -86,8 +128,8 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
             </div>
             <div className='hidden md:flex justify-end pr-2 w-full'>
                 <div className='flex items-center w-[120px] gap-x-2'>
-                    <VolumeIcon onClick={() => { }} className='cursor-pointer' size={25} />
-                    <SliderVolume />
+                    <VolumeIcon onClick={handleSetVolume} className='cursor-pointer' size={25} />
+                    <SliderVolume value={volume} onChange={(volume) => setVolume(volume)} />
                 </div>
             </div>
         </div>

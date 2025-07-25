@@ -64,10 +64,10 @@ const Header: React.FC<HeaderProps> = ({
                         </Button>
                     </div>
                     <div className='justify-between items-center gap-x-4 md:hidden flex '>
-                        <Button className='bg-white rounded-full p-2 hover:opacity-80'>
+                        <Button className='bg-white rounded-full p-2 hover:opacity-80' onClick={() => router.push('/')}>
                             <HiHome className='text-black' size={20} />
                         </Button>
-                        <Button className='bg-white rounded-full p-2 hover:opacity-80'>
+                        <Button className='bg-white rounded-full p-2 hover:opacity-80' onClick={() => router.push('/search')}>
                             <BiSearch size={20} className='text-black' />
                         </Button>
                     </div>

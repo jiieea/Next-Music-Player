@@ -22,6 +22,7 @@ const page = async () => {
         <div className='flex flex-col'>
           <p className='text-[1rem] font-semibold text-white'>Playlist</p>
           <p className='text-4xl font-semibold text-white lg:text-8xl'>Liked Songs</p>
+          <p className='text-white font-semibold text-[13px]'>user , songs liked</p>
         </div>
           </div>
       </Header>
