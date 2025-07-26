@@ -14,13 +14,18 @@ import { useUsers } from '@/hook/useUser'
 import { FaUserAlt } from 'react-icons/fa'
 import { toast } from 'sonner'
 import { Toaster } from './ui/sonner'
+import { UserDetails } from '../../types'
+import useLoadAvatar from '@/hook/useLoadAvatar'
+import Image from 'next/image'
 
 interface HeaderProps {
     className?: string
+    userData : UserDetails
     children: React.ReactNode
 }
 const Header: React.FC<HeaderProps> = ({
     className
+    , userData
     , children
 }) => {
     // Initialize Next.js router for programmatic navigation.
@@ -31,6 +36,7 @@ const Header: React.FC<HeaderProps> = ({
     const supabaseClient = useSupabaseClient();
     // Get the current user object from your custom user hook.
     const { user } = useUsers();
+    const loadAvatar = useLoadAvatar(userData)
 
     /**
      * handleLogout
@@ -78,8 +84,14 @@ const Header: React.FC<HeaderProps> = ({
                                     <Btn className='bg-white px-6 py-2' onClick={handleLogout}>
                                         Logout
                                     </Btn>
-                                    <Btn className='bg-white rounded-full p-3' onClick={() => router.push('/account')}>
-                                        <FaUserAlt />
+                                    <Btn className='bg-neutral-800 rounded-full p-1' onClick={() => router.push('/account')}>
+                                {
+                                    loadAvatar ? (
+                                        <Image  src={ loadAvatar || "/images/liked.png"} alt="avatar" width={40} height={40} className='rounded-full' />
+                                    ) : (
+                                        <FaUserAlt  />
+                                    )
+                                }
                                     </Btn>
                                 </div>
                             ) : (

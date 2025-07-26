@@ -7,7 +7,6 @@ import { useRouter } from 'next/navigation'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import useAuthModal from '@/hook/useAuthModal'
-
 /**
  * AuthModal Component
  *

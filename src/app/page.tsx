@@ -6,6 +6,7 @@ import MySong from "@/components/MySong";
 export const revalidate = 0;
 export default async function Home() {
   const songs = await getSong();
+
   return (
     <div className="bg-neutral-900 w-full h-full rounded-lg overflow-y-auto text-white overflow-hidden">
       <Header >

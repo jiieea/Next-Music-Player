@@ -96,7 +96,7 @@ const UploadModal = () => {
                 return toast.error("failed song upload")
             }
 
-            const { error : supabaseError } = await supabaseClient.from('songs').insert({
+            const { error: supabaseError } = await supabaseClient.from('songs').insert({
                 user_id: user?.id,
                 title: values.title,
                 author: values.author,
@@ -104,7 +104,7 @@ const UploadModal = () => {
                 song_path: songData.path
             })
 
-            if(supabaseError) {
+            if (supabaseError) {
                 setIsLoading(false);
                 return toast.error(supabaseError.message)
             }
