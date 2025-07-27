@@ -87,7 +87,7 @@ const Header: React.FC<HeaderProps> = ({
                                     <Btn className='bg-neutral-800 rounded-full p-1' onClick={() => router.push('/account')}>
                                 {
                                     loadAvatar ? (
-                                        <Image  src={ loadAvatar || "/images/liked.png"} alt="avatar" width={40} height={40} className='rounded-full' />
+                                        <Image  src={ loadAvatar || "/images/liked.png"} alt="avatar" width={40} height={40} className='rounded-full cursor-pointer' />
                                     ) : (
                                         <FaUserAlt  />
                                     )

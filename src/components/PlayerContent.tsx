@@ -18,7 +18,7 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
     songUrl
 }) => {
     const player = usePlayerSong();
-    const [volume, setVolume] = useState(1);
+    const [volume, setVolume] = useState(0.5);
     const [isPlaying, setIsPlaying] = useState(false);
     const Icon = isPlaying ? BsPauseFill : BsPlayFill;
     const VolumeIcon = volume === 0 ? FaVolumeXmark : FaVolumeLow;
@@ -75,12 +75,31 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
     }
     )
 
+
+
     useEffect(() => {
         sound?.play();
         return () => {
             sound?.unload()
         }
+
     }, [sound])
+
+    useEffect(() => {
+        if (sound) {
+            if (isPlaying) {
+                play()
+            } else {
+                pause()
+            }
+        }
+    }, [sound, isPlaying, pause, play])
+
+    useEffect(() => {
+        if (sound) {
+            sound.volume(volume)
+        }
+    }, [sound, volume])
 
 
     const handlePlayingMusic = () => {
@@ -99,6 +118,9 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
             setVolume(0);
         }
     }
+
+
+
     return (
         <div className="grid grid-cols-2 md:grid-cols-3 h-full">
             <div className="flex w-full justify-start">

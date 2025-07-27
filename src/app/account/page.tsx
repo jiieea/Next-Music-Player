@@ -9,24 +9,23 @@ const AccountPage = async () => {
   const user = await getUserData()
   return (
     <div className='bg-neutral-900 rounded-md w-full h-full'>
-      <Header className='from-bg-neutral-900' userData={user}>
-        <div className='flex flex-col mb-2 gap-y-6'>
+      {user ? (
+        <Header className='from-bg-neutral-900' userData={user}>
+          <div className='flex flex-col mb-2 gap-y-6'>
+            <div className='text-white font-semibold text-3xl'>
+              <AccountContent user={user} />
+            </div>
+          </div>
+        </Header>
+      ) : (
+        <div className='flex flex-col mb-2 gap-y-6 p-8'>
           <div className='text-white font-semibold text-3xl'>
-            {
-              user ? (
-                <AccountContent user={user} />
-              ) : (
-                // What to render if user is null (e.g., not logged in)
-                <p className="text-lg text-neutral-400">
-                  Please log in to view your account details.
-                </p>
-                // Or a login button, or redirect, etc.
-
-              )
-            }
+            <p className="text-lg text-neutral-400">
+              Please log in to view your account details.
+            </p>
           </div>
         </div>
-      </Header>
+      )}
     </div>
   )
 }
