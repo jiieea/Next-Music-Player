@@ -10,9 +10,7 @@ export default async function Home() {
   const user = await getUserData();
   return (
     <div className="bg-neutral-900 w-full h-full rounded-lg overflow-y-auto text-white overflow-hidden">
-     {
-      user ? (
- <Header  userData={ user }>
+      <Header userData={user}>
         <div className="mb-2 ">
           <h1 className="text-white font-semibold text-3xl">Welcome Back</h1>
           <div className="
@@ -29,10 +27,6 @@ export default async function Home() {
           </div>
         </div>
       </Header>
-      ) : (
-        <p>You must login to see your account </p>
-      )
-     }
       <div className="mt-2 mb-7 px-6">
         <h1 className="text-white text-2xl font-semibold">Newest Song</h1>
         <div className="">

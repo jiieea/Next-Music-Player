@@ -20,7 +20,7 @@ import Image from 'next/image'
 
 interface HeaderProps {
     className?: string
-    userData : UserDetails
+    userData: UserDetails
     children: React.ReactNode
 }
 const Header: React.FC<HeaderProps> = ({
@@ -85,13 +85,21 @@ const Header: React.FC<HeaderProps> = ({
                                         Logout
                                     </Btn>
                                     <Btn className='bg-neutral-800 rounded-full p-1' onClick={() => router.push('/account')}>
-                                {
-                                    loadAvatar ? (
-                                        <Image  src={ loadAvatar || "/images/liked.png"} alt="avatar" width={40} height={40} className='rounded-full cursor-pointer' />
-                                    ) : (
-                                        <FaUserAlt  />
-                                    )
-                                }
+                                        {
+                                            loadAvatar ? (
+                                                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0"> {/* New wrapper div */}
+                                                    <Image
+                                                        src={loadAvatar || "/images/liked.png"}
+                                                        alt="avatar"
+                                                        width={40}
+                                                        height={40}
+                                                        className='object-cover w-full h-full cursor-pointer' // Ensure image fills and covers
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <FaUserAlt />
+                                            )
+                                        }
                                     </Btn>
                                 </div>
                             ) : (

@@ -9,23 +9,13 @@ const AccountPage = async () => {
   const user = await getUserData()
   return (
     <div className='bg-neutral-900 rounded-md w-full h-full'>
-      {user ? (
-        <Header className='from-bg-neutral-900' userData={user}>
+      <Header className='from-bg-neutral-900' userData={user}>
           <div className='flex flex-col mb-2 gap-y-6'>
             <div className='text-white font-semibold text-3xl'>
               <AccountContent user={user} />
             </div>
           </div>
         </Header>
-      ) : (
-        <div className='flex flex-col mb-2 gap-y-6 p-8'>
-          <div className='text-white font-semibold text-3xl'>
-            <p className="text-lg text-neutral-400">
-              Please log in to view your account details.
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
