@@ -18,7 +18,7 @@ const page = async () => {
       w-full h-full overflow-y-auto
       overflow-hidden rounded-lg">
       {
-        user ? (
+        user && (
           <Header userData={user}>
             <div className='mt-8 pt-4 flex items-center gap-x-4' >
               <Image
@@ -40,11 +40,8 @@ const page = async () => {
               </div>
             </div>
           </Header>
-        ) : (
-          <p>Please Login to see you account</p>
         )
       }
-
       <LikedContent songs={likedSongs} />
     </div>
   )

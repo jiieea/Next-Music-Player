@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Song } from "../../types";
 import { cookies } from "next/headers";
@@ -5,7 +6,7 @@ import getSong from "./getSong";
 
 
 const getSongByTitle = async (title: string): Promise<Song[]> => {
-    const supabase = await createServerComponentClient({
+    const supabase =  createServerComponentClient({
         cookies: cookies
     });
 
@@ -23,7 +24,7 @@ const getSongByTitle = async (title: string): Promise<Song[]> => {
         console.log(dataError);
     }
 
-    return (songs as Song[]) || [];
+    return (songs as any) || [];
 }
 
 
