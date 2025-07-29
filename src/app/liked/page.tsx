@@ -19,7 +19,7 @@ const page = async () => {
       overflow-hidden rounded-lg">
       {
         user && (
-          <Header userData={user}>
+          <Header userData={user} className='bg-gradient-to-b from-violet-700'>
             <div className='mt-8 pt-4 flex items-center gap-x-4' >
               <Image
                 src="/images/liked.png"

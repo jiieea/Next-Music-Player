@@ -22,7 +22,10 @@ const AccountPage = async () => {
                 </div>
               </div>
             </Header>
-            {/* // TODO : render user songs */}
+            {/* // TODO : get user songs */}
+            {/* i'm bout to render user songs and 
+            user playlists from hooks we made before  */}
+            {/* i'll do it in the next commit cuz i'm lit dead beat */}
             <UserSongs songs={userSongs} />
           </>
         )
