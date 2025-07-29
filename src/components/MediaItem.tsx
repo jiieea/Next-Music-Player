@@ -4,6 +4,7 @@ import { Song } from '../../types'
 import useLoadImage from '@/hook/useLoadImage'
 import Image from 'next/image'
 import { FaPlay } from 'react-icons/fa'
+import usePlayerSong from '@/hook/usePlayerSong'
 interface MediaItemProps {
     data: Song
     onClick?: (id: string) => void
@@ -13,10 +14,14 @@ const MediaItem: React.FC<MediaItemProps> = ({
     onClick
 }) => {
     const imagePath = useLoadImage(data);
+    const player = usePlayerSong()
     const handleClick = () => {
         if (onClick) {
             return onClick(data.id)
         }
+
+        return player.setId(data.id)
+
     }
     return (
         <div className='

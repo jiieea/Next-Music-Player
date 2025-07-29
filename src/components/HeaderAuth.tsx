@@ -13,19 +13,15 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useUsers } from '@/hook/useUser'
 import { toast } from 'sonner'
 import { Toaster } from './ui/sonner'
-import { UserDetails } from '../../types'
-import useLoadAvatar from '@/hook/useLoadAvatar'
 import Image from 'next/image'
 
 interface HeaderProps {
-    userData: UserDetails
+    className?: string
     children: React.ReactNode
-    className : string
 }
-const Header: React.FC<HeaderProps> = ({
-    userData
-    , children,
+const HeaderAuth: React.FC<HeaderProps> = ({
     className
+    , children
 }) => {
     // Initialize Next.js router for programmatic navigation.
     const router = useRouter();
@@ -35,7 +31,6 @@ const Header: React.FC<HeaderProps> = ({
     const supabaseClient = useSupabaseClient();
     // Get the current user object from your custom user hook.
     const { user } = useUsers();
-    const loadAvatar = useLoadAvatar(userData)
 
     /**
      * handleLogout
@@ -55,9 +50,9 @@ const Header: React.FC<HeaderProps> = ({
     return (
         <>
             <div className={twMerge(`
-                bg-gradient-to-b from-emerald-800 h-fit p-6 rounded-lg
+                bg-gradient-to-b from-emerald-800 h-fit p-6
             ` ,
-            className
+                className
             )}>
                 <div className="flex mb-4 items-center justify-between w-full">
                     <div className='hidden gap-x-2 md:flex items-center'>
@@ -86,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({
                                     <Btn className='bg-neutral-800 rounded-full p-1' onClick={() => router.push('/account')}>
                                         <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0"> {/* New wrapper div */}
                                             <Image
-                                                src={loadAvatar || "/images/user.png"}
+                                                src={"/images/user.png"}
                                                 alt="avatar"
                                                 width={40}
                                                 height={40}
@@ -117,4 +112,4 @@ const Header: React.FC<HeaderProps> = ({
     )
 }
 
-export default Header
+export default HeaderAuth

@@ -23,9 +23,6 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
     const Icon = isPlaying ? BsPauseFill : BsPlayFill;
     const VolumeIcon = volume === 0 ? FaVolumeXmark : FaVolumeLow;
 
-
-
-
     // function to play next song
     const onPlayNext = () => {
         if (player.ids.length === 0) {
@@ -85,15 +82,7 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
 
     }, [sound])
 
-    useEffect(() => {
-        if (sound) {
-            if (isPlaying) {
-                play()
-            } else {
-                pause()
-            }
-        }
-    }, [sound, isPlaying, pause, play])
+
 
     useEffect(() => {
         if (sound) {

@@ -22,7 +22,7 @@ const Search = async ({ searchParams }: SearchProps) => {
     <div className="bg-neutral-900 overflow-hidden overflow-y-auto h-full w-full">
       {
         user && (
-          <Header className="from-bg-neutral-900" userData={user}>
+          <Header className="" userData={user}>
             <div className="mb-2 flex flex-col gap-y-6">
               <h1 className="font-semibold text-2xl text-white">Search</h1>
               <SearchInput />
