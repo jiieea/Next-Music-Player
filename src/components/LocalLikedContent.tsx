@@ -30,7 +30,7 @@ const LikedContent: React.FC<LikedContentProps> = ({
 
     if (songs.length === 0) {
         return (
-            <div className="text-white text-lg font-semibold p-4">No Liked Song</div>
+            <div className="text-white text-lg font-semibold p-4">No Song</div>
         )
     }
     return (

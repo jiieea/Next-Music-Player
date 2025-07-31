@@ -28,7 +28,7 @@ const SongListItem: React.FC<SongListItemProps> = ({
             <div className="flex flex-col  items-start w-full p-3 gap-y-3
             ">
                 <p className="font-semibold truncate w-full">{data.title}</p>
-                <p className="font-semibold text-[1rem] ">{data.author}</p>
+                <p className="font-semibold text-[13px] ">{data.author}</p>
             </div>
             <div className="
         absolute right-5 ">
