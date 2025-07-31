@@ -33,8 +33,8 @@ const page = async () => {
                 <p className='text-4xl font-semibold text-white lg:text-8xl'>Liked Songs</p>
                 <div className="flex">
                   {/* <Image src={user.avatar_url}/> */}
-                  <p className='ps-0 md:ps-2 text-white font-semibold text-[13px]'>{user.full_name || "user"} , {likedSongs.length} {
-                    likedSongs.length === 1 ? "Song" : "Songs"} Liked</p>
+                  <p className='ps-0 md:ps-2 text-white font-semibold text-[13px]'>{user.full_name || "user"}  <span className='text-neutral-400'>&bull; {likedSongs.length} {
+                    likedSongs.length === 1 ? "Song" : "Songs"} Liked</span></p>
 
                 </div>
               </div>

@@ -21,15 +21,17 @@ const SearchContent: React.FC<SearchContentProps> = ({
         <>
           <div className="flex flex-col gap-y-4 w-full px-6">
             {
-                songs.map((song) => (
-                    <div className='flex items-center ' key={song.id}>
+                songs.map((song , index) => (
+                    <div className="flex items-center  hover:bg-neutral-800/50  " key={song.id}>
                         <div className="flex-1">
-                            <MediaItem
-                            data={song}
-                            onClick={(id : string) => onPlay(id)}
+                            <div className="flex items-center gap-x-1">
+                                <p className="text-white font-semibold">{index + 1}</p>
+                                <MediaItem data ={song}  
+                                onClick={(id : string) => onPlay(id)}
                             />
+                            <LikedButton  songId={ song.id }/>
+                            </div>
                         </div>
-                        <LikedButton  songId={song.id} />
                     </div>
                 ))
             }

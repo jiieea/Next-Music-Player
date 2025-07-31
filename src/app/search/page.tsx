@@ -5,13 +5,11 @@ import getUserData from '@/action/getUserData';
 import Header from '@/components/Header';
 import SearchContent from '@/components/SearchContent';
 import { SearchInput } from '@/components/SearchInput';
-import { PageProps } from '../../../.next/types/app/page';
 
 
-interface SearchProps extends PageProps {
+interface SearchProps {
   searchParams: Promise<{ title: string }>
 }
-
 
 const Search = async ({ searchParams }: SearchProps) => {
   const { title } = await searchParams;

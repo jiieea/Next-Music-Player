@@ -27,7 +27,7 @@ export const AccountContent: React.FC<AccountContentProps> = ({
       <h1 className='text-white text-2xl md:text-3xl lg:text-4xl font-bold mb-6'> {/* Added text-white and mb-6 */}
         Account Settings
       </h1>
-      <div className="flex flex-col md:flex-row gap-x-4 items-center md:items-center"> {/* Changed md:items-start to md:items-center */}
+      <div className="flex md:flex-row gap-x-4 items-center md:items-center"> {/* Changed md:items-start to md:items-center */}
         {/* Image and Overlay Container */}
         <div
           onClick={updateProfile}
@@ -92,7 +92,7 @@ export const AccountContent: React.FC<AccountContentProps> = ({
         {/* User Name Section */}
         <div className="flex flex-col gap-y-1.5 justify-center mt-4 md:mt-0 md:ml-4"> {/* Added margin-top for mobile, margin-left for desktop */}
           <p className='text-neutral-400 font-semibold text-base md:text-lg'>Profile</p> {/* Changed to neutral-400 for contrast */}
-          <p className='text-white font-bold text-3xl md:text-4xl lg:text-5xl'>{full_name || "User Name"}</p>
+          <p className='text-white font-bold text-2xl md:text-4xl lg:text-5xl'>{full_name || "User Name"}</p>
           <p className="text-neutral-400 text-sm">{songs.length} {songs.length > 1 ? "Songs" : "Song"} Uploaded</p>
         </div>
 
