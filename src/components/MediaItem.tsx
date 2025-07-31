@@ -21,11 +21,11 @@ const MediaItem: React.FC<MediaItemProps> = ({
         }
 
         return player.setId(data.id)
-
+        
     }
     return (
         <div className='
-        flex items-center gap-x-3 cursor-pointer hover:bg-neutral-800/50 w-full p-3 rounded-md
+        flex items-center gap-x-3 cursor-pointer w-full p-3 rounded-md
     ' onClick={handleClick}>
             <div className='relative min-h-[49px] min-w-[49px] overflow-hidden  rounded-md'>
                 <Image alt='' src={imagePath || 'images/liked/png'} fill className='object-cover hover:brightness-30 transition ease-in-out' />

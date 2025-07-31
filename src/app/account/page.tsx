@@ -1,17 +1,18 @@
 import React from 'react'
-
 import Header from '@/components/Header';
 import { AccountContent } from './components/AccountContent';
 import getUserData from '@/action/getUserData';
 import getSongById from '@/action/getSongsById';
-import UserSongs from '@/components/UserSongs';
+import LocalLikedContent from '../../components/LocalLikedContent'
 
 
 const AccountPage = async () => {
   const user = await getUserData();
   const userSongs = await getSongById();
   return (
-    <div className='bg-neutral-900 rounded-md w-full h-full'>
+    <div className='bg-neutral-900
+      w-full h-full overflow-y-auto
+      overflow-hidden rounded-lg'>
       {
         user && (
           <>
@@ -22,14 +23,13 @@ const AccountPage = async () => {
                 </div>
               </div>
             </Header>
-            {/* // TODO : get user songs */}
-            {/* i'm bout to render user songs and 
-            user playlists from hooks we made before  */}
-            {/* i'll do it in the next commit cuz i'm lit dead beat */}
-            <UserSongs songs={userSongs} />
+            {/* create a liked content's table  
+              i'll do in the next commit , i'm lit dead beat
+           */}
           </>
         )
       }
+      <LocalLikedContent songs={userSongs} />
     </div>
   )
 }

@@ -37,7 +37,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         }
     ], [pathname])
     return (
-        <div className={twMerge(`flex h-full` , player.activeId && "h-[calc(100% - 80px")}>
+        <div className={twMerge(`flex h-full` , player.activeId && "h-[calc(100%-80px)]")}>
             <div className="
         hidden
         md:flex
@@ -59,7 +59,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     <Library  songs={ songs }/>
                 </Box>
             </div>
-            <main className='p-2 w-full h-full'>{children}</main>
+            <main className='p-2 flex-1 h-full overflow-y-auto '>{children}</main>
         </div>
     )
 }

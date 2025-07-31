@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Figtree } from "next/font/google";
+import { DM_Sans, Figtree, Plus_Jakarta_Sans, Nunito } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components/Sidebar";
 import SupabaseProvider from "@/providers/SupabaseProvider";
@@ -9,10 +9,27 @@ import getSongById from "@/action/getSongsById";
 import { Player } from "@/components/Player";
 
 
+const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["latin"]
+})
+
 const figtree = Figtree({
   variable: "--font-figtree",
   subsets: ["latin"],
 });
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: "--font-jakarta-sans"
+})
+
+
+
+const dmsans = DM_Sans({
+  variable: "--font-dmSans",
+  subsets: ['latin']
+})
 
 export const metadata: Metadata = {
   title: "Spotify Clone",
@@ -30,15 +47,15 @@ export default async function RootLayout({
 }>) {
   const userSongs = await getSongById();
   return (
-    <html lang="en">
+    <html lang="en" className={`${jakarta.variable} antialiased`}>
       <link rel="icon" href="/spotify.png" />
       <body
-        className={`${figtree.variable} antialiased`}
+        className={`${dmsans.className} ${figtree.className} ${nunito.className}`}
       >
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider />
-            <Sidebar songs={ userSongs }>
+            <Sidebar songs={userSongs}>
               {children}
             </Sidebar>
             <Player />
