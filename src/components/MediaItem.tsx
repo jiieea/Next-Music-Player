@@ -19,6 +19,8 @@ const MediaItem: React.FC<MediaItemProps> = ({
     const player = usePlayerSong();
     const songUrl = useLoadSongUrl(data);
     const songDuration = useGetSongDuration(songUrl);
+
+    const isPlaying = player.activeId === data.id;
     const handleClick = () => {
         if (onClick) {
             return onClick(data.id)
@@ -63,12 +65,19 @@ const MediaItem: React.FC<MediaItemProps> = ({
                     <FaPlay className="text-white text-2xl" /> {/* Increased icon size */}
                 </div>
             </div>
-            <div className="flex flex-col flex-grow justify-center gap-y-1">
-                <p className="text-white font-semibold text-base truncate">{data.title}</p>
-                <p className="text-neutral-400 text-sm truncate">{data.author}</p>
+            <div className="flex flex-col flex-grow justify-center gap-y-1 w-[150px] md:w-full">
+                <p className="text-white font-semibold text-base truncate text-[12px] md:text-[15px] ">{data.title}</p>
+                <p className="text-neutral-400 text-sm truncate text-[12px] md:text-[13px]">{data.author}</p>
             </div>
             {songDuration && (
-                <p className="text-neutral-400 text-sm ml-auto">{songDuration}</p>
+                <p className="text-neutral-400 text-sm ml-auto hidden md:block">{songDuration}</p>
+            )}
+            
+            {/* Pulsing play icon for mobile when the song is active */}
+            {isPlaying && (
+                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 md:hidden">
+                    <FaPlay className="text-white text-lg animate-pulse" />
+                </div>
             )}
         </div>
     )

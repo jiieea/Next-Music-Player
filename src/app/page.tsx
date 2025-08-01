@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import HeaderAuth from "@/components/HeaderAuth";
 import { ListItem } from "@/components/ListItem";
 import MySong from "@/components/MySong";
+
+
 export default async function Home() {
   const songs = await getSong();
   const user = await getUserData();

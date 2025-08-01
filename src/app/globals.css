@@ -11,8 +11,6 @@ body,
   color-scheme: dark;
 }
 
-
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -126,5 +124,25 @@ body,
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Animation for the title */
+  .animate-marquee {
+    animation: marquee-scroll 10s linear infinite;
+  }
+  /* Animation for the author with slightly different timing */
+  .animate-marquee-author {
+    animation: marquee-scroll 12s linear infinite;
+  }
+
+  @keyframes marquee-scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-50% - 1rem));
+    }
   }
 }

@@ -20,7 +20,7 @@ import Image from 'next/image'
 interface HeaderProps {
     userData: UserDetails
     children: React.ReactNode
-    className : string
+    className: string
 }
 const Header: React.FC<HeaderProps> = ({
     userData
@@ -37,19 +37,25 @@ const Header: React.FC<HeaderProps> = ({
     const { user } = useUsers();
     const loadAvatar = useLoadAvatar(userData)
 
-    /**
+/**
      * handleLogout
      * Asynchronously handles the user logout process.
      * It signs the user out of Supabase and then refreshes the page
      * to reflect the logged-out state. Logs any errors to the console.
      */
     const handleLogout = async () => {
-        const { error } = await supabaseClient.auth.signOut();
-        router.refresh();
-        if (error) {
-            toast.error(error.message)
-        } else {
-            toast.success("Logout Successfull");
+        try {
+            const { error } = await supabaseClient.auth.signOut();
+            router.refresh();
+            if (error) {
+                toast.error(error.message)
+            } else {
+                toast.success("Logout Successfull");
+            }
+        } catch (e : unknown) {
+            if(e instanceof Error ) {
+                toast.error(e.message)
+            }
         }
     }
     return (
@@ -57,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({
             <div className={twMerge(`
                 bg-gradient-to-b from-emerald-800 h-fit p-6 rounded-lg
             ` ,
-            className
+                className
             )}>
                 <div className="flex mb-4 items-center justify-between w-full">
                     <div className='hidden gap-x-2 md:flex items-center'>
