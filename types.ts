@@ -9,6 +9,13 @@ export interface Song {
     image_path : string,
 
 }
+
+export interface Playlist {
+    id :string,
+    user_id : string,
+    playlist_name : string,
+    playlist_image : string
+}
 export interface UserDetails {
     id: string,
     full_name?: string,

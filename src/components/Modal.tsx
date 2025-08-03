@@ -55,7 +55,9 @@ const Modal: React.FC<ModalProps> = ({
                         {children}
                     </div>
                     <Dialog.Close asChild>
-                        <button className='text-neutral-400
+                        <button 
+                            title='munyenyo'
+                        className='text-neutral-400
                         hover:text-white
                         absolute
                         top-[10px]

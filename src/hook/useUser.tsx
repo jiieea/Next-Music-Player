@@ -1,5 +1,5 @@
 import { User } from '@supabase/auth-helpers-nextjs';
-import { Subscription, UserDetails } from '../../types';
+import { Playlist, Subscription, UserDetails } from '../../types';
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { useSessionContext, useUser as useSupaUser } from '@supabase/auth-helpers-react';
 
@@ -8,7 +8,8 @@ type UserContextType = {
     user: User | null,
     userDetails: UserDetails | null,
     isLoading: boolean,
-    subscription: Subscription | null
+    subscription: Subscription | null,
+    playlist: Playlist | null
 }
 
 export const UserContext = createContext<UserContextType | undefined>(
@@ -32,8 +33,11 @@ export const MyUserContextProvider = (props: Props) => {
     const [isLoadingData, setIsLoadingData] = useState(false);
     const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
     const [subscription, setSubscription] = useState<Subscription | null>(null);
+    const [playlist, setPlaylist] = useState<Playlist | null>(null);
 
+    // get user details
     const getUserDetails = useCallback(() => supabase.from('users').select('*').single(), [supabase]);
+    // get subs 
     const getSubscription = useCallback(
         () =>
             supabase
@@ -44,15 +48,22 @@ export const MyUserContextProvider = (props: Props) => {
         [supabase]
     );
 
+    // get playlistDetail
+    const getPlaylistDetail = useCallback(() =>
+        supabase.from('playlist').
+            select('*')
+            .single(),
+        [supabase])
 
     useEffect(() => {
         if (user && !isLoadingData && !userDetails && !subscription) {
             setIsLoadingData(true);
 
-            Promise.allSettled([getUserDetails(), getSubscription()]).then(
+            Promise.allSettled([getUserDetails(), getSubscription(), getPlaylistDetail()]).then(
                 (result) => {
                     const userDetailPromise = result[0];
                     const subscriptionPromise = result[1];
+                    const playlistPromise = result[2];
 
                     if (userDetailPromise.status === "fulfilled") {
                         setUserDetails(userDetailPromise.value.data as UserDetails)
@@ -61,20 +72,25 @@ export const MyUserContextProvider = (props: Props) => {
                     if (subscriptionPromise.status === "fulfilled") {
                         setSubscription(subscriptionPromise.value.data as Subscription);
                     }
+
+                    if (playlistPromise.status === "fulfilled") {
+                        setPlaylist(playlistPromise.value.data as Playlist);
+                    }
                 }
             );
         } else if (!user && !isLoadingData && isLoadingUser) {
             setSubscription(null);
             setUserDetails(null)
         }
-    }, [user, isLoadingUser, isLoadingData, userDetails, subscription, supabase, getSubscription, getUserDetails]);
+    }, [user, isLoadingUser, isLoadingData, userDetails, subscription, supabase, getSubscription, getUserDetails , getPlaylistDetail]);
 
     const value = {
         accessToken,
         user,
         userDetails,
         isLoading: isLoadingUser || isLoadingData,
-        subscription
+        subscription,
+        playlist
     }
 
 

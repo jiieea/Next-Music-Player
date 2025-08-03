@@ -14,7 +14,7 @@ import { useUsers } from '@/hook/useUser'
 import { toast } from 'sonner'
 import { Toaster } from './ui/sonner'
 import { UserDetails } from '../../types'
-import useLoadAvatar from '@/hook/useLoadAvatar'
+import {useLoadAvatar} from '@/hook/useLoadAvatar'
 import Image from 'next/image'
 
 interface HeaderProps {

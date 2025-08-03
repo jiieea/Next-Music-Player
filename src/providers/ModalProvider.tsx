@@ -1,6 +1,7 @@
 "use client"
 
 import AuthModal from '@/components/AuthModal';
+import PlaylistModal from '@/components/PlaylistModal';
 import ProfileModal from '@/components/ProfileModal';
 import UploadModal from '@/components/UploadModal';
 import React, { useEffect, useState } from 'react'
@@ -21,6 +22,7 @@ const ModalProvider = () => {
       <UploadModal />
       {/* todo : Profile Modal */}
       <ProfileModal />
+      <PlaylistModal />
     </>
   )
 }

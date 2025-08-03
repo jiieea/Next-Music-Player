@@ -4,7 +4,7 @@ import useProfileModal from "@/hook/useProfileModal";
 import { RxPencil1 } from "react-icons/rx";
 import { Song, UserDetails } from "../../../../types";
 import Image from "next/image";
-import useLoadAvatar from "@/hook/useLoadAvatar";
+import {useLoadAvatar} from "@/hook/useLoadAvatar";
 
 interface AccountContentProps {
   user: UserDetails,
