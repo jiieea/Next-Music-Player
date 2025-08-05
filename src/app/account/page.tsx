@@ -23,9 +23,6 @@ const AccountPage = async () => {
                 </div>
               </div>
             </Header>
-            {/* create a liked content's table  
-              i'll do in the next commit , i'm lit dead beat
-           */}
           </>
         )
       }

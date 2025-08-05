@@ -8,6 +8,7 @@ import { FaVolumeLow, FaVolumeXmark } from "react-icons/fa6";
 import SliderVolume from './Slider'
 import usePlayerSong from '@/hook/usePlayerSong'
 import useSound from 'use-sound'
+import PlaylistButton from './PlaylistButton'
 
 interface PlayerContentProps {
     song: Song,
@@ -116,6 +117,8 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
                 <div className="flex items-center gap-x-4">
                     <MediaItem data={song} />
                     <LikedButton songId={song.id} />
+                    {/* add to playlist button */}
+                    <PlaylistButton songId={song.id}/>
                 </div>
             </div>
             <div className='flex md:hidden col-auto w-full justify-end items-center'>

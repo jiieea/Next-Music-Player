@@ -18,7 +18,7 @@ import {useLoadAvatar} from '@/hook/useLoadAvatar'
 import Image from 'next/image'
 
 interface HeaderProps {
-    userData: UserDetails
+    userData?: UserDetails
     children: React.ReactNode
     className: string
 }
@@ -35,7 +35,7 @@ const Header: React.FC<HeaderProps> = ({
     const supabaseClient = useSupabaseClient();
     // Get the current user object from your custom user hook.
     const { user } = useUsers();
-    const loadAvatar = useLoadAvatar(userData)
+    const loadAvatar = useLoadAvatar(userData!)
 
 /**
      * handleLogout

@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import usePlaylistModal from '@/hook/usePlaylistModal'
 import PlaylistItem from './PlaylistItem'
+import Box from './Box'
 interface LibraryProps {
   songs: Song[],
   playlist : Playlist[]
@@ -94,21 +95,30 @@ const Library: React.FC<LibraryProps> = ({
         </div>
         <DropdownMenuDemo onHandleCreatePlaylist={handleCreatePlaylist} onHandleAddSong={ handleAddSong }/>,
       </div>
-      <div className='flex flex-col gap-y-2 mt-3'>
+     {
+       user ? (
+       <>
+        <div className='flex flex-col gap-y-2 mt-3'>
         {
           songs.map((item) => (
             <MediaItem key={item.id} data={item} onClick={(id: string) => onPlay(id)} />
           ))
         }
       </div>
-      {/* render playlist by user */}
       <div className='flex flex-col gap-y-2 mt-3'>
    {
     playlist.map((item) => (
-   <PlaylistItem key={item.id} playlist={item} onClick={() => {}}/>
+   <PlaylistItem key={item.id} playlist={item} />
     ))
    }
       </div>
+       </>
+       ) : (
+        <Box className='flex items-center justify-center h-full mt-4'>
+        <div className='text-neutral-600'>Please login first to see your playlist </div>
+    </Box>
+       )
+     }
     </div>
   )
 }

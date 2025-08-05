@@ -92,9 +92,9 @@ const LikedButton: React.FC<LikedButtonProps> = ({
     }
     return (
         <button
-        type='submit'
-        title='likeSong'
-        onClick={handleLikeSong}
+            type='submit'
+            title='likeSong'
+            onClick={handleLikeSong}
             className='cursor-pointer opacity-75 transition'>
             <Icon className='hover:scale-110'
                 color={isLiked ? '#22c55e' : "white"} size={25} />
