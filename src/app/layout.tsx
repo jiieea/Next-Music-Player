@@ -60,7 +60,7 @@ export default async function RootLayout({
             <Sidebar songs={userSongs} playlist={userPlaylist}>
               {children}
             </Sidebar>
-            <Player />
+            <Player  userPlaylist={ userPlaylist }/>
           </UserProvider>
         </SupabaseProvider>
       </body>

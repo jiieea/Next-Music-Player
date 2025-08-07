@@ -1,14 +1,22 @@
-"use client"
 
+"use client"
 import useGetSongById from '@/hook/useGetSongById';
 import useLoadSongUrl from '@/hook/useLoadSongUrl';
 import usePlayerSong from '@/hook/usePlayerSong'
 import React from 'react'
 import { PlayerContent } from './PlayerContent';
+import { Playlist } from '../../types';
 
-export const Player = () => {
+
+interface PlayerProps {
+  userPlaylist : Playlist[]
+}
+export const Player:React.FC<PlayerProps> = ({
+  userPlaylist
+}) => {
   const player = usePlayerSong();
   const { song } = useGetSongById(player.activeId);
+  
 
   const songUrl = useLoadSongUrl(song!);
   if (!songUrl || !song || !player.activeId) {
@@ -20,6 +28,7 @@ export const Player = () => {
       key={songUrl}
       song={song}
       songUrl = { songUrl }
+      userPlaylists = {userPlaylist}
       />
     </div>
   )

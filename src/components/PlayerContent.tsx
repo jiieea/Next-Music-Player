@@ -1,5 +1,7 @@
+"use client"
+
 import React, { useEffect, useState } from 'react'
-import { Song } from '../../types'
+import { Playlist, Song } from '../../types'
 import MediaItem from './MediaItem'
 import LikedButton from './LikedButton'
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
@@ -8,15 +10,18 @@ import { FaVolumeLow, FaVolumeXmark } from "react-icons/fa6";
 import SliderVolume from './Slider'
 import usePlayerSong from '@/hook/usePlayerSong'
 import useSound from 'use-sound'
+// import PlaylistButtonWrapper from '@/action/PlaylistButtonWrapper'
 import PlaylistButton from './PlaylistButton'
 
 interface PlayerContentProps {
     song: Song,
-    songUrl: string
+    songUrl: string,
+    userPlaylists : Playlist[]
 }
 export const PlayerContent: React.FC<PlayerContentProps> = ({
     song,
-    songUrl
+    songUrl,
+    userPlaylists
 }) => {
     const player = usePlayerSong();
     const [volume, setVolume] = useState(0.5);
@@ -118,7 +123,8 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
                     <MediaItem data={song} />
                     <LikedButton songId={song.id} />
                     {/* add to playlist button */}
-                    <PlaylistButton songId={song.id}/>
+                    <PlaylistButton  songId={song.id} userPlaylists={userPlaylists}/>
+                   {/* <PlaylistButtonWrapper  songId={song.id} userPlaylists={userPlaylists}/> */}
                 </div>
             </div>
             <div className='flex md:hidden col-auto w-full justify-end items-center'>

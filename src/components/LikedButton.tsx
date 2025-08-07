@@ -1,3 +1,6 @@
+"use client"
+
+
 import { useUsers } from '@/hook/useUser';
 import { useSessionContext } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/navigation'
@@ -36,7 +39,8 @@ const LikedButton: React.FC<LikedButtonProps> = ({
                 return;
             }
 
-            const { data: likedSong, error: fetchError } = await supabaseClient.from('liked_songs').select('*')
+            const { data: likedSong, error: fetchError } = await 
+            supabaseClient.from('liked_songs').select('*')
                 .eq('user_id', user.id)
                 .eq('song_id', songId)
                 .single();
