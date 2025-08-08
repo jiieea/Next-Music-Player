@@ -18,14 +18,16 @@ import {useLoadAvatar} from '@/hook/useLoadAvatar'
 import Image from 'next/image'
 
 interface HeaderProps {
-    userData?: UserDetails
-    children: React.ReactNode
-    className: string
+  className?: string;
+  userData?: UserDetails;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
 }
 const Header: React.FC<HeaderProps> = ({
     userData
     , children,
-    className
+    className,
+    style
 }) => {
     // Initialize Next.js router for programmatic navigation.
     const router = useRouter();
@@ -64,7 +66,7 @@ const Header: React.FC<HeaderProps> = ({
                 bg-gradient-to-b from-emerald-800 h-fit p-6 rounded-lg
             ` ,
                 className
-            )}>
+            )} style={style} >
                 <div className="flex mb-4 items-center justify-between w-full">
                     <div className='hidden gap-x-2 md:flex items-center'>
                         <Button className='rounded-full  hover:opacity-75 transition  bg-black p-2' onClick={() => router.back()}>

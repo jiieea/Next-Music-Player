@@ -1,30 +1,30 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
-import {Playlist} from '../../types'
-import { cookies } from 'next/headers'
+// actions/getPlaylistById.ts
 
-const getPlaylistById = async():Promise<Playlist[]>  => {
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Playlist } from '../../types';
+import { cookies } from "next/headers";
+
+const getPlaylistById = async (playlistId: string): Promise<Playlist | null> => {
     const supabase = createServerComponentClient({
-        cookies : cookies
+        cookies: cookies
     });
 
-    const { data , error } = await supabase.auth.getUser();
-
-    if(error) {
-        console.log(error.message);
-        return []
+    if (!playlistId) {
+        return null;
     }
 
-    // fetch data from table
-    const { data : playlistUser , error : playlistError } = await supabase.from('playlist')
-    .select('*').eq('user_id' , data.user?.id);
+    const { data: playlistData, error: playlistError } = await supabase
+        .from('playlist')
+        .select('*')
+        .eq('id', playlistId) // Filter by the single playlist ID
+        .single(); // Use .single() to get a single object instead of an array
 
-    if(playlistError) {
-        console.log(playlistError.message);
+    if (playlistError) {
+        console.error("Error fetching playlist:", playlistError.message);
+        return null;
     }
 
-
-    return ( playlistUser as Playlist[]) || [];
-
-}
+    return (playlistData as Playlist) || null;
+};
 
 export default getPlaylistById;

@@ -9,6 +9,7 @@ body,
   height: 100%;
   background-color: #000;
   color-scheme: dark;
+  --playlist-color : #000
 }
 
 @theme inline {
@@ -146,3 +147,6 @@ body,
     }
   }
 }
+
+/* src/app/globals.css */
+

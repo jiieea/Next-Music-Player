@@ -13,7 +13,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({
     const playlistImage = useLoadPlaylistImage(playlist);
     return (
         <Link
-            href={`/${playlist.playlist_name}`}
+            href={`/${playlist.id}`}
             className='flex items-center
         gap-x-3 cursor-pointer hover:bg-neutral-800/50
         w-full p-3 rounded-md'
