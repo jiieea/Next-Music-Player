@@ -22,9 +22,9 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
   const dominantColor = useDominantColor(playlistImage);
 
   return (
-    <>
+    <div className='w-full h-full bg-neutral-900 rounded-md'>
       <Header
-       className="bg-gradient-to-b from-[var(--playlist-color)] to-black transition-colors duration-500"
+       className="bg-gradient-to-b from-[var(--playlist-color)] to-neutral-900 transition-colors duration-500"
         userData={userData}
         style={{ '--playlist-color': dominantColor } as React.CSSProperties}
       >
@@ -46,7 +46,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
         </div>
       </Header>
       <PlaylistContent songs={songs} />
-    </>
+    </div>
   );
 };
 
