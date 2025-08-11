@@ -8,6 +8,7 @@ import ModalProvider from "@/providers/ModalProvider";
 import getSongById from "@/action/getSongsById";
 import { Player } from "@/components/Player";
 import getPlaylistByUserId from "@/action/getPlaylistByUserId";
+import getUserData from "@/action/getUserData";
 
 
 const nunito = Nunito({
@@ -47,6 +48,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const userSongs = await getSongById();
+  const userDetail = await getUserData()
   const userPlaylist = await getPlaylistByUserId();
   return (
     <html lang="en" className={`${jakarta.variable} antialiased`}>
@@ -57,7 +59,7 @@ export default async function RootLayout({
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider />
-            <Sidebar songs={userSongs} playlist={userPlaylist}>
+            <Sidebar songs={userSongs} playlist={userPlaylist} userDetail={ userDetail! }>
               {children}
             </Sidebar>
             <Player  userPlaylist={ userPlaylist }/>

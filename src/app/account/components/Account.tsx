@@ -37,7 +37,7 @@ const Account: React.FC<AccountProps> = (
                         >
                             <div className='flex flex-col mb-2 gap-y-6'>
                                 <div className='text-white font-semibold text-3xl'>
-                                    <AccountContent user={user} songs={userSongs} />
+                                    <AccountContent user={user} songs={userSongs}  playlists={ playlists}/>
                                 </div>
                             </div>
                         </Header>

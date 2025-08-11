@@ -91,7 +91,7 @@ const PlaylistButton: React.FC<PlaylistButtonProps> = ({ songId, userPlaylists }
             </button>
 
             {isDropdownOpen && (
-                <div className="absolute right-0 bottom-full mb-2 w-48 bg-gray-800 rounded-md shadow-lg z-10">
+                <div className="absolute right-0 bottom-full mb-2 w-48 bg-neutral-800 rounded-md shadow-lg z-10">
                     <div className="py-1">
                         {userPlaylists && userPlaylists.length > 0 ? (
                             userPlaylists.map((playlist) => (
@@ -99,7 +99,7 @@ const PlaylistButton: React.FC<PlaylistButtonProps> = ({ songId, userPlaylists }
                                     title='add to playlist'
                                     key={playlist.id}
                                     onClick={() => handleAddToSpecificPlaylist(playlist.id)}
-                                    className="block w-full text-left px-4 py-2 text-sm text-gray-100 hover:bg-gray-700"
+                                    className="block w-full text-left px-4 py-2 text-sm text-gray-100 hover:bg-neutral-700"
                                 >
                                     {playlist.playlist_name}
                                 </button>

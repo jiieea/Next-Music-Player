@@ -5,7 +5,7 @@ import { useUsers } from '@/hook/useUser'
 import React from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { TbPlaylist } from 'react-icons/tb'
-import { Playlist, Song } from '../../types'
+import { Playlist, Song, UserDetails } from '../../types'
 import MediaItem from './MediaItem'
 import useOnplay from '@/hook/useOnPlay'
 import { TbMusicPlus } from "react-icons/tb";
@@ -22,6 +22,7 @@ import Box from './Box'
 interface LibraryProps {
   songs: Song[],
   playlist : Playlist[]
+  userDetail : UserDetails
 }
 
 interface DropdownMenuProps {
@@ -60,7 +61,8 @@ export const DropdownMenuDemo:React.FC<DropdownMenuProps> = ({
 
 const Library: React.FC<LibraryProps> = ({
   songs,
-  playlist
+  playlist,
+  userDetail
 }) => {
   const { user  } = useUsers();
   const onPlay = useOnplay(songs);
@@ -95,30 +97,31 @@ const Library: React.FC<LibraryProps> = ({
         </div>
         <DropdownMenuDemo onHandleCreatePlaylist={handleCreatePlaylist} onHandleAddSong={ handleAddSong }/>,
       </div>
-     {
-       user ? (
-       <>
-        <div className='flex flex-col gap-y-2 mt-3'>
-        {
-          songs.map((item) => (
-            <MediaItem key={item.id} data={item} onClick={(id: string) => onPlay(id)} />
-          ))
-        }
-      </div>
-      <div className='flex flex-col gap-y-2 mt-3'>
-   {
-    playlist.map((item) => (
-   <PlaylistItem key={item.id} playlist={item} />
-    ))
-   }
-      </div>
-       </>
-       ) : (
-        <Box className='flex items-center justify-center h-full mt-4'>
-        <div className='text-neutral-600'>Please login first to see your playlist </div>
-    </Box>
-       )
-     }
+      {user ? (
+        <div className="flex flex-col h-full">
+          {/* Songs List Container */}
+          <h3 className='text-lg font-semibold text-white p-3'>
+              Songs
+            </h3>
+          <div className="flex flex-col gap-y-2 mt-2 overflow-y-auto max-h-[40vh]">
+            {songs.map((item) => (
+              <MediaItem key={item.id} data={item} onClick={(id: string) => onPlay(id)} />
+            ))}
+          </div>
+          
+          {/* Playlists List Container */}
+          <h3 className='text-white font-semibold text-lg p-3'>Playlists</h3>
+          <div className="flex flex-col gap-y-2 mt-2 overflow-y-auto max-h-[50vh]">
+            {playlist.map((item) => (
+              <PlaylistItem key={item.id} playlist={item}  user={ userDetail }/>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <Box className="flex items-center justify-center h-full mt-4">
+          <div className="text-neutral-600">Please login first to see your playlist</div>
+        </Box>
+      )}
     </div>
   )
 }

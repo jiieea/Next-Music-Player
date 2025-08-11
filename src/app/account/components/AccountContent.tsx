@@ -3,18 +3,20 @@
 
 import useProfileModal from "@/hook/useProfileModal";
 import { RxPencil1 } from "react-icons/rx";
-import { Song, UserDetails } from "../../../../types";
+import { Playlist, Song, UserDetails } from "../../../../types";
 import Image from "next/image";
-import {useLoadAvatar} from "@/hook/useLoadAvatar";
+import { useLoadAvatar } from "@/hook/useLoadAvatar";
 
 interface AccountContentProps {
   user: UserDetails,
-  songs: Song[]
+  songs: Song[],
+  playlists: Playlist[]
 }
 
 export const AccountContent: React.FC<AccountContentProps> = ({
   user,
-  songs
+  songs,
+  playlists
 }) => {
   const { full_name } = user;
   const avatar = useLoadAvatar(user)
@@ -94,7 +96,11 @@ export const AccountContent: React.FC<AccountContentProps> = ({
         <div className="flex flex-col gap-y-1.5 justify-center mt-4 md:mt-0 md:ml-4"> {/* Added margin-top for mobile, margin-left for desktop */}
           <p className='text-neutral-400 font-semibold text-base md:text-lg'>Profile</p> {/* Changed to neutral-400 for contrast */}
           <p className='text-white font-bold text-2xl md:text-4xl lg:text-5xl'>{full_name || "User Name"}</p>
-          <p className="text-neutral-400 text-sm">{songs.length} {songs.length > 1 ? "Songs" : "Song"} Uploaded</p>
+          <p className="text-neutral-400 text-sm">{songs.length} {songs.length > 1 ? "Songs" : "Song"} Uploaded &bull; <span className="text-neutral-400 font-semibold text-sm">
+            {
+              playlists.length
+            } playlists uploaded
+          </span></p>
         </div>
 
       </div>

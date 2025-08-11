@@ -1,7 +1,7 @@
 import { useUsers } from '@/hook/useUser';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from "./Modal"
 import usePlaylistModal from '@/hook/usePlaylistModal';
 import { Input } from './ui/input';
@@ -10,8 +10,11 @@ import Image from 'next/image';
 import { FieldValues, useForm , SubmitHandler } from 'react-hook-form';
 import { toast } from 'sonner';
 import uniqid from 'uniqid'
+import { TbMusic } from "react-icons/tb";
 const PlaylistModal = () => {
   const playlistModal = usePlaylistModal();
+  const { playlist } = useUsers()
+  const [ previewImg , setPreviewImg ] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const supabase = useSupabaseClient();
@@ -19,13 +22,30 @@ const PlaylistModal = () => {
   const {
     reset , 
     handleSubmit,
-    register
+    register,
+    watch
   } = useForm<FieldValues>({
     defaultValues : {
       playlistName : null,
       playlistImage : null
     }
   })
+
+  const previewPlaylistImg = watch('playlistImage');
+
+  // Use a useEffect hook to create and cleanup the object URL
+useEffect(() => {
+  if (previewPlaylistImg && previewPlaylistImg.length > 0) {
+    const file = previewPlaylistImg[0];
+    const newPreviewUrl = URL.createObjectURL(file);
+    setPreviewImg(newPreviewUrl);
+    
+    // Cleanup function to revoke the object URL
+    return () => URL.revokeObjectURL(newPreviewUrl);
+  } else {
+    setPreviewImg(null); // Reset preview if no file is selected
+  }
+}, [previewPlaylistImg]);
 
 
   const uploadPlaylist:SubmitHandler<FieldValues> = async(values) => {
@@ -76,18 +96,13 @@ const { error } = await supabase.from('playlist').insert({
 
   }
 
-  {/*  // Todo: create upload hook  
-   // the hook provides access to isOpen (boolean indicating when the modal is open ) 
-   // and onClose(a function to close modal ) */}
   const handleOpenModal = (open: boolean) => {
     if (!open) {
       reset()
       playlistModal.onClose()
     }
   }
-
-
-
+  
   return (
     <Modal
       title="Add New Playlist"
@@ -118,17 +133,27 @@ const { error } = await supabase.from('playlist').insert({
             {/* Avatar Display - Spotify style */}
             <div className="flex justify-center mb-6">
               <div className="relative w-34 h-34 rounded-full overflow-hidden bg-neutral-700 flex items-center justify-center">
-              <Image
-              // get public url
-                    src=""
-                    fill
-                    alt="User Avatar"
-                    className="  object-cover
-              rounded-full
-              w-full h-full
-              transition-transform
-              group-hover:scale-105 /* Slight zoom on hover */"
-                  />
+              {
+              // Conditionally render the preview image or the default icon
+              previewImg ? (
+                <Image
+                  src={previewImg} // Use the local state for preview
+                  fill
+                  alt="Playlist Preview"
+                  className="object-cover rounded-full w-full h-full transition-transform"
+                />
+              ) : playlist?.playlist_image ? (
+                // Use the existing playlist image if no new one is selected
+                <Image
+                  src={supabase.storage.from('playlist').getPublicUrl(playlist?.playlist_image).data.publicUrl}
+                  fill
+                  alt="Current Playlist Image"
+                  className="object-cover rounded-full w-full h-full transition-transform"
+                />
+              ) : (
+                <TbMusic className='w-[3em] h-[3em] text-neutral-400' />
+              )
+            }
                 {/* Overlay for changing avatar */}
                 <label
                   htmlFor="playlistImg"

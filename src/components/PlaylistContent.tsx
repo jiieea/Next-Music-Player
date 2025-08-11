@@ -6,9 +6,11 @@ import { RxDotsHorizontal } from "react-icons/rx";
 import { FaTrash } from "react-icons/fa6";
 interface PlaylistContentProps {
     songs: Song[]
+    onHandleRemoveSong : (songId : string ) => void
 }
 export const PlaylistContent: React.FC<PlaylistContentProps> = ({
-    songs
+    songs,
+    onHandleRemoveSong
 }) => {
     const [openDropdownId, setOpenDropdownId] = useState<string | null>(null);
 
@@ -16,10 +18,6 @@ export const PlaylistContent: React.FC<PlaylistContentProps> = ({
         setOpenDropdownId(openDropdownId === id ? null : id);
     };
 
-
-    const handleRemoveSong = () => {
-        alert('oke')
-    }
     return (
         <div className="flex flex-col gap-x-4 w-full px-6    ">
             {
@@ -53,7 +51,7 @@ export const PlaylistContent: React.FC<PlaylistContentProps> = ({
                                                         title='add to playlist'
                                                         className="block w-full text-left px-4 py-2 text-sm text-gray-100 hover:bg-gray-700"
                                                     >
-                                                       <div className='flex w-50 items-center gap-x-2' onClick={handleRemoveSong}>
+                                                       <div className='flex w-50 items-center gap-x-2' onClick={() => onHandleRemoveSong(song.id)}>
                                                         <FaTrash /> <span>remove from this playlist</span>
                                                        </div>
                                                     </button>

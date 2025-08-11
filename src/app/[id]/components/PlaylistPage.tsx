@@ -1,11 +1,14 @@
 "use client"
 import Header from '@/components/Header';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Playlist, Song, UserDetails } from '../../../../types';
 import Image from 'next/image';
 import { useLoadPlaylistImage } from '@/hook/useLoadAvatar';
 import { PlaylistContent } from '@/components/PlaylistContent';
 import { useDominantColor } from '@/hook/useDominantColour';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 interface PlaylistPageProps {
   userData?: UserDetails;
@@ -20,11 +23,32 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
 }) => {
   const playlistImage = useLoadPlaylistImage(playlistData);
   const dominantColor = useDominantColor(playlistImage);
+  const [playlistSongs, setPlaylistSongs] = useState<Song[]>(songs);
+  const supabase = useSupabaseClient()
+  const router = useRouter();
+  useEffect(() => {
+    setPlaylistSongs(songs);
+  }, [songs]);
+
+  const handleRemoveSong = async (songId: string) => {
+    const { error } = await supabase.from('playlist_songs')
+      .delete()
+      .eq('song_id', songId)
+      .eq('playlist_id', playlistData.id)
+
+
+    if (error) {
+      toast.error(`${error.message} failed to remove `)
+    }
+
+    setPlaylistSongs(prevSong => prevSong.filter(song => song.id === songId));
+    router.refresh();
+  }
 
   return (
     <div className='w-full h-full bg-neutral-900 rounded-md'>
       <Header
-       className="bg-gradient-to-b from-[var(--playlist-color)] to-neutral-900 transition-colors duration-500"
+        className="bg-gradient-to-b from-[var(--playlist-color)] to-neutral-900 transition-colors duration-500"
         userData={userData}
         style={{ '--playlist-color': dominantColor } as React.CSSProperties}
       >
@@ -40,12 +64,12 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
             <p className='text-[1rem] ps-0 md:ps-2 font-semibold text-white'>Playlist</p>
             <p className='text-4xl font-semibold text-white lg:text-8xl'>{playlistData?.playlist_name}</p>
             <p className='ps-0 md:ps-2 font-semibold text-white'>
-              {songs.length} {songs.length === 1 ? 'song' : 'songs'}
+              {playlistSongs.length} {playlistSongs.length === 1 ? 'song' : 'songs'}
             </p>
           </div>
         </div>
       </Header>
-      <PlaylistContent songs={songs} />
+      <PlaylistContent songs={playlistSongs} onHandleRemoveSong={handleRemoveSong} />
     </div>
   );
 };
