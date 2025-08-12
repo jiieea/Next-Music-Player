@@ -14,18 +14,21 @@ interface PlaylistPageProps {
   userData?: UserDetails;
   playlistData: Playlist;
   songs: Song[];
+  userPlaylists : Playlist[]
 }
 
 const PlaylistPage: React.FC<PlaylistPageProps> = ({
   userData,
   playlistData,
-  songs
+  songs,
+  userPlaylists
 }) => {
   const playlistImage = useLoadPlaylistImage(playlistData);
   const dominantColor = useDominantColor(playlistImage);
   const [playlistSongs, setPlaylistSongs] = useState<Song[]>(songs);
   const supabase = useSupabaseClient()
   const router = useRouter();
+
   useEffect(() => {
     setPlaylistSongs(songs);
   }, [songs]);
@@ -69,7 +72,10 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
           </div>
         </div>
       </Header>
-      <PlaylistContent songs={playlistSongs} onHandleRemoveSong={handleRemoveSong} />
+      <PlaylistContent 
+      songs={playlistSongs}
+      userPlaylists={ userPlaylists}
+      onHandleRemoveSong={handleRemoveSong}/>
     </div>
   );
 };

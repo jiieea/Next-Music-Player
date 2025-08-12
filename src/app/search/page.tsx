@@ -1,5 +1,6 @@
 
 export const revalidate = 0;
+import getPlaylistByUserId from '@/action/getPlaylistByUserId';
 import getSongByTitle from '@/action/getSongByTitle';
 import getUserData from '@/action/getUserData';
 import Header from '@/components/Header';
@@ -14,7 +15,8 @@ interface SearchProps {
 const Search = async ({ searchParams }: SearchProps) => {
   const { title } = await searchParams;
   const songs = await getSongByTitle(title);
-  const user = await getUserData()
+  const user = await getUserData();
+  const playlists = await getPlaylistByUserId()
 
   return (
     <div className="bg-neutral-900 overflow-hidden overflow-y-auto h-full w-full">
@@ -28,7 +30,7 @@ const Search = async ({ searchParams }: SearchProps) => {
           </Header>
         )
       }
-      <SearchContent songs={songs} />
+      <SearchContent songs={songs} playlists={ playlists } />
     </div>
   );
 };

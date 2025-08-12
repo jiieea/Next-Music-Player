@@ -99,7 +99,7 @@ export const AccountContent: React.FC<AccountContentProps> = ({
           <p className="text-neutral-400 text-sm">{songs.length} {songs.length > 1 ? "Songs" : "Song"} Uploaded &bull; <span className="text-neutral-400 font-semibold text-sm">
             {
               playlists.length
-            } playlists uploaded
+            } playlists created
           </span></p>
         </div>
 

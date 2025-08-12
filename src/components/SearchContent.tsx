@@ -1,15 +1,18 @@
 "use client"
 import React from 'react'
-import { Song } from '../../types'
+import { Playlist, Song } from '../../types'
 import MediaItem from './MediaItem'
 import LikedButton from './LikedButton'
 import useOnplay from '@/hook/useOnPlay'
+import PlaylistButton from './PlaylistButton'
 interface SearchContentProps {
     songs: Song[]
+    playlists : Playlist[]
 }
 
 const SearchContent: React.FC<SearchContentProps> = ({
-    songs
+    songs,
+    playlists
 }) => {
     const onPlay = useOnplay(songs);
     if (songs.length === 0) {
@@ -30,6 +33,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
                                 onClick={(id : string) => onPlay(id)}
                             />
                             <LikedButton  songId={ song.id }/>
+                            <PlaylistButton  songId={ song.id} userPlaylists={ playlists }/>
                             </div>
                         </div>
                     </div>

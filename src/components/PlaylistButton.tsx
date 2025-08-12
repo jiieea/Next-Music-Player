@@ -34,7 +34,7 @@ const PlaylistButton: React.FC<PlaylistButtonProps> = ({ songId, userPlaylists }
     };
 
     // function to add song to the spesific playlist
-   const handleAddToSpecificPlaylist = async (playlistId: string) => {
+    const handleAddToSpecificPlaylist = async (playlistId: string) => {
     setIsDropdownOpen(false); // Close dropdown immediately
 
     if (!user) {
@@ -77,7 +77,7 @@ const PlaylistButton: React.FC<PlaylistButtonProps> = ({ songId, userPlaylists }
     }
 };
     return (
-        <div className="relative">
+        <div className="relative mt-1">
             <button
                 type='button'
                 title='add to playlist'

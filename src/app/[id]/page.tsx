@@ -5,6 +5,7 @@ import PlaylistPage from './components/PlaylistPage';
 import getUserData from '@/action/getUserData';
 import { notFound } from 'next/navigation';
 import getPlaylistById from '@/action/getPlaylistById';
+import getPlaylistByUserId from '@/action/getPlaylistByUserId';
 
 interface PageProps {
   params: Promise<{id : string}>
@@ -22,12 +23,14 @@ const Page = async ({ params }: PageProps) => {
 
   const songs = await getPlaylistSongs(id);
   const userData = await getUserData();
+  const userPlaylists = await getPlaylistByUserId()
 
   return (
     <PlaylistPage
       userData={userData ?? undefined}
       songs={songs}
       playlistData={playlist}
+      userPlaylists={ userPlaylists ?? undefined}
     />
   );
 };
