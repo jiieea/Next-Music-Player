@@ -34,7 +34,7 @@ Make sure you have Node.js and npm (or yarn) installed on your machine.
 1. Clone Repository
   ```bash
     git clone https://github.com/jiieea/Next-Music-Player.git
-cd Next-Music-Player
+    cd Next-Music-Player
  ```
 2 . Install dependecies
 ```bash
