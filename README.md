@@ -1,4 +1,4 @@
-## Next-Music-Player: Cloning Spotify Music Player 🎶
+# Next-Music-Player: Cloning Spotify Music Player 🎶
 
 [Spotify Clone]( https://next-music-player-mauve.vercel.app/ )
 
