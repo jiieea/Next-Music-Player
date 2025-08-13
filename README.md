@@ -83,7 +83,7 @@ ext-Music-Player/
 ```
 
 ## 📄 License
-Distributed under the MIT License. See ```bash  LICENSE ``` for more information.
+Distributed under the MIT License. See ``` LICENSE ``` for more information.
 
 ## 🙏 Acknowledgements
 - [Spotify](https://open.spotify.com/) for the inspiration
