@@ -1,6 +1,5 @@
 'use client'
 
-
 import useProfileModal from "@/hook/useProfileModal";
 import { RxPencil1 } from "react-icons/rx";
 import { Playlist, Song, UserDetails } from "../../../../types";
@@ -26,11 +25,12 @@ export const AccountContent: React.FC<AccountContentProps> = ({
   }
 
   return (
-    <div className='mt-3 p-4'> {/* Added padding for overall spacing */}
-      <h1 className='text-white text-2xl md:text-3xl lg:text-4xl font-bold mb-6'> {/* Added text-white and mb-6 */}
+    <div className='mt-3 p-4'>
+      <h1 className='text-white text-2xl md:text-3xl lg:text-4xl font-bold mb-6'>
         Account Settings
       </h1>
-      <div className="flex md:flex-row gap-x-4 items-center md:items-center"> {/* Changed md:items-start to md:items-center */}
+      
+      <div className="flex flex-col md:flex-row gap-x-4 items-center md:items-start">
         {/* Image and Overlay Container */}
         <div
           onClick={updateProfile}
@@ -39,25 +39,25 @@ export const AccountContent: React.FC<AccountContentProps> = ({
             group
             cursor-pointer
             rounded-full
-            w-[150px] h-[150px]
-            md:w-[200px] md:h-[200px]
-            lg:w-[220px] lg:h-[220px]
+            w-32 h-32 /* Reduced size for mobile */
+            md:w-48 md:h-48 /* Slightly larger on medium screens */
+            lg:w-56 lg:h-56 /* Larger on large screens */
             overflow-hidden
-            flex-shrink-0 /* Prevent shrinking on smaller screens */
+            flex-shrink-0
           '
         >
           {/* Avatar Image */}
           <Image
             alt="avatar"
             src={avatar || "/images/user.png"}
-            width={220} /* Set a max width for Image component */
-            height={220} /* Set a max height for Image component */
+            width={224}
+            height={224}
             className="
               object-cover
               rounded-full
               w-full h-full
               transition-transform
-              group-hover:scale-105 /* Slight zoom on hover */
+              group-hover:scale-105
             "
           />
           {/* Overlay for Hover Effect */}
@@ -69,7 +69,7 @@ export const AccountContent: React.FC<AccountContentProps> = ({
               flex-col
               items-center
               justify-center
-              bg-black/50 /* Semi-transparent black overlay */
+              bg-black/50
               rounded-full
               transition-opacity
               duration-300
@@ -77,15 +77,15 @@ export const AccountContent: React.FC<AccountContentProps> = ({
               group-hover:opacity-100
             "
           >
-            <RxPencil1 className='text-white mb-2' size={40} /> {/* Adjusted size and added margin-bottom */}
+            <RxPencil1 className='text-white mb-2' size={32} />
             <p className='
               font-semibold
-              text-lg
-              md:text-xl
-              lg:text-2xl
+              text-sm
+              md:text-base
+              lg:text-lg
               text-white
               text-center
-              px-2 /* Added horizontal padding */
+              px-2
             '>
               Select Picture
             </p>
@@ -93,18 +93,16 @@ export const AccountContent: React.FC<AccountContentProps> = ({
         </div>
 
         {/* User Name Section */}
-        <div className="flex flex-col gap-y-1.5 justify-center mt-4 md:mt-0 md:ml-4"> {/* Added margin-top for mobile, margin-left for desktop */}
-          <p className='text-neutral-400 font-semibold text-base md:text-lg'>Profile</p> {/* Changed to neutral-400 for contrast */}
-          <p className='text-white font-bold text-2xl md:text-4xl lg:text-5xl'>{full_name || "User Name"}</p>
+        <div className="flex flex-col justify-center mt-4 md:mt-16 md:ml-4">
+          <p className='text-neutral-400 font-semibold text-sm'>Profile</p>
+          <p className='text-white font-bold text-3xl md:text-5xl lg:text-6xl'>{full_name || "User Name"}</p>
           <p className="text-neutral-400 text-sm">{songs.length} {songs.length > 1 ? "Songs" : "Song"} Uploaded &bull; <span className="text-neutral-400 font-semibold text-sm">
             {
               playlists.length
             } playlists created
           </span></p>
         </div>
-
       </div>
-
     </div>
   );
 }
