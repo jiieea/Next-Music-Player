@@ -7,6 +7,7 @@ export interface Song {
     author : string,
     song_path : string,
     image_path : string,
+    created_at : string
 }
 
 export interface Playlist {

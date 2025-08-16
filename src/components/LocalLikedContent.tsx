@@ -33,11 +33,18 @@ const LikedContent: React.FC<LikedContentProps> = ({
             <div className="text-white text-lg font-semibold p-4">No Song</div>
         )
     }
+
+    const onClick = () => {
+        router.push('/account/mysong');
+    }
     return (
         <div className="flex flex-col gap-x-4 w-full px-6 ">
+            <div className="flex justify-between p-2">
             <h1 className="text-white font-semibold text-lg md:text-2xl lg:text-3xl mb-3">Top Songs</h1>
+            <h1 className="text-neutral-700 font-semibold text-md  mb-3 hover:underline hover:scale-110 transition cursor-pointer" onClick={onClick}>See More</h1>
+            </div>
             {
-                songs.map((song , index) => (
+                songs.slice(0,4).map((song , index) => (
                     <div className="flex items-center  hover:bg-neutral-800/50  " key={song.id}>
                         <div className="flex-1">
                             <div className="flex items-center gap-x-1">
