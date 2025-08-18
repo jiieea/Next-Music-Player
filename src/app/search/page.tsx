@@ -4,9 +4,9 @@ import getPlaylistByUserId from '@/action/getPlaylistByUserId';
 import getSongByTitle from '@/action/getSongByTitle';
 import getUserData from '@/action/getUserData';
 import Header from '@/components/Header';
+import { MobileNavbar } from '@/components/MobileNavbar';
 import SearchContent from '@/components/SearchContent';
 import { SearchInput } from '@/components/SearchInput';
-
 
 interface SearchProps {
   searchParams: Promise<{ title: string }>
@@ -31,6 +31,9 @@ const Search = async ({ searchParams }: SearchProps) => {
         )
       }
       <SearchContent songs={songs} playlists={ playlists } />
+      <div className="fixed bottom-0 w-full px-0">
+      <MobileNavbar />
+      </div>
     </div>
   );
 };

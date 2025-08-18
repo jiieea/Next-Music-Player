@@ -41,7 +41,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         }
     ], [pathname])
     return (
-        <div className={twMerge(`flex h-full` , player.activeId && "h-[calc(100%-80px)]")}>
+        <div className=
+        {twMerge
+        (`flex h-full` , player.activeId && "md:h-[calc(100%-80px)]  h-[calc(100%-130px)]")}>
             <div className="
         hidden
         md:flex
@@ -59,7 +61,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                         ))
                     }
                 </Box>
-                <Box className='overflow-y-auto h-full'>
+                <Box className='overflow-y-hidden h-full'>
                     <Library  songs={ songs } playlist={playlist} userDetail={ userDetail }/>
                 </Box>
             </div>

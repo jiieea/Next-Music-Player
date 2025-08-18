@@ -36,9 +36,6 @@ const dmsans = DM_Sans({
 export const metadata: Metadata = {
   title: "Spotify Clone",
   description: "Spotify Clone built with Next.js and Tailwind CSS",
-  icons: {
-    icon: 'spotify.png'
-  }
 };
 
 export const revalidate = 0;
@@ -52,7 +49,7 @@ export default async function RootLayout({
   const userPlaylist = await getPlaylistByUserId();
   return (
     <html lang="en" className={`${jakarta.variable} antialiased`}>
-      <link rel="icon" href="/spotify.png" />
+      <link rel="icon" href="/spotify_icon.png" />
       <body
         className={`${dmsans.className} ${figtree.className} ${nunito.className}`}
       >

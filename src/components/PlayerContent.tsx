@@ -117,22 +117,22 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
 
 
     return (
-        <div className="grid grid-cols-2 md:grid-cols-3 h-full ">
-            <div className="flex w-full justify-start">
+        <div className="
+        grid grid-cols-2 md:grid-cols-3 h-full ">
+            <div className="flex w-full rounded-md
+             justify-start  md:bg-black">
                 <div className="flex items-center gap-x-4">
                     <MediaItem data={song} />
                     <LikedButton songId={song.id} />
-                    {/* add to playlist button */}
                     <PlaylistButton  songId={song.id} userPlaylists={userPlaylists}/>
-                   {/* <PlaylistButtonWrapper  songId={song.id} userPlaylists={userPlaylists}/> */}
                 </div>
             </div>
             <div className='flex md:hidden col-auto w-full justify-end items-center'>
                 <div
                     onClick={handlePlayingMusic}
-                    className='h-10 w-10 flex items-center justify-center rounded-full bg-white p-1 cursor-pointer'
+                    className='h-10 w-10 flex items-center justify-center rounded-full p-1 cursor-pointer'
                 >
-                    <Icon className='text-black ' size={30} />
+                    <Icon className='text-white ' size={35} />
                 </div>
             </div>
             <div

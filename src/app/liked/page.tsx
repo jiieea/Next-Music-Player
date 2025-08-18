@@ -6,7 +6,7 @@ import Image from 'next/image';
 import React from 'react'
 import LikedContent from '@/components/LikedContent';
 import getUserData from '@/action/getUserData';
-
+import { MobileNavbar } from '@/components/MobileNavbar';
 
 const page = async () => {
   const likedSongs = await getLikedSong();
@@ -43,7 +43,11 @@ const page = async () => {
         )
       }
       <LikedContent songs={likedSongs} />
+      <div className="fixed bottom-0 w-full px-0 md:hidden">
+      <MobileNavbar />
+      </div>
     </div>
+    
   )
 }
 

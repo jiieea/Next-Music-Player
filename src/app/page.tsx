@@ -4,8 +4,8 @@ import getUserData from "@/action/getUserData";
 import Header from "@/components/Header";
 import HeaderAuth from "@/components/HeaderAuth";
 import { ListItem } from "@/components/ListItem";
+import { MobileNavbar } from "@/components/MobileNavbar";
 import MySong from "@/components/MySong";
-
 
 export default async function Home() {
   const songs = await getSong();
@@ -58,8 +58,13 @@ export default async function Home() {
         <h1 className="text-white text-2xl font-semibold">Newest Song</h1>
         <div className="">
           <MySong songs={songs} />
+        
         </div>
       </div>
+      <div className="fixed bottom-0 w-full px-0 md:hidden">
+      <MobileNavbar />
+      </div>
     </div>
+   
   );
 }
