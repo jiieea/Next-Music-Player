@@ -21,18 +21,18 @@ import PlaylistItem from './PlaylistItem'
 import Box from './Box'
 interface LibraryProps {
   songs: Song[],
-  playlist : Playlist[]
-  userDetail : UserDetails
+  playlist: Playlist[]
+  userDetail: UserDetails
 }
 
 interface DropdownMenuProps {
-  onHandleCreatePlaylist : () => void
-  onHandleAddSong : () => void
+  onHandleCreatePlaylist: () => void
+  onHandleAddSong: () => void
 }
 
 
-export const DropdownMenuDemo:React.FC<DropdownMenuProps> = ({
-  onHandleAddSong , 
+export const DropdownMenuDemo: React.FC<DropdownMenuProps> = ({
+  onHandleAddSong,
   onHandleCreatePlaylist
 }) => {
   return (
@@ -42,11 +42,11 @@ export const DropdownMenuDemo:React.FC<DropdownMenuProps> = ({
                  hover:text-white transition'
           size={20} />
       </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56 bg-neutral-900 text-white border-none shadow-lg" align="start">
-          <DropdownMenuGroup>
+      <DropdownMenuContent className="w-56 bg-neutral-900 text-white border-none shadow-lg" align="start">
+        <DropdownMenuGroup>
           <DropdownMenuItem onClick={onHandleCreatePlaylist} className='h-[50px] '>
-             {/* // TODO : Open add playlist modal when it clicked */}
-            <TbMusicPlus /> Playlist 
+            {/* // TODO : Open add playlist modal when it clicked */}
+            <TbMusicPlus /> Playlist
           </DropdownMenuItem>
           <DropdownMenuItem onClick={onHandleAddSong} className='h-[50px]'>
             {/* TODO : Open Add song modal when it click */}
@@ -64,24 +64,24 @@ const Library: React.FC<LibraryProps> = ({
   playlist,
   userDetail
 }) => {
-  const { user  } = useUsers();
+  const { user } = useUsers();
   const onPlay = useOnplay(songs);
   const authModal = useAuthModal();
   const uploadModal = useUploadModal();
   const playlistModal = usePlaylistModal();
 
   const handleAddSong = () => {
-      if (!user) {
-          return authModal.onOpen();
-      } else {
-          return uploadModal.onOpen();
-      }
+    if (!user) {
+      return authModal.onOpen();
+    } else {
+      return uploadModal.onOpen();
+    }
   }
 
   const handleCreatePlaylist = () => {
-    if(!user) {
+    if (!user) {
       return authModal.onOpen() // open authmodal if user's not authenticated
-    }else {
+    } else {
       return playlistModal.onOpen()
     }
   }
@@ -95,25 +95,28 @@ const Library: React.FC<LibraryProps> = ({
           <TbPlaylist size={26} className='text-neutral-400' />
           <p className='text-neutral-400 font-medium text-md'>Your Library</p>
         </div>
-        <DropdownMenuDemo onHandleCreatePlaylist={handleCreatePlaylist} onHandleAddSong={ handleAddSong }/>,
+        <DropdownMenuDemo onHandleCreatePlaylist={handleCreatePlaylist} onHandleAddSong={handleAddSong} />,
       </div>
       {user ? (
         <div className="flex flex-col h-full">
           {/* Songs List Container */}
-          <h3 className='text-lg font-semibold text-white p-3'>
+          <div className='hidden 2xl:block
+          '>
+            <h3 className='text-lg font-semibold text-white p-3'>
               Songs
             </h3>
-          <div className="flex flex-col gap-y-2 mt-2 overflow-y-auto max-h-[40vh]">
-            {songs.map((item) => (
-              <MediaItem key={item.id} data={item} onClick={(id: string) => onPlay(id)} />
-            ))}
+            <div className=" flex-col gap-y-2 mt-2 overflow-y-auto max-h-[40vh] flex">
+              {songs.map((item) => (
+                <MediaItem key={item.id} data={item} onClick={(id: string) => onPlay(id)} />
+              ))}
+            </div>
           </div>
-          
+
           {/* Playlists List Container */}
           <h3 className='text-white font-semibold text-lg p-3'>Playlists</h3>
-          <div className="flex flex-col gap-y-2 mt-2 overflow-y-auto max-h-[50vh]">
+          <div className="flex flex-col gap-y-2 mt-2 overflow-y-autp 2xl:h-[30vh] md:h-full ">
             {playlist.map((item) => (
-              <PlaylistItem key={item.id} playlist={item}  user={ userDetail }/>
+              <PlaylistItem key={item.id} playlist={item} user={userDetail} />
             ))}
           </div>
         </div>

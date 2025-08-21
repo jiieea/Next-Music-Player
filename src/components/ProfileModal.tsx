@@ -155,7 +155,9 @@ const ProfileModal: React.FC = (
             </div>
           </div> 
           <div className="flex justify-end mt-[-4rem] ">
-            <Button className="py-2 mt-2 bg-white text-black rounded-2xl w-3/6 hover:scale-105 transition" type="submit">Create</Button>
+            <Button className="py-2 mt-2 bg-white text-black rounded-2xl w-3/6 hover:scale-105 transition" type="submit">
+                Update Profile
+            </Button>
           </div>
 
         </form>

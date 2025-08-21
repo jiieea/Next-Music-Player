@@ -21,7 +21,7 @@ export const Player: React.FC<PlayerProps> = ({
   }
   return (
     <div className='bottom-17 md:bottom-0 md:h-[80px] px-3 w-full flex flex-col 
-    fixed bg-black/10 backdrop-blur-sm z-[999]'>
+    fixed bg-black/10 backdrop-blur-sm z-[5]'>
       <PlayerContent
         key={songUrl}
         song={song}

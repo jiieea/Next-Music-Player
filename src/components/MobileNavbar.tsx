@@ -36,7 +36,7 @@ export const MobileNavbar = () => {
             icon: <GoHome />,
             label: 'Home',
             href: '/',
-            active: pathname !== '/search',
+            active: pathname === "/",
         },
         {
             icon: <IoSearchOutline />,
@@ -55,7 +55,7 @@ export const MobileNavbar = () => {
     return (
         <nav 
             className="flex items-center justify-around h-[60px] md:hidden 
-            bg-black text-white px-4 border-t border-neutral-800"
+            bg-neutral-900 opacity-65 backdrop-blur-md text-white px-4 border-t border-black"
         >
             {routes.map((route) => (
                 <NavItem 

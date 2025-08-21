@@ -91,7 +91,8 @@ export const MyUserContextProvider = (props: Props) => {
             setSubscription(null);
             setUserDetails(null)
         }
-    }, [user, isLoadingUser, isLoadingData, userDetails, subscription, supabase, getSubscription, getUserDetails , getPlaylistDetail , getPlaylists , setPlaylists]);
+    }, [user, isLoadingUser, isLoadingData, userDetails, subscription, supabase, 
+        getSubscription, getUserDetails , getPlaylistDetail , getPlaylists , setPlaylists]);
 
     const value = {
         accessToken,
