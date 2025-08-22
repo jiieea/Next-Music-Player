@@ -48,7 +48,7 @@ const Account: React.FC<AccountProps> = (
             {/* TODO : map the Playlist user has  */}
             <div className='p-5'>
                 <h1 className='text-white font-semibold text-2xl'>Playlists</h1>
-                <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 mt-3 gap-x-5'>
+                <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 mt-3 gap-x-5 gap-3'>
                     {
                         playlists.map((playlist) => (
                           <UserPlaylist playlist={playlist} key={playlist.id}  user={ user! } 

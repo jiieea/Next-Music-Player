@@ -19,7 +19,7 @@ const Search = async ({ searchParams }: SearchProps) => {
   const playlists = await getPlaylistByUserId()
 
   return (
-    <div className="bg-neutral-900 overflow-hidden overflow-y-auto h-full w-full">
+    <div className="bg-neutral-900 overflow-hidden overflow-y-auto h-full w-full mb-[8.5em] md:mb-0">
       {
         user && (
           <Header className="" userData={user}>

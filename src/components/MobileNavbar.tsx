@@ -55,7 +55,7 @@ export const MobileNavbar = () => {
     return (
         <nav 
             className="flex items-center justify-around h-[60px] md:hidden 
-            bg-neutral-900 opacity-65 backdrop-blur-md text-white px-4 border-t border-black"
+            bg-neutral-900/60 backdrop-blur-xl text-white px-4 border-t border-black"
         >
             {routes.map((route) => (
                 <NavItem 

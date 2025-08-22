@@ -3,23 +3,25 @@
 import Image from 'next/image';
 import React from 'react'
 import { AiFillPushpin } from "react-icons/ai";
-import { Playlist, Song } from '../../../../types';
+import { Playlist, Song, UserDetails } from '../../../../types';
 import UserSongs from './UserSongs';
+import  UserPlaylsts  from './UserPlaylists';
 // import { useLoadPlaylistImage } from '@/hook/useLoadAvatar';
-
 interface LibraryContentProps {
   userSongs: Song[]
   userPlaylists: Playlist[]
+  userData : UserDetails
 }
 
 const LibraryContent: React.FC<LibraryContentProps> = (
   {
     userSongs,
-    userPlaylists
+    userPlaylists,
+    userData
   }
 ) => {
   return (
-    <div className='flex gap-x-2'>
+    <div className='flex gap-x-2 bg-neutral-900 mt-2 mb-1'>
       <div className=''>
         {/* we create pills to sort what user search for  */}
         {/* code  */}
@@ -43,7 +45,8 @@ const LibraryContent: React.FC<LibraryContentProps> = (
               </span>Playlist &bull; Songs </p>
           </div>
         </div>
-        {
+       <div className='mb-[9em]'>
+         {
           userSongs.map((song) => (
             <UserSongs key={song.id} data={song} />
           ))
@@ -51,20 +54,10 @@ const LibraryContent: React.FC<LibraryContentProps> = (
         {
           // map playlists
           userPlaylists.map((playlist) => (
-            <div className='flex gap-x-4 items-center p-3' key={playlist.id}>
-              {/* image song */}
-              <Image src={ "/images/liked.png"} alt='playlistimage'
-                width={60}
-                height={60}
-                className=''
-              />
-              <div className='flex flex-col'>
-                <h1 className='text-white font-semibold '>{playlist.playlist_name}</h1>
-                <p className='text-neutral-600'>   playlist &bull; </p>
-              </div>
-            </div>
+           <UserPlaylsts data={ playlist} key={ playlist.id} user={ userData }/>
           ))
         }
+       </div>
       </div>
     </div>
   )

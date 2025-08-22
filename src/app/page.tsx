@@ -11,9 +11,8 @@ export default async function Home() {
   const songs = await getSong();
   const user = await getUserData();
   const userName = user?.full_name ? user.full_name : " ";
-
   return (
-    <div className="bg-neutral-900 
+    <div className="bg-neutral-900 mb-10 md:mb-0
     w-full h-full rounded-lg overflow-y-auto text-white overflow-hidden">
       {
         user ? (
@@ -54,11 +53,10 @@ export default async function Home() {
           </HeaderAuth>
         )
       }
-      <div className="mt-2 mb-7 px-6">
+      <div className="mt-2 md:mb-7 mb-[9em] px-6">
         <h1 className="text-white text-2xl font-semibold">Newest Song</h1>
         <div className="">
           <MySong songs={songs} />
-        
         </div>
       </div>
       <div className="fixed bottom-0 w-full px-0 md:hidden">

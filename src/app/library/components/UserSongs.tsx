@@ -25,7 +25,7 @@ const UserSongs:React.FC<UserSongsProps>= (
                      />
                      <div className='flex flex-col'>
                        <h1 className='text-white font-semibold '>{ data.title }</h1>
-                       <p className='text-neutral-600'>   playlist &bull; { data.author}</p>
+                       <p className='text-neutral-600'>   songs &bull; { data.author}</p>
                      </div>
                    </div>
     </>

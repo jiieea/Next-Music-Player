@@ -105,7 +105,7 @@ const Library: React.FC<LibraryProps> = ({
             <h3 className='text-lg font-semibold text-white p-3'>
               Songs
             </h3>
-            <div className=" flex-col gap-y-2 mt-2 overflow-y-auto max-h-[40vh] flex">
+            <div className=" flex-col gap-y-2 mt-2 overflow-y-auto max-h-[30vh] flex">
               {songs.map((item) => (
                 <MediaItem key={item.id} data={item} onClick={(id: string) => onPlay(id)} />
               ))}
@@ -114,7 +114,7 @@ const Library: React.FC<LibraryProps> = ({
 
           {/* Playlists List Container */}
           <h3 className='text-white font-semibold text-lg p-3'>Playlists</h3>
-          <div className="flex flex-col gap-y-2 mt-2 overflow-y-autp 2xl:h-[30vh] md:h-full ">
+          <div className="flex flex-col gap-y-2 mt-2 overflow-y-auto 2xl:h-[30vh] md:h-full ">
             {playlist.map((item) => (
               <PlaylistItem key={item.id} playlist={item} user={userDetail} />
             ))}
