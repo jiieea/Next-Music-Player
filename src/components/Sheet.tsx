@@ -3,11 +3,40 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet"
+import useAuthModal from "@/hook/useAuthModal";
+import usePlaylistModal from "@/hook/usePlaylistModal";
+import useUploadModal from "@/hook/useUploadModal";
+import { useUsers } from "@/hook/useUser";
 import { AiOutlinePlus } from 'react-icons/ai'
 import { SlCloudUpload } from "react-icons/sl";
 import { TbMusicPlus } from "react-icons/tb";
 
 function SheetLibrary() {
+  const songsModal = useUploadModal();
+  const playlistModal = usePlaylistModal()
+  const { user } = useUsers();
+  const authModal = useAuthModal()
+
+  // event to open upload modal
+  const uploadSongs = () => {
+    if(!user) {
+   return   authModal.onOpen()
+    }else  {
+      return songsModal.onOpen()
+    }
+  }
+
+  // event to open playlist modal 
+  const createPlayllist = () => {
+    if(!user) {
+      return authModal.onOpen();
+
+    }else {
+      return playlistModal.onOpen()
+    }
+  }
+
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -21,9 +50,9 @@ function SheetLibrary() {
         <div className="w-full flex justify-center"> 
           <div className="w-[35px] bg-neutral-500 rounded-2xl h-[5px] mt-2"></div>
         </div>
-        <div className="flex flex-col gap-y-5 mt-2 p-3 mb-2">
+        <div className=" flex flex-col gap-y-5 mt-2 p-3 mb-2">
           {/* add songs */}
-          <div className="flex gap-x-3 items-center ">
+          <div className="flex gap-x-3 items-center " onClick={uploadSongs}>
             {/* song icon */}
             <SlCloudUpload size={30} className="text-neutral-400 "/>
             <div className="flex flex-col  text-neutral-500">
@@ -31,7 +60,7 @@ function SheetLibrary() {
               <p className="text-[15px]">You can add  songs from your local device</p>
             </div>
           </div>
-          <div className="flex gap-x-3 items-center ">
+          <div className="flex gap-x-3 items-center " onClick={createPlayllist}>
             {/* song icon */}
             <TbMusicPlus size={30} className="text-neutral-400 "/>
             <div className="flex flex-col  text-neutral-500">

@@ -16,7 +16,7 @@ const page = async () => {
       className="
     bg-neutral-900
       w-full h-full overflow-y-auto
-      overflow-hidden rounded-lg">
+      overflow-hidden rounded-lg mb-11 md:mb-0">
       {
         user && (
           <Header userData={user} className='bg-gradient-to-b from-violet-700'>

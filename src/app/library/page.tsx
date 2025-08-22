@@ -5,11 +5,15 @@ import { MobileNavbar } from '@/components/MobileNavbar';
 import LibraryContent from './components/LibraryContent';
 import getSongById from '@/action/getSongsById';
 import getPlaylistByUserId from '@/action/getPlaylistByUserId';
+import getLikedSong from '@/action/getLikedSong';
 
 const Page = async () => {
   const userData = await getUserData();
   const userSongs = await getSongById();
   const userPlaylists = await getPlaylistByUserId();
+  const userLikedSongs  = await getLikedSong();
+  const likedSongs = userLikedSongs.length;
+
 
   return (
     <div className='w-full h-full bg-neutral-900 rounded-md md:hidden '>
@@ -21,6 +25,7 @@ const Page = async () => {
       {/* library content */}
       <LibraryContent 
         userSongs={userSongs}
+        likedSongs = { likedSongs }
         userPlaylists={userPlaylists}
         userData ={ userData !}
       />

@@ -1,6 +1,6 @@
 
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { UserDetails } from '../../../../types'
 import Image from 'next/image'
 import { useLoadAvatar } from '@/hook/useLoadAvatar'
@@ -8,6 +8,7 @@ import { BiSearch } from 'react-icons/bi'
 import SheetLibrary from '@/components/Sheet'
 import { Badge } from "@/components/ui/badge"
 import { useRouter } from 'next/navigation'
+import { twMerge } from 'tailwind-merge'
 
 interface LibraryHeaderProps {
     user: UserDetails | null
@@ -18,7 +19,13 @@ const LibraryHeader: React.FC<LibraryHeaderProps> = (
     }
 ) => {
     const avatar = useLoadAvatar(user!);
-    const router = useRouter()
+    const router = useRouter();
+    const [ active , setActive ] = useState(false);
+
+
+    const filterlist = () => {
+        setActive(!active);
+    }
     // event handler to open dropdown
     const onClick = () => {
         router.push('/account')
@@ -47,8 +54,12 @@ const LibraryHeader: React.FC<LibraryHeaderProps> = (
             </div>
             {/* <p className='text-white'>helo</p> */}
             <div className="flex gap-x-2.5">
-                <Badge variant="secondary" className='bg-green-500'>songs</Badge>
-                <Badge variant="secondary" className='bg-green-500'>playlists</Badge>
+                <Badge variant="secondary" onClick={filterlist} className={twMerge(
+                    `bg-neutral-800 text-white` , active && "bg-green-500 text-black transition"
+                )}>songs</Badge>
+                <Badge variant="secondary"    onClick={filterlist} className={twMerge(
+                    `bg-neutral-800 text-white` , active && "bg-green-500 text-black transition"
+                )}>playlists</Badge>
             </div>
         </div>
     )
