@@ -4,23 +4,31 @@ import Image from 'next/image'
 import React from 'react'
 import { Playlist, UserDetails } from '../../../../types'
 import { useLoadPlaylistImage } from '@/hook/useLoadAvatar'
+import { useRouter } from 'next/navigation'
 
 
 interface UserPlaylistsProps {
     data : Playlist
     user : UserDetails
+    href : string
 }
  const UserPlaylists:React.FC<UserPlaylistsProps > = (
     {
         data,
+        href,
         user
     }
 ) => {
     const loadImage = useLoadPlaylistImage(data);
     const userName = user.full_name
+    const router = useRouter();
+
+    const onClick = () => {
+        router.push(href)
+    }
     return (
         <>
-            <div className='flex gap-x-4 items-center p-3  ' key={data.id}>
+            <div className='flex gap-x-4 items-center p-3  ' key={data.id}  onClick={onClick}>
                 {/* image song */}
                 <Image src={loadImage || "/images/liked.png"} alt='playlistimage'
                     width={60}

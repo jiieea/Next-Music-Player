@@ -1,21 +1,21 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import {  useRouter } from 'next/navigation'
 import React from 'react'
 import { RxCaretLeft, RxCaretRight } from 'react-icons/rx'
 import { twMerge } from 'tailwind-merge'
 import Btn from "./Button";
-import { BiSearch } from 'react-icons/bi'
-import { HiHome } from 'react-icons/hi'
 import { Button } from "@/components/ui/button"
 import useAuthModal from '@/hook/useAuthModal'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useUsers } from '@/hook/useUser'
 import { toast } from 'sonner'
 import { Toaster } from './ui/sonner'
-import { UserDetails } from '../../types'
+import {  UserDetails } from '../../types'
 import {useLoadAvatar} from '@/hook/useLoadAvatar'
 import Image from 'next/image'
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+
 
 interface HeaderProps {
   className?: string;
@@ -38,7 +38,6 @@ const Header: React.FC<HeaderProps> = ({
     // Get the current user object from your custom user hook.
     const { user } = useUsers();
     const loadAvatar = useLoadAvatar(userData!)
-
 /**
      * handleLogout
      * Asynchronously handles the user logout process.
@@ -77,12 +76,14 @@ const Header: React.FC<HeaderProps> = ({
                         </Button>
                     </div>
                     <div className='justify-between items-center gap-x-4 md:hidden flex '>
-                        <Button className='bg-white rounded-full p-2 hover:opacity-80' onClick={() => router.push('/')}>
-                            <HiHome className='text-black' size={20} />
+                        <Button className='rounded-full  hover:opacity-75 transition bg-transparent p-2' onClick={() => router.back()}>
+                            <FaArrowLeft size={35} className='' />
                         </Button>
-                        <Button className='bg-white rounded-full p-2 hover:opacity-80' onClick={() => router.push('/search')}>
-                            <BiSearch size={20} className='text-black' />
+                       <Button className='rounded-full  hover:opacity-75 transition bg-transparent p-2' onClick={() => router.back()}>
+                            <FaArrowRight size={35} className='' />
                         </Button>
+                       
+                      
                     </div>
                     <div className='flex justify-between items-center gap-x-4'>
                         {

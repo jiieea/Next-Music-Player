@@ -9,26 +9,26 @@ import { useDominantColor } from '@/hook/useDominantColour';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { MobileNavbar } from '@/components/MobileNavbar';
 
 interface PlaylistPageProps {
   userData?: UserDetails;
-  playlistData: Playlist;
   songs: Song[];
-  userPlaylists : Playlist[]
+  userPlaylists: Playlist[]
+  playlistData : Playlist
 }
 
 const PlaylistPage: React.FC<PlaylistPageProps> = ({
   userData,
-  playlistData,
   songs,
-  userPlaylists
+  userPlaylists,
+  playlistData
 }) => {
   const playlistImage = useLoadPlaylistImage(playlistData);
   const dominantColor = useDominantColor(playlistImage);
   const [playlistSongs, setPlaylistSongs] = useState<Song[]>(songs);
   const supabase = useSupabaseClient()
   const router = useRouter();
-
   useEffect(() => {
     setPlaylistSongs(songs);
   }, [songs]);
@@ -49,21 +49,21 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
   }
 
   return (
-    <div className='w-full h-full bg-neutral-900 rounded-md'>
+    <div className='w-full h-full bg-neutral-900 rounded-md mb-7 md:mb-0'>
       <Header
         className="bg-gradient-to-b from-[var(--playlist-color)] to-neutral-900 transition-colors duration-500"
         userData={userData}
         style={{ '--playlist-color': dominantColor } as React.CSSProperties}
       >
-        <div className='mt-8 pt-4 flex items-center gap-x-4'>
+        <div className='mt-8 pt-4 flex items-center gap-x-4 flex-col md:flex-row md:items-start md:text-start justify-center text-center'>
           <Image
             src={playlistImage || '/images/liked.png'}
             alt='playlist image'
             width={200}
             height={200}
-            className='relative object-cover rounded-md mb-4 w-24 lg:w-50'
+            className='relative object-cover rounded-md mb-4 w-40 md:w-50'
           />
-          <div className='flex flex-col'>
+          <div className='flex flex-col text-center'>
             <p className='text-[1rem] ps-0 md:ps-2 font-semibold text-white'>Playlist</p>
             <p className='text-4xl font-semibold text-white lg:text-8xl'>{playlistData?.playlist_name}</p>
             <p className='ps-0 md:ps-2 font-semibold text-white'>
@@ -72,10 +72,13 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
           </div>
         </div>
       </Header>
-      <PlaylistContent 
-      songs={playlistSongs}
-      userPlaylists={ userPlaylists}
-      onHandleRemoveSong={handleRemoveSong}/>
+      <PlaylistContent
+        songs={playlistSongs}
+        userPlaylists={userPlaylists}
+        onHandleRemoveSong={handleRemoveSong} />
+      <div className="fixed bottom-0 w-full px-0 md:hidden">
+        <MobileNavbar />
+      </div>
     </div>
   );
 };

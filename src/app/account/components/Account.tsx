@@ -8,7 +8,7 @@ import { AccountContent } from './AccountContent'
 import { useDominantColor } from '@/hook/useDominantColour'
 import { useLoadAvatar } from '@/hook/useLoadAvatar'
 import { UserPlaylist } from '@/components/UserPlaylist'
-
+import { MobileNavbar } from '@/components/MobileNavbar'
 interface AccountProps {
     user: UserDetails | null,
     userSongs: Song[],
@@ -26,7 +26,7 @@ const Account: React.FC<AccountProps> = (
     return (
         <div className='bg-neutral-900
     w-full h-full overflow-y-auto
-    overflow-hidden rounded-lg'>
+    overflow-hidden rounded-lg mb-[10em] md:mb-0'>
             {
                 user && (
                     <>
@@ -37,7 +37,7 @@ const Account: React.FC<AccountProps> = (
                         >
                             <div className='flex flex-col mb-2 gap-y-6'>
                                 <div className='text-white font-semibold text-3xl'>
-                                    <AccountContent user={user} songs={userSongs}  playlists={ playlists}/>
+                                    <AccountContent user={user} songs={userSongs} playlists={playlists} />
                                 </div>
                             </div>
                         </Header>
@@ -51,12 +51,15 @@ const Account: React.FC<AccountProps> = (
                 <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 mt-3 gap-x-5 gap-3'>
                     {
                         playlists.map((playlist) => (
-                          <UserPlaylist playlist={playlist} key={playlist.id}  user={ user! } 
-                            href={`/${playlist.id}`}
-                          />
+                            <UserPlaylist playlist={playlist} key={playlist.id} user={user!}
+                                href={`/${playlist.id}`}
+                            />
                         ))
                     }
                 </div>
+            </div>
+            <div className="fixed bottom-0 w-full px-0 md:hidden">
+                <MobileNavbar />
             </div>
         </div>
     )

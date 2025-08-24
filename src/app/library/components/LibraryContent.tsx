@@ -7,6 +7,7 @@ import { Playlist, Song, UserDetails } from '../../../../types';
 import UserSongs from './UserSongs';
 import UserPlaylsts from './UserPlaylists';
 import { useRouter } from 'next/navigation';
+import useOnplay from '@/hook/useOnPlay';
 // import { useLoadPlaylistImage } from '@/hook/useLoadAvatar';
 interface LibraryContentProps {
   userSongs: Song[]
@@ -24,6 +25,7 @@ const LibraryContent: React.FC<LibraryContentProps> = (
   }
 ) => {
   const router = useRouter();
+  const onPlay = useOnplay(userSongs);
 
   const onClick = () => {
     router.push('/liked')
@@ -47,16 +49,16 @@ const LibraryContent: React.FC<LibraryContentProps> = (
               </span>Playlist &bull; {likedSongs} Songs </p>
           </div>
         </div>
-        <div className='mb-[7em]'>
+        <div className='mb-[10em]'>
           {
             userSongs.map((song) => (
-              <UserSongs key={song.id} data={song} />
+              <UserSongs key={song.id} data={song}  onHandlePlaySong={(id : string) => onPlay(id)}/>
             ))
           }
           {
             // map playlists
             userPlaylists.map((playlist) => (
-              <UserPlaylsts data={playlist} key={playlist.id} user={userData} />
+              <UserPlaylsts data={playlist} key={playlist.id} user={userData}   href={`/${ playlist.id}`} />
             ))
           }
         </div>

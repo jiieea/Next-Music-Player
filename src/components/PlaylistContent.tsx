@@ -25,11 +25,15 @@ export const PlaylistContent: React.FC<PlaylistContentProps> = ({
     const handleOpenDropdown = (id: string) => {
         setOpenDropdownId(openDropdownId === id ? null : id);
     };
+
+    const handleCloseDropdown = (id : string ) => {
+        setOpenDropdownId(openDropdownId !== id ?null : id);
+    }
     
 
 
     return (
-        <div className="flex flex-col gap-x-4 w-full px-6 ">
+        <div className="flex flex-col gap-x-4 w-full  md:px-6  ">
             {
                 songs.map((song, index) => (
                     <PlaylistSongsList  key={index} 
@@ -41,6 +45,7 @@ export const PlaylistContent: React.FC<PlaylistContentProps> = ({
                         dropdown ={ openDropdownId!}
                         playlistDropdown={ playlistDropdown}
                         index={ index }
+                        onHandleCloseDropdown ={ handleCloseDropdown}
                     />
                 ))
             }
