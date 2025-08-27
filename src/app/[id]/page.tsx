@@ -26,12 +26,14 @@ const Page = async ({ params }: PageProps) => {
   const userPlaylists = await getPlaylistByUserId()
 
   return (
-    <PlaylistPage
+ 
+      <PlaylistPage
       userData={userData ?? undefined}
       songs={songs}
       playlistData={playlist}
       userPlaylists={ userPlaylists ?? undefined}
     />
+    
   );
 };
 

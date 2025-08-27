@@ -31,7 +31,7 @@ const LikedContent: React.FC<LikedContentProps> = ({
         )
     }
     return (
-        <div className="flex flex-col gap-x-4 w-full px-6">
+        <div className="flex flex-col gap-x-4 w-full px-6 mb-[80px] md:mb-0">
             {
                 songs.map((song, index) => (
                     <div className="flex items-center hover:bg-neutral-700 transition px-5 rounded-md" key={song.id}>

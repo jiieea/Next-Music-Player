@@ -76,7 +76,7 @@ export const PlaylistSongsList: React.FC<PlaylistSongsListProps> = (
                 toast.error('failed add song');
             }
         }finally {
-            onHandleCloseDropdown(songId)
+            onHandleCloseDropdown(songId);
         }
 
 

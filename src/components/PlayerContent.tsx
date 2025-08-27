@@ -155,7 +155,7 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
             </div>
             <div className="hidden md:flex justify-end pr-2 w-full">
                 <div className="flex items-center w-[120px] gap-x-2">
-                    <VolumeIcon onClick={handleSetVolume} className="cursor-pointer" size={25} />
+                    <VolumeIcon onClick={handleSetVolume} className="cursor-pointer text-white" size={25} />
                     <SliderVolume value={volume} onChange={(volume) => setVolume(volume)} />
                 </div>
             </div>

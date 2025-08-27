@@ -44,6 +44,5 @@ const getUserData = async(): Promise<UserDetails | null> => { // Key change: exp
     }
 }
 
-export default getUserData
-
+export default getUserData;
 

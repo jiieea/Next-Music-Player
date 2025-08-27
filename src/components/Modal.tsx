@@ -43,6 +43,7 @@ const Modal: React.FC<ModalProps> = ({
                         translate-y-[-50%]
                         rounded-md
                         p-[25px]
+                        z-[999]
                         bg-neutral-800
                         focus:outline-none
                         overflow-y-auto {/* Added for scrollability if content exceeds max-height */}

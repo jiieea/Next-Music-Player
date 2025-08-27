@@ -52,9 +52,11 @@ function SheetLibrary() {
         </div>
         <div className=" flex flex-col gap-y-5 mt-2 p-3 mb-2">
           {/* add songs */}
-          <div className="flex gap-x-3 items-center " onClick={uploadSongs}>
+          <div className="flex gap-x-3 items-center" onClick={uploadSongs}>
             {/* song icon */}
-            <SlCloudUpload size={30} className="text-neutral-400 "/>
+          <div className="bg-neutral-700 rounded-full p-4">
+              <SlCloudUpload size={30} className="text-neutral-400  "/>
+          </div>
             <div className="flex flex-col  text-neutral-500">
               <h1 className="font-semibold text-white"> Song</h1>
               <p className="text-[15px]">You can add  songs from your local device</p>
@@ -62,7 +64,9 @@ function SheetLibrary() {
           </div>
           <div className="flex gap-x-3 items-center " onClick={createPlayllist}>
             {/* song icon */}
-            <TbMusicPlus size={30} className="text-neutral-400 "/>
+            <div className="bg-neutral-700 rounded-full p-4">
+              <TbMusicPlus size={30} className="text-neutral-400  "/>
+          </div>
             <div className="flex flex-col  text-neutral-500">
               <h1 className="font-semibold text-white"> Playlist</h1>
               <p className="text-[15px]">You can create a playlist</p>
