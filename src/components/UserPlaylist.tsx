@@ -24,14 +24,14 @@ export const UserPlaylist: React.FC<UserPlaylistProps> = ({ playlist , user  ,  
         <div className=' relative 
     group flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 
     bg-neutral-400/5 hover:bg-neutral-400/10
-    cursor-pointer transition p-2 
+    cursor-pointer transition p-2  max-w-[200px] 
 ' onClick={onClick}  >
             <Image
                 src={loadImage!}
                 alt='playlistImage'
                 width={350}
                 height={350}
-                className=' object-cover w-[350px] md:w-[200px] rounded-md'
+                className=' object-cover w-[350px]  md:w-[200px] md:h-[200px] rounded-md'
             />
             <div className='flex flex-col mb-3  mt-3'>
                 <p className='text-white font-semibold'>{ playlistTitle }</p>

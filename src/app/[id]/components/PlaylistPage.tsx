@@ -10,7 +10,7 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { MobileNavbar } from '@/components/MobileNavbar';
-import { RemovePlaylistBtn } from './RemovePlaylistBtn';
+import PlaylistOption from './PlaylistOption';
 interface PlaylistPageProps {
   userData?: UserDetails;
   songs: Song[];
@@ -32,6 +32,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
   const supabase = useSupabaseClient()
   const router = useRouter();
   const playlistId = playlistData.id;
+  
 
   useEffect(() => {
     setPlaylistSongs(songs);
@@ -103,7 +104,10 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
       <p className='ps-0 md:ps-2 font-semibold text-white'>
         {playlistSongs.length} {playlistSongs.length === 1 ? 'song' : 'songs'}
       </p>
-      <RemovePlaylistBtn playlistData={playlistData} onHandleRemovePlaylist={handleRemovePlaylist}/>
+      {/* <RemovePlaylistBtn playlistData={playlistData} onHandleRemovePlaylist={handleRemovePlaylist}/> */}
+      <PlaylistOption
+      playlistData={ playlistData}
+      onHandleRemovePlaylist={ handleRemovePlaylist}/>
     </div>
   </div>
 </div>
