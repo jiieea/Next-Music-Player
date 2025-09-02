@@ -33,11 +33,13 @@ const handlePlaySong =() => {
     <>
       <div className='flex gap-x-4 items-center p-3' key={data.id} onClick={handlePlaySong}>
                      {/* image song */}
-                     <Image src={loadImgUrl || "/images/liked.png"} alt='playlistimage'
+                    <div className='w-16 h-16'>
+                       <Image src={loadImgUrl || "/images/liked.png"} alt='playlistimage'
                        width={60}
                        height={60}
-                       className=''
+                       className='object-cover w-full h-full'
                      />
+                    </div>
                      <div className='flex flex-col'>
                        <h1 className='text-white font-semibold '>{ data.title }</h1>
                        <p className='text-neutral-600'>   songs &bull; { data.author}</p>

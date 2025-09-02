@@ -12,158 +12,162 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useUsers } from "@/hook/useUser";
 import Image from "next/image";
+import { useLoadAvatar } from "@/hook/useLoadAvatar";
 
-
-
-const ProfileModal: React.FC = (
-
-) => {
+const ProfileModal: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const supabase = useSupabaseClient();
-  const router = useRouter()
-  const profileModal = useProfileModal()
+  const router = useRouter();
+  const profileModal = useProfileModal();
   const { user, userDetails } = useUsers();
+  const avatarUrl = useLoadAvatar(userDetails!);
+
   const {
     reset,
     handleSubmit,
-    register
+    register,
   } = useForm<FieldValues>({
     defaultValues: {
-      fullName: userDetails?.full_name,
-      image: userDetails?.avatar_url,
+      fullName: userDetails?.full_name || '',
+      image: null,
     }
-  })
+  });
 
-  // function to show modal 
   const handleShowModal = (open: boolean) => {
     if (!open) {
-      reset()
-      profileModal.onClose()
+      reset();
+      profileModal.onClose();
     }
-  }
+  };
 
-  // function to upload profile 
   const uploadProfile: SubmitHandler<FieldValues> = async (values) => {
     try {
       setIsLoading(true);
-      const imageFile = values.image?.[0];
+      const imageFile = values.image?.[0]
 
-      if (!imageFile) {
-        toast.error('Missing Fields')
-      }
+      let avatarPath = userDetails?.avatar_url;
 
-      const uniqueID = uniqid();
-      // upload image avatar to bucket
-      const { data: avatarData, error: avatarError } = await supabase.storage
-        .from('avatars').upload(`avatar-${user?.id}-${uniqueID}`, imageFile, {
-          cacheControl: '3600',
-          upsert: false
-        })
+      if (imageFile) {
+        const uniqueID = uniqid();
+        const { data: avatarData, error: avatarError } = await supabase.storage
+          .from('avatars').upload(`avatar-${user?.id}-${uniqueID}`, imageFile, {
+            cacheControl: '3600',
+            upsert: false
+          });
 
-
-      if (avatarError) {
-        setIsLoading(false);
-        console.error("Supabase Avatar Upload Error:", avatarError);
-        return toast.error(`Failed to upload avatar: ${avatarError.message || 'Unknown error'}`); // Show more specific error
+        if (avatarError) {
+          setIsLoading(false);
+          console.error("Supabase Avatar Upload Error:", avatarError);
+          return toast.error(`Failed to upload avatar: ${avatarError.message || 'Unknown error'}`);
+        }
+        avatarPath = avatarData.path;
       }
 
       const { error: supabaseError } = await supabase.from('users').update({
         full_name: values.fullName,
-        avatar_url: avatarData.path
-      }).eq('id', user?.id)
+        avatar_url: avatarPath
+      }).eq('id', user?.id);
 
       if (supabaseError) {
-        setIsLoading(false)
-        toast.error("failed update data");
+        setIsLoading(false);
+        toast.error("Failed to update data");
       }
 
       router.refresh();
-      setIsLoading(false)
-      toast.success("Profile Has Updated Successfully")
-      profileModal.onClose()
+      setIsLoading(false);
+      toast.success("Profile Has Updated Successfully");
+      profileModal.onClose();
       reset();
     } catch (e: unknown) {
       if (e instanceof Error) {
-        return toast.error('Update Failed')
+        return toast.error(`Update Failed: ${e.message}`);
       }
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <>
       <Modal
         title="Profile Information"
-        description=" You can change your avatar or username"
+        description="You can change your avatar or username"
         isOpen={profileModal.isOpen}
         onChange={handleShowModal}
       >
-        <form action="" onSubmit={handleSubmit(uploadProfile)} className="flex flex-col gap-y-2 mt-5">
-          <div className="flex gap-x-4 flex-row-reverse justify-evenly mt-2">
-            {/* Username Input */}
-            <div className="flex flex-col "> {/* Group label and input */}
-              <label htmlFor="fullName" className="text-white text-sm font-bold">Username</label>
+        <form onSubmit={handleSubmit(uploadProfile)} className="flex flex-col gap-y-4">
+          <div className="flex items-center gap-x-6">
+            {/* Avatar Section */}
+            <div className="relative w-44 h-44 rounded-full overflow-hidden bg-neutral-700 flex-shrink-0">
+              <Image
+                src={avatarUrl || '/images/user.png'}
+                fill
+                alt="User Avatar"
+                className="object-cover"
+              />
+              {/* Overlay for changing avatar */}
+              <label
+                htmlFor="image"
+                className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 hover:opacity-100 transition-opacity cursor-pointer text-white text-sm font-semibold"
+              >
+                Choose Photo
+              </label>
               <Input
+                id="image"
+                type="file"
+                accept="image/*"
+                className="hidden"
                 disabled={isLoading}
-                id="fullName"
-                defaultValue={userDetails?.full_name}
-                placeholder="Enter your username"
-                className="
-                py-3 px-4 rounded-md bg-neutral-700 border border-neutral-600 
-                text-white placeholder-neutral-400 
-                disabled:cursor-not-allowed disabled:opacity-50 
-                focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent
-              "
-                {...register('fullName', { required: false })}
+                {...register('image', { required: false })}
               />
             </div>
 
-            {/* Avatar Display - Spotify style */}
-            <div className="flex justify-center mb-6">
-              <div className="relative w-34 h-34 rounded-full overflow-hidden bg-neutral-700 flex items-center justify-center">
-                {userDetails?.avatar_url ? (
-                  <Image
-                    src={supabase.storage.from('avatars').getPublicUrl(userDetails.avatar_url).data.publicUrl}
-                    fill
-                    alt="User Avatar"
-                    className="  object-cover
-              rounded-full
-              w-full h-full
-              transition-transform
-              group-hover:scale-105 /* Slight zoom on hover */"
-                  />
-                ) : (
-                  <span className="text-neutral-400 text-5xl">👤</span> // Placeholder icon
-                )}
-                {/* Overlay for changing avatar */}
-                <label
-                  htmlFor="avatar"
-                  className="absolute inset-0 flex items-center justify-center bg-black/50 bg-opacity-50 opacity-0 hover:opacity-100 transition-opacity cursor-pointer text-white text-sm"
-                >
-                  Choose Photo
-                </label>
-                <Input
-                  id="avatar"
-                  type="file"
-                  accept="image/*"
-                  className="hidden" // Hide the default file input
+            {/* Username and Button Section */}
+            <div className="flex flex-col flex-grow">
+              <label htmlFor="fullName" className="text-white text-xs font-semibold mb-1">
+                Username
+              </label>
+              <Input
+                disabled={isLoading}
+                id="fullName"
+                defaultValue={userDetails?.full_name || ''}
+                placeholder="Enter your username"
+                className="
+                                    bg-[#282828]
+                                    border-neutral-700
+                                    text-white
+                                    placeholder-neutral-400
+                                    focus:ring-white
+                                    focus:border-white
+                                    p-3 rounded-md
+                                "
+                {...register('fullName', { required: false })}
+              />
+              <div className="flex justify-end">
+                <Button
                   disabled={isLoading}
-                  {...register('image', { required: false })} // Made image optional
-                />
+                  type="submit"
+                  className="
+                                    bg-white
+                                    text-black
+                                    rounded-full
+                                    w-2/4                     
+                                    mt-4
+                                    py-2
+                                    font-bold
+                                    hover:bg-neutral-200
+                                    transition
+                                "
+                >
+                  Update Profile
+                </Button>
               </div>
             </div>
-          </div> 
-          <div className="flex justify-end mt-[-4rem] ">
-            <Button className="py-2 mt-2 bg-white text-black rounded-2xl w-3/6 hover:scale-105 transition" type="submit">
-                Update Profile
-            </Button>
           </div>
-
         </form>
       </Modal>
     </>
-  )
-}
+  );
+};
 
 export default ProfileModal;

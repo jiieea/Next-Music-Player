@@ -57,8 +57,9 @@ export const MyUserContextProvider = (props: Props) => {
     const getPlaylistDetail = useCallback(() =>
         supabase.from('playlist').
             select('*')
+            .eq('playlistId ' , playlist?.id)
             .single(),
-        [supabase])
+        [supabase , playlist?.id])
 
     useEffect(() => {
         if (user && !isLoadingData && !userDetails && !subscription) {

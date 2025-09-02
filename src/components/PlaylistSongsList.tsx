@@ -55,8 +55,8 @@ export const PlaylistSongsList: React.FC<PlaylistSongsListProps> = (
 
             if (existingData) {
                 toast.warning('the song already exist in the playlist');
+                return;
             }
-
 
             // insert new data to the table
             const { error: insertError } = await supabase.from('playlist_songs')
@@ -127,7 +127,7 @@ export const PlaylistSongsList: React.FC<PlaylistSongsListProps> = (
                                                 </div>
                                             </button>
                                             {
-                                                playlistDropdown && (
+                                                playlistDropdown  && (
                                                     <div className='absolute right-full bottom-0 ml-2 bg-neutral-800 flex flex-col items-start  w-40 rounded-md shadow-lg'>
                                                         {/* map playlist user has here */}
                                                         {

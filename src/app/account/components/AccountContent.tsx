@@ -2,15 +2,10 @@
 
 import useProfileModal from "@/hook/useProfileModal";
 import { RxPencil1 } from "react-icons/rx";
-import { Playlist, Song, UserDetails } from "../../../../types";
 import Image from "next/image";
 import { useLoadAvatar } from "@/hook/useLoadAvatar";
+import {AccountContentProps} from '../../../../types'
 
-interface AccountContentProps {
-  user: UserDetails,
-  songs: Song[],
-  playlists: Playlist[]
-}
 
 export const AccountContent: React.FC<AccountContentProps> = ({
   user,

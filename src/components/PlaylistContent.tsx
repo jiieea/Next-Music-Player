@@ -31,7 +31,6 @@ export const PlaylistContent: React.FC<PlaylistContentProps> = ({
     }
     
 
-
     return (
         <div className="flex flex-col gap-x-4 w-full  md:px-6  ">
             {
@@ -45,7 +44,7 @@ export const PlaylistContent: React.FC<PlaylistContentProps> = ({
                         dropdown ={ openDropdownId!}
                         playlistDropdown={ playlistDropdown}
                         index={ index }
-                        onHandleCloseDropdown ={ handleCloseDropdown}
+                        onHandleCloseDropdown ={ (id : string) => handleCloseDropdown(id)}
                     />
                 ))
             }

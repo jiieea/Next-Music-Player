@@ -1,3 +1,4 @@
+// components/PlaylistOption.tsx
 import React from 'react'
 import { BsThreeDotsVertical } from "react-icons/bs";
 import {
@@ -6,10 +7,10 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { FiMinusCircle } from "react-icons/fi";
-import { RxPencil1 } from "react-icons/rx";
 import { Playlist } from '../../../../types';
-
+import { RemovePlaylistBtn } from './RemovePlaylistBtn';
+import UpdatePlaylistModal from './UpdatePlaylistModal';
+import { UpdatePlaylistForm } from './UpdatePlaylistForm';
 
 interface PlaylistOptionProps {
     onHandleRemovePlaylist: (playlistId: string) => void
@@ -21,20 +22,33 @@ const PlaylistOption: React.FC<PlaylistOptionProps> = (
         onHandleRemovePlaylist,
         playlistData
     }
-) => {
-    const playistId = playlistData.id;
+) => {    
     return (
-        <DropdownMenu >
-            <DropdownMenuTrigger asChild>
-                <BsThreeDotsVertical size={25} className='text-white cursor-pointer' />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className='w-56'>
-                <DropdownMenuItem onClick={() => onHandleRemovePlaylist(playistId)}><FiMinusCircle className='text-neutral-600 ' size={20} /><span>Delete</span></DropdownMenuItem>
-                <DropdownMenuItem>
-                    {/* add new event handler : update playlist modal */}
-                    <RxPencil1 className='text-neutral-500 ' size={25} /> <span>Update Playlist</span></DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <div>
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <BsThreeDotsVertical size={25} 
+                    className='text-neutral-500 hover:text-white transition cursor-pointer' />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className='w-56 bg-neutral-800 border-neutral-700'>
+                    {/* 👇 Styles are applied here */}
+                    <DropdownMenuItem 
+                      asChild 
+                      className="bg-neutral-800 hover:bg-neutral-700 text-white focus:bg-neutral-700 p-3 cursor-pointer"
+                    >
+                       <RemovePlaylistBtn playlistData={playlistData} onHandleRemovePlaylist={onHandleRemovePlaylist}/>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                    asChild
+                       className="bg-neutral-800 hover:bg-neutral-700 text-white focus:bg-neutral-700 p-2 cursor-pointer"
+                    >
+                      <UpdatePlaylistModal >
+                        <UpdatePlaylistForm  playlistData={ playlistData}/>
+                        </ UpdatePlaylistModal>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
     )
 }
 

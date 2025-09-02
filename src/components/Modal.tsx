@@ -38,7 +38,7 @@ const Modal: React.FC<ModalProps> = ({
                         left-[50%]
                         max-h-[85vh] {/* Adjusted to explicitly set max height for all screen sizes */}
                         w-[90vw] {/* Changed from md:w-[90wh] to a more standard viewport width */}
-                        md:max-w-[450px]
+                        md:max-w-[550px]
                         translate-x-[-50%]
                         translate-y-[-50%]
                         rounded-md
@@ -48,7 +48,7 @@ const Modal: React.FC<ModalProps> = ({
                         focus:outline-none
                         overflow-y-auto {/* Added for scrollability if content exceeds max-height */}
                 '>
-                    <Dialog.Title className='text-white mb-2 text-center font-semibold '>{title}</Dialog.Title>
+                    <Dialog.Title className='text-white mb-2 text-center font-semibold  text-2xl '>{title}</Dialog.Title>
                     <Dialog.Description className='text-white text-center'>
                         {description}
                     </Dialog.Description>
