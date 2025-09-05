@@ -37,8 +37,8 @@ const useGetSongDuration = (songUrl: string | null): string | null => {
             audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
             audio.removeEventListener('error', handleError);
             // Optionally, stop loading if component unmounts before metadata loads
-            // audio.pause();
-            // audio.src = ''; // Clear src to stop network request if still pending
+            audio.pause();
+            audio.src = ''; // sClear src to stop network request if still pending
         };
     }, [songUrl]); // Re-run effect if songUrl changes
 

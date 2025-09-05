@@ -1,6 +1,6 @@
 "use client"
 import Header from '@/components/Header';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Playlist, Song, UserDetails } from '../../../../types';
 import { useLoadAvatar, useLoadPlaylistImage } from '@/hook/useLoadAvatar';
 import { PlaylistContent } from '@/components/PlaylistContent';
@@ -10,6 +10,10 @@ import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { MobileNavbar } from '@/components/MobileNavbar';
 import { PlaylistHeader } from './PlaylistHeader';
+import useOnplay from '@/hook/useOnPlay';
+import useGetPlaylistDuration from '@/hook/useGetTotalDuration';
+
+
 interface PlaylistPageProps {
   userData?: UserDetails;
   songs: Song[];
@@ -30,8 +34,33 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
   const [playlistSongs, setPlaylistSongs] = useState<Song[]>(songs);
   const supabase = useSupabaseClient()
   const router = useRouter();
+  const onPlay = useOnplay(songs);
   const playlistId = playlistData.id;
 
+  const getSongsUrls = useMemo(() => {
+    if (!songs) {
+      return []
+    }
+    return songs.map((song) => {
+      //  get songs public url
+      const { data: songUrl } = supabase
+        .storage.from('songs')
+        .getPublicUrl(song.song_path)
+
+        return songUrl.publicUrl;
+    })
+  } , [songs , supabase])
+
+  const totalDuration = useGetPlaylistDuration(getSongsUrls);
+
+
+  const handlePlaylistImageClick = () => {
+    // Check if there are songs in the playlist
+    if (songs.length > 0) {
+      // Pass the ID of the first song to the onPlay function
+      onPlay(songs[0].id);
+    }
+  };
 
   useEffect(() => {
     setPlaylistSongs(songs);
@@ -51,6 +80,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
     setPlaylistSongs(prevSong => prevSong.filter(song => song.id === songId));
     router.refresh();
   }
+
 
 
   // Todo : handle remove playlist
@@ -85,15 +115,17 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
         userData={userData}
         style={{ '--playlist-color': dominantColor } as React.CSSProperties}
       >
-     <PlaylistHeader
-      onHandleAccountPush={ handleAccountPush }
-      playlistImage={ playlistImage! }
-      imageUrl={ imageUrl }
-      userName = { full_name! }
-      onHandleRemovePlaylist={ handleRemovePlaylist }
-      playlistData = { playlistData}
-      playlistSongs={ playlistSongs}
-     />
+        <PlaylistHeader
+          onHandleAccountPush={handleAccountPush}
+          playlistImage={playlistImage!}
+          totalDuration={totalDuration!}
+          imageUrl={imageUrl}
+          userName={full_name!}
+          onHandleRemovePlaylist={handleRemovePlaylist}
+          playlistData={playlistData}
+          playlistSongs={playlistSongs}
+          onHandlePlaylistImageClick={handlePlaylistImageClick}
+        />
       </Header>
       <PlaylistContent
         songs={playlistSongs}

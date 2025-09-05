@@ -24,11 +24,11 @@ const PlaylistOption: React.FC<PlaylistOptionProps> = (
     }
 ) => {    
     return (
-        <div>
+        <div className=''>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <BsThreeDotsVertical size={25} 
-                    className='text-neutral-500 hover:text-white transition cursor-pointer' />
+                    className='text-neutral-500 hover:text-white transition cursor-pointer hidden md:block' />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className='w-56 bg-neutral-800 border-neutral-700'>
                     {/* 👇 Styles are applied here */}

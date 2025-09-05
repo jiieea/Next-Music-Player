@@ -42,7 +42,7 @@ function SheetLibrary() {
       <SheetTrigger asChild>
         <AiOutlinePlus className="text-white " size={25} />
       </SheetTrigger>
-      <SheetContent side="bottom" className="border-none rounded-2xl absolute z-50">
+      <SheetContent side="bottom" className="border-none rounded-2xl absolute z-50 ">
         {/*
           Use 'flex justify-center items-center' on the parent div
           to center the child div horizontally.

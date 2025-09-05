@@ -12,8 +12,9 @@ import { useRouter } from 'next/navigation';
 
 interface PlaylistSongsListProps {
     data: Song,
+    onHandleOnPlay: (id : string) => void
     key: number,
-    dropdown: string
+    dropdown: string,
     onHandleRemoveSong: (songId: string) => void
     userPlaylists: Playlist[],
     onHandleOpenPlaylistDropdown: () => void
@@ -24,6 +25,7 @@ interface PlaylistSongsListProps {
 }
 export const PlaylistSongsList: React.FC<PlaylistSongsListProps> = (
     {
+        onHandleOnPlay,
         data,
         onHandleRemoveSong,
         userPlaylists,
@@ -32,7 +34,7 @@ export const PlaylistSongsList: React.FC<PlaylistSongsListProps> = (
         , dropdown,
         playlistDropdown,
         onHandleCloseDropdown,
-        index
+        index,
     }
 ) => {
     const supabase = useSupabaseClient();
@@ -87,7 +89,7 @@ export const PlaylistSongsList: React.FC<PlaylistSongsListProps> = (
             <div className="flex-1">
                 <div className="flex items-center gap-x-1">
                     <p className="text-white font-semibold">{index + 1}</p>
-                    <MediaItem data={data} />
+                    <MediaItem data={data}  onClick={onHandleOnPlay}/>
                     <LikedButton songId={data.id} />
                     <div className="relative mt-1 pl-2">
                         <button

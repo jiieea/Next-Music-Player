@@ -37,6 +37,7 @@ const UserPlaylists: React.FC<UserPlaylistsProps> = (
                         width={60} // 56px = 3.5rem (w-14)
                         height={60} // 56px = 3.5rem (h-14)
                         className='object-cover h-full w-full'
+                        onClick={ onClick}
                     />
                 </div>
                 <div className='flex flex-col'>

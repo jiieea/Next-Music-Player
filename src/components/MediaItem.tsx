@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { FaPlay } from 'react-icons/fa'
 import usePlayerSong from '@/hook/usePlayerSong'
 import useLoadSongUrl from '@/hook/useLoadSongUrl'
+
 import useGetSongDuration from '@/hook/useGetSongDuration'
 interface MediaItemProps {
     data: Song
@@ -63,7 +64,7 @@ const MediaItem: React.FC<MediaItemProps> = ({
                 </div>
             </div>
             <div className="flex flex-col flex-grow justify-center gap-y-1 w-[150px] md:w-full">
-                <p className="text-white font-semibold text-base truncate text-[12px] md:text-[15px]  w-[150px]">{data.title}</p>
+                <p className="text-white font-semibold text-base truncate text-[12px] md:text-[15px]  w-[100px]">{data.title}</p>
                 <p className="text-neutral-400 text-sm truncate text-[12px] md:text-[13px]">{data.author}</p>
             </div>
             {songDuration && (

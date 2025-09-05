@@ -12,6 +12,7 @@ import uniqid from 'uniqid'
 import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useUsers } from '@/hook/useUser'
 import { useRouter } from 'next/navigation'
+import { DialogClose } from '@/components/ui/dialog'
 
 interface UpdatePlaylistFormProps {
     playlistData: Playlist
@@ -33,7 +34,7 @@ export const UpdatePlaylistForm = ({
     } = useForm<FieldValues>({
         defaultValues: {
             name: playlistData.playlist_name,
-            description: null
+            description: playlistData.description || null
         }
     })
 
@@ -91,7 +92,7 @@ export const UpdatePlaylistForm = ({
                 const { error: updateError } = await supabase.from('playlist')
                     .update({
                         playlist_name: playlistName,
-                        // description: values.description // Assuming you want to update description as well
+                        description: values.description // Assuming you want to update description as well
                     })
                     .eq('id', playlistData.id); // IMPORTANT: Specify which playlist to update
 
@@ -101,8 +102,6 @@ export const UpdatePlaylistForm = ({
                     return;
                 }
             }
-
-
             router.refresh();
             setIsLoading(false);
             toast.success('Playlist Updated');
@@ -182,7 +181,7 @@ export const UpdatePlaylistForm = ({
                             {...register('name', { required: false })}
                             defaultValue={playlistData.playlist_name}
                             id="playlist-name"
-                            className="bg-neutral-700 rounded-md border border-transparent p-3 text-white placeholder-gray-500 focus:border-neutral-400 focus:outline-none w-full py-5" 
+                            className="bg-neutral-700 rounded-md border border-transparent p-3 text-white placeholder-gray-500 focus:border-neutral-400 focus:outline-none w-full py-5"
                             placeholder="My Playlist"
                         />
                     </div>
@@ -198,10 +197,11 @@ export const UpdatePlaylistForm = ({
                         />
                     </div>
                     <div className="flex justify-end">
-                        <Button
-                            type="submit"
-                            disabled={isLoading} // Disable button when loading
-                            className="
+                        <DialogClose asChild>
+                            <Button
+                                type="submit"
+                                disabled={isLoading} // Disable button when loading
+                                className="
                                 bg-white
                                 text-black
                                 rounded-full
@@ -212,9 +212,10 @@ export const UpdatePlaylistForm = ({
                                 hover:bg-neutral-200
                                 transition
                             "
-                        >
-                            {isLoading ? 'Updating...' : 'Update Playlist'} {/* Provide feedback during loading */}
-                        </Button>
+                            >
+                                {isLoading ? 'Updating...' : 'Update Playlist'} {/* Provide feedback during loading */}
+                            </Button>
+                        </DialogClose>
                     </div>
                 </div>
             </div>

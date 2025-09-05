@@ -43,7 +43,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return (
         <div className=
         {twMerge
-        (`flex h-full` , player.activeId && "md:h-[calc(100%-80px)] md:mb-0  mb-[10em] ")}>
+        (`flex h-full` , player.activeId && "md:h-[calc(100%-60px)] md:mb-0  mb-[10em] ")}>
             <div className="
         hidden
         md:flex

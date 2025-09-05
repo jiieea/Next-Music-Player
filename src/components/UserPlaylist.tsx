@@ -22,12 +22,15 @@ export const UserPlaylist: React.FC<UserPlaylistProps> = ({ playlist, user, href
     }
 
     return (
-        <div className='relative 
+        <div 
+          className='relative 
             group flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 
             bg-neutral-400/5 hover:bg-neutral-400/10
-            cursor-pointer transition p-2  max-w-[250px] 
-            ' onClick={onClick}>
-            <div className='relative aspect-square w-full h-full md:h-[200px] md:w-[200px] rounded-md overflow-hidden'>
+            cursor-pointer transition p-2 
+            w-full max-w-xs sm:max-w-sm lg:max-w-md
+            ' 
+            onClick={onClick}>
+            <div className='relative aspect-square w-full rounded-md overflow-hidden'>
                 <Image
                     src={loadImage!}
                     alt='playlistImage'
@@ -42,7 +45,7 @@ export const UserPlaylist: React.FC<UserPlaylistProps> = ({ playlist, user, href
                 </p>
             </div>
 
-            <div className='absolute right-5 bottom-25 pr-3'>
+            <div className='absolute right-5 bottom-5 pr-3'>
                 <PlayButton />
             </div>
         </div>

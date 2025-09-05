@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react'
 import { Playlist, Song } from '../../types'
-import MediaItem from './MediaItem'
 import LikedButton from './LikedButton'
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
 import { AiFillStepBackward, AiFillStepForward } from 'react-icons/ai'
@@ -11,6 +10,7 @@ import SliderVolume from './Slider'
 import usePlayerSong from '@/hook/usePlayerSong'
 import useSound from 'use-sound'
 import PlaylistButton from './PlaylistButton'
+import PlayerMedia from './PlayerMedia'
 
 interface PlayerContentProps {
     song: Song,
@@ -110,7 +110,7 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
             <div className="flex w-full rounded-md
              justify-start md:bg-black">
                 <div className="flex items-center gap-x-4">
-                    <MediaItem data={song} />
+                    < PlayerMedia data={song} />
                     <LikedButton songId={song.id} />
                     <PlaylistButton songId={song.id} userPlaylists={userPlaylists} />
                 </div>
