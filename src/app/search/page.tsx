@@ -1,8 +1,7 @@
 
 export const revalidate = 0;
 import getPlaylistByUserId from '@/action/getPlaylistByUserId';
-import getPlaylists from '@/action/getPlaylists';
-import getSongByTitle from '@/action/getSongByTitle';
+import {getPlaylistsByTitle, getSongByTitle} from '@/action/getSongByTitle';
 import getUserData from '@/action/getUserData';
 import Header from '@/components/Header';
 import { MobileNavbar } from '@/components/MobileNavbar';
@@ -17,7 +16,7 @@ const Search = async ({ searchParams }: SearchProps) => {
   const { title } = await searchParams;
   const songs = await getSongByTitle(title);
   const user = await getUserData();
-  const allPlayllists = await getPlaylists();
+  const allPlayllists = await getPlaylistsByTitle(title)
   const playlists = await getPlaylistByUserId()
 
   return (

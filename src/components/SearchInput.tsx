@@ -30,6 +30,6 @@ export const SearchInput = () => {
             onChange={(e) => setValue(e.target.value)}
             className="mt-4 py-5 px-4  rounded-md bg-white border-transparent
     disable:cursor-not-allowed disabled:opacity-50 focus:outline-none "
-            placeholder='what song would u listen ?' />
+            placeholder='search songs or playlist' />
     )
 }

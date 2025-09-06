@@ -1,4 +1,5 @@
 export const revalidate = 0;
+import getPlaylists from "@/action/getPlaylists";
 import getSong from "@/action/getSong";
 import getUserData from "@/action/getUserData";
 import Header from "@/components/Header";
@@ -9,6 +10,7 @@ import MySong from "@/components/MySong";
 
 export default async function Home() {
   const songs = await getSong();
+  const playlists = await getPlaylists()
   const user = await getUserData();
   const userName = user?.full_name ? user.full_name : " ";
   return (
@@ -56,7 +58,7 @@ export default async function Home() {
       <div className="mt-2 md:mb-7 mb-[9em] px-6">
         <h1 className="text-white text-2xl font-semibold">Newest Song</h1>
         <div className="">
-          <MySong songs={songs} />
+          <MySong songs={songs} playlists={ playlists}/>
         </div>
       </div>
       <div className="fixed bottom-0 w-full px-0 md:hidden">

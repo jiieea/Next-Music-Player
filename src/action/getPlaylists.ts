@@ -7,7 +7,7 @@ const getPlaylists = async (): Promise<Playlist[]> => {
     const supabaseClient = createServerComponentClient({
         cookies: cookies
     })
-    // fetch all playlist in the table
+// fetch all playlist in the table
     const { data: playlists, error: fetchError } =
         await supabaseClient
             .from
@@ -19,7 +19,7 @@ const getPlaylists = async (): Promise<Playlist[]> => {
         toast.error('failed' + fetchError.message)
     }
 
-    return (playlists as Playlist[]) || null
+    return (playlists as Playlist[]) || []
 }
 
 

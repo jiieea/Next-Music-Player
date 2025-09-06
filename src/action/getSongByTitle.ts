@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Song } from "../../types";
+import { Playlist, Song } from "../../types";
 import { cookies } from "next/headers";
 import getSong from "./getSong";
+import getPlaylists from "./getPlaylists";
 
 
 const getSongByTitle = async (title: string): Promise<Song[]> => {
-    const supabase =  createServerComponentClient({
+    const supabase = createServerComponentClient({
         cookies: cookies
     });
 
@@ -17,7 +18,8 @@ const getSongByTitle = async (title: string): Promise<Song[]> => {
     }
 
 
-    const { data: songs, error: dataError } = await supabase.from("songs").select("*").ilike('title', `%${title}%`)
+    const { data: songs, error: dataError } = 
+    await supabase.from("songs").select("*").ilike('title', `%${title}%`)
         .order('created_at', { ascending: false });
 
     if (dataError) {
@@ -28,5 +30,35 @@ const getSongByTitle = async (title: string): Promise<Song[]> => {
 }
 
 
+//  get playlist by title 
 
-export default getSongByTitle;
+const getPlaylistsByTitle = async (title: string): Promise<Playlist[]> => {
+    const supabase = createServerComponentClient({
+        cookies: cookies
+    })
+
+    if (!title) {
+        const playlists = await getPlaylists();
+        return playlists
+    }
+
+    const {
+        data: playlist,
+        error: playlistError
+    } = await supabase.from('playlist')
+        .select('*').ilike('playlist_name', `%${title}%`)
+        .order('created_at', { ascending: false })
+
+    if (playlistError) {
+        console.log(playlistError.message)
+    }
+
+    return playlist as any || [];
+}
+
+
+
+export {
+    getPlaylistsByTitle
+    , getSongByTitle
+}
