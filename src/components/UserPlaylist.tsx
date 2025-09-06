@@ -1,16 +1,10 @@
 "use client"
 import Image from 'next/image'
 import React from 'react'
-import { Playlist, UserDetails } from '../../types'
 import { useLoadPlaylistImage } from '@/hook/useLoadAvatar'
 import PlayButton from './PlayButton'
 import { useRouter } from 'next/navigation'
-
-interface UserPlaylistProps {
-    playlist: Playlist
-    user: UserDetails
-    href: string
-}
+import {UserPlaylistProps} from '../Interfaces/types'
 
 export const UserPlaylist: React.FC<UserPlaylistProps> = ({ playlist, user, href }) => {
     const loadImage = useLoadPlaylistImage(playlist);

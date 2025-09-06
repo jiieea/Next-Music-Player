@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
-import { Playlist, Song } from '../../types'
 import LikedButton from './LikedButton'
 import { BsPauseFill, BsPlayFill } from 'react-icons/bs'
 import { AiFillStepBackward, AiFillStepForward } from 'react-icons/ai'
@@ -11,12 +10,8 @@ import usePlayerSong from '@/hook/usePlayerSong'
 import useSound from 'use-sound'
 import PlaylistButton from './PlaylistButton'
 import PlayerMedia from './PlayerMedia'
+import {PlayerContentProps} from '../Interfaces/types'
 
-interface PlayerContentProps {
-    song: Song,
-    songUrl: string,
-    userPlaylists : Playlist[]
-}
 export const PlayerContent: React.FC<PlayerContentProps> = ({
     song,
     songUrl,
@@ -36,6 +31,7 @@ export const PlayerContent: React.FC<PlayerContentProps> = ({
         const currentIdx = player.ids.findIndex((id) => id == player.activeId);
         const nextSong = player.ids[currentIdx + 1];
 
+        // play the first song if next song isnot exist 
         if (!nextSong) {
             return player.setId(player.ids[0]);
         }

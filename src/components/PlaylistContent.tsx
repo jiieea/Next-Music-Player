@@ -1,13 +1,7 @@
 import React, {  useState } from 'react'
-import { Playlist, Song } from '../../types'
 import { PlaylistSongsList } from './PlaylistSongsList';
 import useOnplay from '@/hook/useOnPlay';
-
-interface PlaylistContentProps {
-    songs: Song[]
-    onHandleRemoveSong: (songId: string) => void
-    userPlaylists : Playlist[]
-}
+import { PlaylistContentProps } from '../Interfaces/types'
 
 export const PlaylistContent: React.FC<PlaylistContentProps> = ({
     songs,

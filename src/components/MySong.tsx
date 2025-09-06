@@ -6,7 +6,6 @@ interface MySongProps {
     songs: Song[],
 }
 
-
 const MySong: React.FC<MySongProps> = ({
     songs
 }) => {

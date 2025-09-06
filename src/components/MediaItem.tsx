@@ -1,17 +1,12 @@
 "use client"
 import React from 'react'
-import { Song } from '../../types'
 import useLoadImage from '@/hook/useLoadImage'
 import Image from 'next/image'
 import { FaPlay } from 'react-icons/fa'
 import usePlayerSong from '@/hook/usePlayerSong'
 import useLoadSongUrl from '@/hook/useLoadSongUrl'
-
 import useGetSongDuration from '@/hook/useGetSongDuration'
-interface MediaItemProps {
-    data: Song
-    onClick?: (id: string) => void
-}
+import { MediaItemProps } from '../Interfaces/types'
 const MediaItem: React.FC<MediaItemProps> = ({
     data,
     onClick

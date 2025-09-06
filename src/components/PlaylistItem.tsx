@@ -1,13 +1,11 @@
 import { useLoadPlaylistImage } from '@/hook/useLoadAvatar';
 import Image from 'next/image'
 import React from 'react'
-import { Playlist, UserDetails } from '../../types';
 import Link from 'next/link';
+import {
+    PlaylistItemProps
+} from '../Interfaces/types'
 
-interface PlaylistItemProps {
-    playlist: Playlist,
-    user : UserDetails
-}
 const PlaylistItem: React.FC<PlaylistItemProps> = ({
     playlist,
     user
@@ -31,7 +29,7 @@ const PlaylistItem: React.FC<PlaylistItemProps> = ({
             </div>
             <div className="flex flex-col flex-grow justify-center gap-y-1 w-[150px] md:w-full">
                 <p className="text-white font-semibold text-base truncate text-[12px] md:text-[15px]  w-[150px]">{playlist.playlist_name}</p>
-                <p className="text-neutral-500 font-semibold text-base truncate text-[10px] md:text-[12px]  w-[150px]">{ user.full_name }</p>
+                <p className="text-neutral-500 font-semibold text-base truncate text-[10px] md:text-[12px]  w-[150px]">{user.full_name}</p>
             </div>
         </Link>
     )

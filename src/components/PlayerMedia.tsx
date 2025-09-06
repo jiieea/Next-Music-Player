@@ -7,6 +7,9 @@ import { FaPlay } from 'react-icons/fa'
 import usePlayerSong from '@/hook/usePlayerSong'
 import useLoadSongUrl from '@/hook/useLoadSongUrl'
 import useGetSongDuration from '@/hook/useGetSongDuration'
+import useGetDevice from '@/hook/useGetDevice'
+import { IoPhonePortraitOutline } from "react-icons/io5";
+
 interface PlayerMediaProps {
     data: Song
     onClick?: (id: string) => void
@@ -18,8 +21,10 @@ const PlayerMedia: React.FC<PlayerMediaProps> = ({
     const imagePath = useLoadImage(data);
     const player = usePlayerSong();
     const songUrl = useLoadSongUrl(data);
-    const songDuration = useGetSongDuration(songUrl );
-    const { author , title } = data
+    const songDuration = useGetSongDuration(songUrl);
+    const { author, title } = data
+    const device = useGetDevice();
+    const { deviceType } = device
     const handleClick = () => {
         if (onClick) {
             return onClick(data.id)
@@ -74,9 +79,13 @@ const PlayerMedia: React.FC<PlayerMediaProps> = ({
                         {data.title} &bull; <span className="text-neutral-400 text-sm text-[12px] md:text-[13px]">{data.author}</span>
                     </p>
                 </div>
+                <div className='flex gap-x-1.5 items-center'>
+                    <IoPhonePortraitOutline className='text-green-500 ' size={10} />
+                    <p className='text-green-400 font-light text-[12px]'>{deviceType}</p>
+                </div>
             </div>
             <div className='md:flex flex-col gap-y-1 hidden w-[200px]'>
-                <p className='text-white '>{ title }</p>
+                <p className='text-white '>{title}</p>
                 <p className='text-neutral-500 text-[12px]'>{author}</p>
             </div>
             {songDuration && (

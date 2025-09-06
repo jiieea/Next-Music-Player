@@ -3,16 +3,9 @@
 import React, { useState } from 'react'
 import LibraryContent from './LibraryContent'
 import LibraryHeader from './LibraryHeader'
-import { Playlist, Song, UserDetails } from '../../../../types'
+import { LibraryChildComponentProps} from '../../../Interfaces/types'
 
 
-interface LibraryChildComponentProps {
-    userData: UserDetails,
-    userSongs: Song[]
-    userPlaylists: Playlist[],
-    liked: number,
-
-}
 export const LibraryChildComponent: React.FC<LibraryChildComponentProps> = (
     {
         liked,

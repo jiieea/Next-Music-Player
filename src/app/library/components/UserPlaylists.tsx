@@ -2,16 +2,10 @@
 
 import Image from 'next/image'
 import React from 'react'
-import { Playlist, UserDetails } from '../../../../types'
 import { useLoadPlaylistImage } from '@/hook/useLoadAvatar'
 import { useRouter } from 'next/navigation'
+import { UserPlaylistsProps } from '../../../Interfaces/types'
 
-
-interface UserPlaylistsProps {
-    data: Playlist
-    user: UserDetails
-    href: string
-}
 const UserPlaylists: React.FC<UserPlaylistsProps> = (
     {
         data,

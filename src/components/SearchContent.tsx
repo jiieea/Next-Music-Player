@@ -5,14 +5,18 @@ import MediaItem from './MediaItem'
 import LikedButton from './LikedButton'
 import useOnplay from '@/hook/useOnPlay'
 import PlaylistButton from './PlaylistButton'
+
+
 interface SearchContentProps {
     songs: Song[]
     playlists : Playlist[]
+    playlistData : Playlist[]
 }
 
 const SearchContent: React.FC<SearchContentProps> = ({
     songs,
-    playlists
+    playlists,
+    playlistData
 }) => {
     const onPlay = useOnplay(songs);
     if (songs.length === 0) {
@@ -37,6 +41,15 @@ const SearchContent: React.FC<SearchContentProps> = ({
                             </div>
                         </div>
                     </div>
+                ))
+            }
+            {
+                playlistData.map((playlist) => (
+                            <div key={playlist.id}>
+                                { 
+                                    playlist.playlist_name
+                                }
+                            </div>
                 ))
             }
           </div>

@@ -28,7 +28,7 @@ const option = [
     },
     {
         icon : <RxPencil1 size={25} className='text-white'/> ,
-        text : "Update This Playlist"
+        text : "Update This Playlist",
     }
 ]
 

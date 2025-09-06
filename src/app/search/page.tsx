@@ -1,6 +1,7 @@
 
 export const revalidate = 0;
 import getPlaylistByUserId from '@/action/getPlaylistByUserId';
+import getPlaylists from '@/action/getPlaylists';
 import getSongByTitle from '@/action/getSongByTitle';
 import getUserData from '@/action/getUserData';
 import Header from '@/components/Header';
@@ -16,6 +17,7 @@ const Search = async ({ searchParams }: SearchProps) => {
   const { title } = await searchParams;
   const songs = await getSongByTitle(title);
   const user = await getUserData();
+  const allPlayllists = await getPlaylists();
   const playlists = await getPlaylistByUserId()
 
   return (
@@ -30,7 +32,7 @@ const Search = async ({ searchParams }: SearchProps) => {
           </Header>
         )
       }
-      <SearchContent songs={songs} playlists={ playlists } />
+      <SearchContent songs={songs} playlists={ playlists }  playlistData={ allPlayllists }/>
       <div className="fixed bottom-0 w-full px-0">
       <MobileNavbar />
       </div>

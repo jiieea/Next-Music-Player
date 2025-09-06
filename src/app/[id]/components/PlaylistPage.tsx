@@ -12,8 +12,7 @@ import { MobileNavbar } from '@/components/MobileNavbar';
 import { PlaylistHeader } from './PlaylistHeader';
 import useOnplay from '@/hook/useOnPlay';
 import useGetPlaylistDuration from '@/hook/useGetTotalDuration';
-
-
+import { BsPauseFill, BsPlayFill } from 'react-icons/bs';
 interface PlaylistPageProps {
   userData?: UserDetails;
   songs: Song[];
@@ -36,6 +35,8 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
   const router = useRouter();
   const onPlay = useOnplay(songs);
   const playlistId = playlistData.id;
+  const [ isPlaying , setIsPlaying ] = useState(false)
+ const Icon = isPlaying ? BsPauseFill : BsPlayFill;
 
   const getSongsUrls = useMemo(() => {
     if (!songs) {
@@ -58,7 +59,9 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
     // Check if there are songs in the playlist
     if (songs.length > 0) {
       // Pass the ID of the first song to the onPlay function
+      setIsPlaying(true);
       onPlay(songs[0].id);
+    
     }
   };
 
@@ -123,6 +126,7 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
           userName={full_name!}
           onHandleRemovePlaylist={handleRemovePlaylist}
           playlistData={playlistData}
+          Icon={ Icon }
           playlistSongs={playlistSongs}
           onHandlePlaylistImageClick={handlePlaylistImageClick}
         />

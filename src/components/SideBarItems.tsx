@@ -1,15 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
-import { IconType } from 'react-icons'
 import { twMerge } from 'tailwind-merge'
+import { SideBarItemsProps } from '../Interfaces/types'
 
 
-interface SideBarItemsProps {
-    icon: IconType,
-    label: string,
-    active?: boolean,
-    href: string
-}
 const SideBarItems: React.FC<SideBarItemsProps> = ({
     icon: Icon,
     label,

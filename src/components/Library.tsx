@@ -5,7 +5,6 @@ import { useUsers } from '@/hook/useUser'
 import React from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { TbPlaylist } from 'react-icons/tb'
-import { Playlist, Song, UserDetails } from '../../types'
 import MediaItem from './MediaItem'
 import useOnplay from '@/hook/useOnPlay'
 import { TbMusicPlus } from "react-icons/tb";
@@ -19,16 +18,12 @@ import {
 import usePlaylistModal from '@/hook/usePlaylistModal'
 import PlaylistItem from './PlaylistItem'
 import Box from './Box'
-interface LibraryProps {
-  songs: Song[],
-  playlist: Playlist[]
-  userDetail: UserDetails
-}
+import {
+  LibraryProps,
+  DropdownMenuProps
+} from '../Interfaces/types'
 
-interface DropdownMenuProps {
-  onHandleCreatePlaylist: () => void
-  onHandleAddSong: () => void
-}
+
 
 
 export const DropdownMenuDemo: React.FC<DropdownMenuProps> = ({

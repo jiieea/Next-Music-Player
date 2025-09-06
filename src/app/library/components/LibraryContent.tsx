@@ -3,18 +3,12 @@
 import Image from 'next/image';
 import React from 'react'
 import { AiFillPushpin } from "react-icons/ai";
-import { Playlist, Song, UserDetails } from '../../../../types';
 import UserSongs from './UserSongs';
 import UserPlaylsts from './UserPlaylists';
 import { useRouter } from 'next/navigation';
 import useOnplay from '@/hook/useOnPlay';
 // import { useLoadPlaylistImage } from '@/hook/useLoadAvatar';
-interface LibraryContentProps {
-  userSongs: Song[]
-  userPlaylists: Playlist[]
-  userData: UserDetails,
-  likedSongs : number
-}
+import { LibraryContentProps } from '../../../Interfaces/types'
 
 const LibraryContent: React.FC<LibraryContentProps> = (
   {
@@ -32,7 +26,7 @@ const LibraryContent: React.FC<LibraryContentProps> = (
   }
   return (
     <div className='flex gap-x-2 bg-neutral-900 mt-2 mb-1'>
-         {/* fetch user songs */}
+      {/* fetch user songs */}
       <div className='flex flex-col space-y-0.5 overflow-y-auto'>
         <div className='flex gap-x-4 items-center p-3' onClick={onClick}>
           {/* image song */}
@@ -52,13 +46,13 @@ const LibraryContent: React.FC<LibraryContentProps> = (
         <div className='mb-[10em]'>
           {
             userSongs.map((song) => (
-              <UserSongs key={song.id} data={song}  onHandlePlaySong={(id : string) => onPlay(id)}/>
+              <UserSongs key={song.id} data={song} onHandlePlaySong={(id: string) => onPlay(id)} />
             ))
           }
           {
             // map playlists
             userPlaylists.map((playlist) => (
-              <UserPlaylsts data={playlist} key={playlist.id} user={userData}   href={`/${ playlist.id}`} />
+              <UserPlaylsts data={playlist} key={playlist.id} user={userData} href={`/${playlist.id}`} />
             ))
           }
         </div>

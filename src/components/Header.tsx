@@ -11,18 +11,12 @@ import { useSupabaseClient } from '@supabase/auth-helpers-react'
 import { useUsers } from '@/hook/useUser'
 import { toast } from 'sonner'
 import { Toaster } from './ui/sonner'
-import {  UserDetails } from '../../types'
 import {useLoadAvatar} from '@/hook/useLoadAvatar'
 import Image from 'next/image'
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { HeaderProps } from '../Interfaces/types'
 
 
-interface HeaderProps {
-  className?: string;
-  userData?: UserDetails;
-  children?: React.ReactNode;
-  style?: React.CSSProperties;
-}
 const Header: React.FC<HeaderProps> = ({
     userData
     , children,

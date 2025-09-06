@@ -2,24 +2,11 @@
 import Image from 'next/image'
 import React from 'react'
 import PlaylistOption from './PlaylistOption'
-import { Playlist, Song } from '../../../../types'
-import { FaPlay } from 'react-icons/fa'
 import { Button } from '@/components/ui/button'
 import { CiGlobe } from "react-icons/ci";
 import PlaylistOptionMobile from './PlaylistOptionMobile'
+import {PlaylistHeaderProps} from '../../../Interfaces/types'
 
-
-interface PlaylistHeaderProps {
-    playlistImage: string
-    imageUrl: string,
-    onHandlePlaylistImageClick: () => void
-    onHandleAccountPush: () => void,
-    userName: string,
-    onHandleRemovePlaylist: (playlistId: string) => void,
-    playlistData: Playlist,
-    playlistSongs: Song[]
-    totalDuration: string
-}
 
 export const PlaylistHeader: React.FC<PlaylistHeaderProps> = (
     {
@@ -31,7 +18,8 @@ export const PlaylistHeader: React.FC<PlaylistHeaderProps> = (
         totalDuration,
         playlistSongs,
         playlistData,
-        onHandleRemovePlaylist
+        onHandleRemovePlaylist,
+        Icon
     }
 ) => {
     const { description } = playlistData;
@@ -93,7 +81,7 @@ export const PlaylistHeader: React.FC<PlaylistHeaderProps> = (
                 </div>
                 <div className="flex gap-x-2 items-center justify-start flex-row-reverse md:flex-row mr-[-1.5em] md:mr-0">
                     <Button onClick={onHandlePlaylistImageClick} variant="ghost" className='bg-green-500 rounded-full hover:bg-green-300 transition hover:scale-110' >
-                        <FaPlay className='text-black' />
+                        <Icon className='text-black' />
                     </Button>
                     <PlaylistOption
                         playlistData={playlistData}

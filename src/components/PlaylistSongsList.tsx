@@ -4,25 +4,12 @@ import LikedButton from './LikedButton'
 import { RxDotsHorizontal } from "react-icons/rx";
 import { FaTrash } from "react-icons/fa6";
 import { GoPlus } from "react-icons/go";
-import { Playlist, Song } from '../../types';
 import { toast } from 'sonner';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/navigation';
+import {PlaylistSongsListProps} from '../Interfaces/types'
 
 
-interface PlaylistSongsListProps {
-    data: Song,
-    onHandleOnPlay: (id : string) => void
-    key: number,
-    dropdown: string,
-    onHandleRemoveSong: (songId: string) => void
-    userPlaylists: Playlist[],
-    onHandleOpenPlaylistDropdown: () => void
-    onHandleOpenDropdown: (id: string) => void
-    playlistDropdown: boolean
-    index: number,
-    onHandleCloseDropdown : (id : string) => void
-}
 export const PlaylistSongsList: React.FC<PlaylistSongsListProps> = (
     {
         onHandleOnPlay,
