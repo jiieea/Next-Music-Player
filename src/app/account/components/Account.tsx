@@ -3,17 +3,13 @@
 import Header from '@/components/Header'
 import React from 'react'
 import LocalLikedContent from '@/components/LocalLikedContent'
-import { Playlist, Song, UserDetails } from '../../../../types'
 import { AccountContent } from './AccountContent'
 import { useDominantColor } from '@/hook/useDominantColour'
 import { useLoadAvatar } from '@/hook/useLoadAvatar'
 import { UserPlaylist } from '@/components/UserPlaylist'
 import { MobileNavbar } from '@/components/MobileNavbar'
-interface AccountProps {
-    user: UserDetails | null,
-    userSongs: Song[],
-    playlists: Playlist[]
-}
+import { AccountProps } from '../../../Interfaces/types'
+
 const Account: React.FC<AccountProps> = (
     {
         user,

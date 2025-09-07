@@ -24,11 +24,11 @@ const SearchPlaylistContent: React.FC<SearchPlaylistContentProps> = (
         <div
             onClick={onClick}
             className='relative 
-                                   group flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 
-                                   bg-neutral-400/5 hover:bg-neutral-400/10
-                                   cursor-pointer transition p-2 
-                                   w-full max-w-xs sm:max-w-sm lg:max-w-md
-                                   '
+                                group flex flex-col items-center justify-center rounded-md overflow-hidden gap-x-4 
+                               bg-neutral-400/5 hover:bg-neutral-400/10
+                                      cursor-pointer transition p-2 
+                                w-full max-w-xs sm:max-w-sm lg:max-w-md
+                               '
         //    onClick={onClick}
         >
             <div className='relative aspect-square w-full rounded-md overflow-hidden'>

@@ -12,7 +12,6 @@ import { MdDownloading } from "react-icons/md";
 import { GoPlusCircle } from 'react-icons/go';
 import { RxPencil1 } from 'react-icons/rx';
 
-
 const option = [
     {
         icon : <MdDownloading  size={25} className='text-white'/> ,
@@ -70,13 +69,13 @@ const PlaylistOptionMobile: React.FC<PlaylistOptionMobileProps> = (
                         </div>
                         <div className="flex flex-col">
                             <p className='text-white font-semibold'>{playlist_name}</p>
-                            <p className='text-neutral-500 text-[12px]'>{userName}</p>
+                            <p className='text-neutral-500 text-[12px]'>By {userName}</p>
                         </div>
                     </div>
                   <div className="flex flex-col gap-y-2">
                       {
                         option.map((opt , index) => (
-                            <div className='flex gap-x-2 items-center p-2' key={index}>
+                            <div className='flex gap-x-4 items-center p-2' key={index}>
                         {/* icon */}
                        <div>
                         { opt.icon}

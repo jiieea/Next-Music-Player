@@ -8,7 +8,7 @@ import { IconType } from 'react-icons'
 
 export interface PlaylistHeaderProps {
     playlistImage: string
-    Icon : IconType
+    Icon: IconType
     imageUrl: string,
     onHandlePlaylistImageClick: () => void
     onHandleAccountPush: () => void,
@@ -17,6 +17,12 @@ export interface PlaylistHeaderProps {
     playlistData: Playlist,
     playlistSongs: Song[]
     totalDuration: string
+}
+
+export interface AccountProps {
+    user: UserDetails | null,
+    userSongs: Song[],
+    playlists: Playlist[]
 }
 
 
@@ -45,7 +51,7 @@ export interface MediaItemProps {
 
 export interface PlaylistItemProps {
     playlist: Playlist,
-    user : UserDetails
+    user: UserDetails
 }
 
 export interface UserPlaylistsProps {
@@ -55,7 +61,7 @@ export interface UserPlaylistsProps {
 }
 
 
-export  interface LibraryChildComponentProps {
+export interface LibraryChildComponentProps {
     userData: UserDetails,
     userSongs: Song[]
     userPlaylists: Playlist[],
@@ -65,17 +71,17 @@ export  interface LibraryChildComponentProps {
 
 
 export interface LibraryContentProps {
-  userSongs: Song[]
-  userPlaylists: Playlist[]
-  userData: UserDetails,
-  likedSongs : number
+    userSongs: Song[]
+    userPlaylists: Playlist[]
+    userData: UserDetails,
+    likedSongs: number
 }
 
 
 export interface PlaylistContentProps {
     songs: Song[]
     onHandleRemoveSong: (songId: string) => void
-    userPlaylists : Playlist[]
+    userPlaylists: Playlist[]
 }
 
 export interface UserPlaylistProps {
@@ -94,7 +100,7 @@ export interface SideBarItemsProps {
 
 export interface PlaylistSongsListProps {
     data: Song,
-    onHandleOnPlay: (id : string) => void
+    onHandleOnPlay: (id: string) => void
     key: number,
     dropdown: string,
     onHandleRemoveSong: (songId: string) => void
@@ -103,11 +109,11 @@ export interface PlaylistSongsListProps {
     onHandleOpenDropdown: (id: string) => void
     playlistDropdown: boolean
     index: number,
-    onHandleCloseDropdown : (id : string) => void
+    onHandleCloseDropdown: (id: string) => void
 }
 
 export interface PlayerContentProps {
     song: Song,
     songUrl: string,
-    userPlaylists : Playlist[]
+    userPlaylists: Playlist[]
 }

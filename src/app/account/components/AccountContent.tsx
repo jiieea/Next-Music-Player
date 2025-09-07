@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useLoadAvatar } from "@/hook/useLoadAvatar";
 import {AccountContentProps} from '../../../../types'
 
-
 export const AccountContent: React.FC<AccountContentProps> = ({
   user,
   songs,

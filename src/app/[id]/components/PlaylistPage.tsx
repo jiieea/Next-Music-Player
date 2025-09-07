@@ -35,8 +35,9 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
   const router = useRouter();
   const onPlay = useOnplay(songs);
   const playlistId = playlistData.id;
-  const [ isPlaying , setIsPlaying ] = useState(false)
+  const [ isPlaying , setIsPlaying ] = useState(false);
  const Icon = isPlaying ? BsPauseFill : BsPlayFill;
+
 
   const getSongsUrls = useMemo(() => {
     if (!songs) {
@@ -61,8 +62,8 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
       // Pass the ID of the first song to the onPlay function
       setIsPlaying(true);
       onPlay(songs[0].id);
-    
     }
+    
   };
 
   useEffect(() => {

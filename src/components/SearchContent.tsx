@@ -26,7 +26,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
     }
     return (
         <>
-            <div className="flex flex-col gap-y-4 w-full px-6">
+            <div className="flex flex-col gap-y-4 w-full px-6 mb-10">
                 {
                     songs.map((song, index) => (
                         <div className="flex items-center  hover:bg-neutral-800/50  " key={song.id}>
