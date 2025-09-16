@@ -24,7 +24,7 @@ export interface Playlist {
     description: string| null
 }
 export interface UserDetails {
-    id: string,
+    id?: string,
     full_name?: string,
     avatar_url?: string,
 }

@@ -1,8 +1,11 @@
 "use client"
 import Header from '@/components/Header';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Playlist, Song, UserDetails } from '../../../../types';
-import { useLoadAvatar, useLoadPlaylistImage } from '@/hook/useLoadAvatar';
+import { Song } from '../../../../types';
+import {
+  useLoadAvatar,
+  useLoadPlaylistImage
+} from '@/hook/useLoadAvatar';
 import { PlaylistContent } from '@/components/PlaylistContent';
 import { useDominantColor } from '@/hook/useDominantColour';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
@@ -12,32 +15,87 @@ import { MobileNavbar } from '@/components/MobileNavbar';
 import { PlaylistHeader } from './PlaylistHeader';
 import useOnplay from '@/hook/useOnPlay';
 import useGetPlaylistDuration from '@/hook/useGetTotalDuration';
-import { BsPauseFill, BsPlayFill } from 'react-icons/bs';
-interface PlaylistPageProps {
-  userData?: UserDetails;
-  songs: Song[];
-  userPlaylists: Playlist[]
-  playlistData: Playlist
-}
+import {
+  BsPauseFill,
+  BsPlayFill
+} from 'react-icons/bs';
+import {
+  sortedByAddDate,
+  sortedByArtist,
+  sortedByTitle
+} from '@/hook/useSortData';
+import { PlaylistPageProps } from '../../../Interfaces/types'
+
 
 const PlaylistPage: React.FC<PlaylistPageProps> = ({
   userData,
+  allSongs,
   songs,
   userPlaylists,
-  playlistData
+  playlistData,
+  playlistDataOwner
 }) => {
   const playlistImage = useLoadPlaylistImage(playlistData);
   const imageUrl = useLoadAvatar(userData!);
-  const { full_name } = userData!
   const dominantColor = useDominantColor(playlistImage);
   const [playlistSongs, setPlaylistSongs] = useState<Song[]>(songs);
   const supabase = useSupabaseClient()
   const router = useRouter();
   const onPlay = useOnplay(songs);
   const playlistId = playlistData.id;
-  const [ isPlaying , setIsPlaying ] = useState(false);
- const Icon = isPlaying ? BsPauseFill : BsPlayFill;
+  const [isPlaying, setIsPlaying] = useState(false);
+  const Icon = isPlaying ? BsPauseFill : BsPlayFill;
+  const [sort, setSort] = useState<'byTitle' | 'byAuthor' | 'recentlyAdd' | 'default'>('default');
+  const [isLoading, setIsLoading] = useState(false);
 
+
+  const handleSortByTitle = () => {
+    try {
+      setIsLoading(false); setSort('byTitle');
+      const sortedTitle = sortedByTitle(songs);
+      setPlaylistSongs(sortedTitle);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        console.log(e.message)
+      }
+      setIsLoading(false)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleSortByArtist = () => {
+    try {
+      setIsLoading(false);
+      setSort('byAuthor');
+      const sortedData = sortedByArtist(songs);
+      setPlaylistSongs(sortedData);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        console.log(e.message)
+      }
+      setIsLoading(false)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleSortByRecentlyAdd = () => {
+    try {
+      setSort('recentlyAdd');
+      const sortedData = sortedByAddDate(songs)
+      setPlaylistSongs(sortedData)
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        console.log(e.message)
+      }
+    }
+  }
+
+  useEffect(() => {
+    setPlaylistSongs(songs);
+    setSort('default'); // Reset sort to default when songs change
+  }, [songs]);
 
   const getSongsUrls = useMemo(() => {
     if (!songs) {
@@ -49,9 +107,9 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
         .storage.from('songs')
         .getPublicUrl(song.song_path)
 
-        return songUrl.publicUrl;
+      return songUrl.publicUrl;
     })
-  } , [songs , supabase])
+  }, [songs, supabase])
 
   const totalDuration = useGetPlaylistDuration(getSongsUrls);
 
@@ -63,12 +121,9 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
       setIsPlaying(true);
       onPlay(songs[0].id);
     }
-    
+
   };
 
-  useEffect(() => {
-    setPlaylistSongs(songs);
-  }, [songs]);
 
   const handleRemoveSong = async (songId: string) => {
     const { error } = await supabase.from('playlist_songs')
@@ -113,26 +168,34 @@ const PlaylistPage: React.FC<PlaylistPageProps> = ({
     router.push('/account')
   }
   return (
-    <div className='w-full h-full bg-neutral-900 rounded-md mb-15 md:mb-0 overflow-y-auto'>
+    <div className='w-full h-full bg-neutral-900 rounded-md  md:mb-0 overflow-y-auto'>
       <Header
         className="bg-gradient-to-b from-[var(--playlist-color)] to-neutral-900 transition-colors duration-500"
         userData={userData}
         style={{ '--playlist-color': dominantColor } as React.CSSProperties}
       >
         <PlaylistHeader
+        userData={userData!}
+          songs={ allSongs }
+          playllistDataOwner={playlistDataOwner!}
+          sort={sort}
           onHandleAccountPush={handleAccountPush}
           playlistImage={playlistImage!}
           totalDuration={totalDuration!}
           imageUrl={imageUrl}
-          userName={full_name!}
           onHandleRemovePlaylist={handleRemovePlaylist}
           playlistData={playlistData}
-          Icon={ Icon }
+          Icon={Icon}
           playlistSongs={playlistSongs}
           onHandlePlaylistImageClick={handlePlaylistImageClick}
+          onHandleSortByTitle={handleSortByTitle}
+          onHandleSortByArtist={handleSortByArtist}
+          onHandleSortByDate={handleSortByRecentlyAdd}
         />
       </Header>
       <PlaylistContent
+        sort={playlistSongs}
+        loading={isLoading}
         songs={playlistSongs}
         userPlaylists={userPlaylists}
         onHandleRemoveSong={handleRemoveSong} />

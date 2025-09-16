@@ -6,7 +6,8 @@ import getUserData from '@/action/getUserData';
 import { notFound } from 'next/navigation';
 import getPlaylistById from '@/action/getPlaylistById';
 import getPlaylistByUserId from '@/action/getPlaylistByUserId';
-
+import getSong from '@/action/getSong';
+import getPlaylistOwner from '@/action/getOwnerPlaylist';
 interface PageProps {
   params: Promise<{id : string}>
 }
@@ -24,12 +25,14 @@ const Page = async ({ params }: PageProps) => {
   const songs = await getPlaylistSongs(id);
   const userData = await getUserData();
   const userPlaylists = await getPlaylistByUserId()
-
+  const getSongs = await getSong()
+    const playlistDataOwner = await getPlaylistOwner(id);
   return (
- 
       <PlaylistPage
       userData={userData ?? undefined}
+      playlistDataOwner ={ playlistDataOwner! }
       songs={songs}
+      allSongs = { getSongs }
       playlistData={playlist}
       userPlaylists={ userPlaylists ?? undefined}
     />

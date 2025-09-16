@@ -7,17 +7,11 @@ import { HiHome } from 'react-icons/hi';
 import Box from './Box';
 import SideBarItems from './SideBarItems';
 import Library from './Library';
-import { Playlist, Song, UserDetails } from "../../types"
 import { twMerge } from 'tailwind-merge';
 import usePlayerSong from '@/hook/usePlayerSong';
+import {SidebarProps} from '../Interfaces/types'
 
 
-interface SidebarProps {
-    children: React.ReactNode;
-    songs : Song[]
-    playlist : Playlist[]
-    userDetail : UserDetails
-}
 
 export const Sidebar: React.FC<SidebarProps> = ({
     children,
@@ -43,7 +37,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     return (
         <div className=
         {twMerge
-        (`flex h-full` , player.activeId && "md:h-[calc(100%-60px)] md:mb-0  mb-[10em] ")}>
+        (`flex h-full` , player.activeId && "md:h-[calc(100%-60px)] md:mb-0 ")}>
             <div className="
         hidden
         md:flex
@@ -53,6 +47,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         bg-black
         w-[300px]
         p-2
+        
         ">
                 <Box>
                     {
@@ -65,7 +60,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     <Library  songs={ songs } playlist={playlist} userDetail={ userDetail }/>
                 </Box>
             </div>
-            <main className='p-2 flex-1 h-full overflow-y-auto '>{children}</main>
+            <main className={twMerge(
+                `p-2 flex-1 h-full overflow-y-auto` 
+            )}>{children}</main>
         </div>
     )
 }

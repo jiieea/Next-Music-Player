@@ -5,7 +5,6 @@ import PlaylistModal from '@/components/PlaylistModal';
 import ProfileModal from '@/components/ProfileModal';
 import UploadModal from '@/components/UploadModal';
 import React, { useEffect, useState } from 'react'
-
 const ModalProvider = () => {
   const [isModalMounted, setIsModalMounted] = useState(false);
 
@@ -23,6 +22,7 @@ const ModalProvider = () => {
       {/* todo : Profile Modal */}
       <ProfileModal />
       <PlaylistModal />
+      {/* update playlist  */}
     </>
   )
 }

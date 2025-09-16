@@ -5,18 +5,60 @@ import {
 } from '../../types'
 import { IconType } from 'react-icons'
 
+export interface UpdateDialogProps {
+    playlistData: Playlist
+    disabled : boolean
+}
+
+export interface SidebarProps {
+    children: React.ReactNode;
+    songs: Song[]
+    playlist: Playlist[]
+    userDetail: UserDetails
+}
+
+export interface SortButtonSheetProps {
+    onHandleSort: () => void
+    onHandleSortByArtist: () => void
+    onHandleSortByDate: () => void
+    sort: string
+}
+
+export interface PlaylistPageProps {
+    userData?: UserDetails;
+    songs: Song[];
+    allSongs : Song[]
+    userPlaylists: Playlist[]
+    playlistDataOwner : UserDetails
+    playlistData: Playlist
+}
+
+export interface PlaylistOptionMobileProps {
+    playlistImage: string,
+    playlistSongs : Song[]
+    playlistData: Playlist,
+    userName: string,
+    songs : Song[],
+    disabled : boolean
+}
 
 export interface PlaylistHeaderProps {
-    playlistImage: string
+    userData : UserDetails
+    playlistImage: string,
+    playllistDataOwner:UserDetails
+    sort: string
     Icon: IconType
     imageUrl: string,
     onHandlePlaylistImageClick: () => void
     onHandleAccountPush: () => void,
-    userName: string,
     onHandleRemovePlaylist: (playlistId: string) => void,
     playlistData: Playlist,
     playlistSongs: Song[]
+    songs : Song[]
     totalDuration: string
+    onHandleSortByTitle: () => void
+    onHandleSortByArtist: () => void
+    onHandleSortByDate: () => void
 }
 
 export interface AccountProps {
@@ -82,6 +124,8 @@ export interface PlaylistContentProps {
     songs: Song[]
     onHandleRemoveSong: (songId: string) => void
     userPlaylists: Playlist[]
+    sort: Song[]
+    loading: boolean
 }
 
 export interface UserPlaylistProps {

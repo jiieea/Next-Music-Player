@@ -38,9 +38,8 @@ export const UpdatePlaylistForm = ({
         }
     })
 
-    const previewPlaylistImg = watch('playlistImage') // Watch the correct field name
+    const previewPlaylistImg = watch('playlistImage')
 
-    //  to show preview image before submit the form
     useEffect(() => {
         if (previewPlaylistImg && previewPlaylistImg.length > 0) {
             const file = previewPlaylistImg[0];
@@ -54,15 +53,17 @@ export const UpdatePlaylistForm = ({
 
     const updatePlaylistInfo: SubmitHandler<FieldValues> = async (values) => {
         try {
-            setIsLoading(true); // Set loading to true at the start
+            setIsLoading(true);
             const playlistName = values.name;
-            const playlistImg = values.playlistImage?.[0]; // Access the correct field name
+            const playlistImg = values.playlistImage?.[0];
 
             if (playlistImg) {
                 const uniqueID = uniqid();
 
-                // Upload the new image
-                const { data: uploadedImageData, error: uploadError } = await supabase.storage
+                const {
+                    data: uploadedImageData,
+                    error: uploadError
+                } = await supabase.storage
                     .from('playlist').upload(`playlist-${user?.id}-${uniqueID}`, playlistImg, {
                         cacheControl: '3600',
                         upsert: false
@@ -74,13 +75,12 @@ export const UpdatePlaylistForm = ({
                     return;
                 }
 
-                // Update the playlist record with the new image path
                 const { error: updateError } = await supabase.from('playlist')
                     .update({
                         playlist_name: playlistName,
-                        playlist_image: uploadedImageData?.path // Use the path from the upload
+                        playlist_image: uploadedImageData?.path
                     })
-                    .eq('id', playlistData.id); // IMPORTANT: Specify which playlist to update
+                    .eq('id', playlistData.id);
 
                 if (updateError) {
                     setIsLoading(false);
@@ -88,13 +88,12 @@ export const UpdatePlaylistForm = ({
                     return;
                 }
             } else if (playlistName !== playlistData.playlist_name || values.description !== playlistData.description) {
-                // If no new image, but name or description changed, update those
                 const { error: updateError } = await supabase.from('playlist')
                     .update({
                         playlist_name: playlistName,
-                        description: values.description // Assuming you want to update description as well
+                        description: values.description
                     })
-                    .eq('id', playlistData.id); // IMPORTANT: Specify which playlist to update
+                    .eq('id', playlistData.id);
 
                 if (updateError) {
                     setIsLoading(false);
@@ -105,7 +104,7 @@ export const UpdatePlaylistForm = ({
             router.refresh();
             setIsLoading(false);
             toast.success('Playlist Updated');
-            reset(); // You might want to reset or re-fetch data to reflect changes
+            reset();
         } catch (e: unknown) {
             if (e instanceof Error) {
                 toast.error("Failed to update playlist: " + e.message);
@@ -113,29 +112,42 @@ export const UpdatePlaylistForm = ({
                 toast.error("An unknown error occurred during playlist update.");
             }
         } finally {
-            setIsLoading(false); // Ensure loading is reset even if there's an uncaught error
+            setIsLoading(false);
         }
     };
 
-
     return (
         <form onSubmit={handleSubmit(updatePlaylistInfo)}>
-            <div className='flex gap-x-4 mt-4'>
+            <div className='
+                flex
+                flex-col
+                md:flex-row
+                gap-y-4
+                md:gap-x-4
+                mt-4
+            '>
                 {/* Image and Overlay Container */}
-                <div className="relative w-[200px] h-[200px] group"> {/* Added group for hover effect */}
+                <div className="
+                    relative
+                    w-full
+                    h-[200px]
+                    md:w-[200px]
+                    md:h-[200px]
+                    group
+                ">
                     {
                         previewImg ? (
                             <Image
                                 src={previewImg}
                                 alt='playlistImg'
-                                fill // Use fill for better image handling within a container
+                                fill
                                 className='object-cover rounded-md'
                             />
                         ) : (
                             <Image
                                 src={playlistImgUrl || '/images/liked.png'}
                                 alt='playlistImg'
-                                fill // Use fill for better image handling within a container
+                                fill
                                 className='object-cover rounded-md'
                             />
                         )
@@ -172,16 +184,28 @@ export const UpdatePlaylistForm = ({
                 </div>
 
                 {/* Form Inputs */}
-                <div className="flex-1"> {/* Use flex-1 to make this div take remaining space */}
+                <div className="flex-1 space-y-4">
                     {/* Playlist Name Input */}
-                    <div className="mb-4">
+                    <div>
                         <Input
                             type="text"
                             disabled={isLoading}
                             {...register('name', { required: false })}
                             defaultValue={playlistData.playlist_name}
                             id="playlist-name"
-                            className="bg-neutral-700 rounded-md border border-transparent p-3 text-white placeholder-gray-500 focus:border-neutral-400 focus:outline-none w-full py-5"
+                            className="
+                                bg-neutral-700
+                                rounded-md
+                                border
+                                border-transparent
+                                p-3
+                                text-white
+                                placeholder-gray-500
+                                focus:border-neutral-400
+                                focus:outline-none
+                                w-full
+                                py-5
+                            "
                             placeholder="My Playlist"
                         />
                     </div>
@@ -191,29 +215,42 @@ export const UpdatePlaylistForm = ({
                         <textarea
                             id="description"
                             rows={5}
-                            className="rounded-sm w-full border border-transparent bg-neutral-700 p-3 text-white placeholder-gray-500 focus:border-neutral-400 focus:outline-none"
+                            className="
+                                rounded-sm
+                                w-full
+                                border
+                                border-transparent
+                                bg-neutral-700
+                                p-3
+                                text-white
+                                placeholder-gray-500
+                                focus:border-neutral-400
+                                focus:outline-none
+                            "
                             placeholder="Give your playlist a description"
                             {...register('description', { required: false })}
                         />
                     </div>
-                    <div className="flex justify-end">
+
+                    {/* Submit Button Container */}
+                    <div className="flex justify-end mt-4">
                         <DialogClose asChild>
                             <Button
                                 type="submit"
-                                disabled={isLoading} // Disable button when loading
+                                disabled={isLoading}
                                 className="
-                                bg-white
-                                text-black
-                                rounded-full
-                                w-2/4
-                                mt-4
-                                py-2
-                                font-bold
-                                hover:bg-neutral-200
-                                transition
-                            "
+                                    bg-white
+                                    text-black
+                                    rounded-full
+                                    w-full
+                                    md:w-2/4
+                                    py-2
+                                    font-bold
+                                    hover:bg-neutral-200
+                                    transition
+                                "
                             >
-                                {isLoading ? 'Updating...' : 'Update Playlist'} {/* Provide feedback during loading */}
+                                {isLoading ? 'Updating...' : 'Update Playlist'}
                             </Button>
                         </DialogClose>
                     </div>
