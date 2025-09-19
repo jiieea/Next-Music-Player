@@ -2,6 +2,7 @@
 import useOnplay from '@/hook/useOnPlay'
 import { Playlist, Song } from '../../types'
 import SongListItem from './SongListItem'
+import PlaylistItems from './PlaylistItems'
 interface MySongProps {
     songs: Song[],
     playlists : Playlist[]
@@ -31,11 +32,7 @@ const MySong: React.FC<MySongProps> = ({
             }
             {
                 playlists.map((playlist) => (
-                    <div key={playlist.id} className='text-white font-semibold'>
-                        {
-                            playlist.playlist_name
-                        }
-                    </div>
+                    <PlaylistItems  playlist={ playlist } key={playlist.id}/>
                 ) )
 
             }

@@ -79,10 +79,10 @@ export const PlaylistHeader: React.FC<PlaylistHeaderProps> = (
                         </div>
                         <p className='text-white font-semibold text-sm mr-3 hover:underline transition'
                             onClick={onHandleAccountPush}>
-                            {userName} &bull;
+                            {userName} 
                         </p>
-                        <p className='text-neutral-500 font-semibold'> { playlistSongs.length } titles,</p>
-                            <p className='text-neutral-500 font-semibold text-sm md:text-[14px ] '>
+                        <p className='text-neutral-500 font-semibold hidden '> { playlistSongs.length } titles,</p>
+                            <p className='text-neutral-500 font-semibold text-sm md:text-[14px ] hidden'>
                                 {
                                     totalDuration
                                 }
